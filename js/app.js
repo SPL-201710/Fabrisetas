@@ -10,9 +10,9 @@ app.config(function($routeProvider){
         controller:"loginCtrl",
         templateUrl:"views/login.html"
     })
-    .when("/presupuesto",{
-        controller:"presupuestoCtrl",
-        templateUrl:"views/presupuesto.html"
+    .when("/categoria-estampas/:id",{
+        controller:"categoriaCtrl",
+        templateUrl:"views/categoria-estampas.html"
     })
     .when("/adminempleados",{
         controller:"adminEmpleadosCtrl",
