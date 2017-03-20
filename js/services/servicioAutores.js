@@ -1,10 +1,10 @@
-app.service("servicioHome",["$http","$q",function($http,$q){
+app.service("servicioAutores",["$http","$q",function($http,$q){
 	var vm= this;
 
-	vm.traerEstampas = function (){
+	vm.traerEstampasAutor = function (autor){
     	var defered = $q.defer();
     	var promise = defered.promise;
-		url="http://52.88.20.109:3000/api/estampas"
+		  url="http://52.88.20.109:3000/api/estampas/autor/"+autor;
 		$http({
 			method:'GET',
 			url:url

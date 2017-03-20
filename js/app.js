@@ -10,9 +10,17 @@ app.config(function($routeProvider){
         controller:"loginCtrl",
         templateUrl:"views/login.html"
     })
-    .when("/categoria-estampas/:id",{
+    .when("/categoria-estampas/:id?",{
         controller:"categoriaCtrl",
         templateUrl:"views/categoria-estampas.html"
+    })
+    .when("/navegar-autor/:autor?",{
+        controller:"autorCtrl",
+        templateUrl:"views/navegar-autor.html"
+    })
+    .when("/navegar/:opcion?",{
+        controller:"navegarCtrl",
+        templateUrl:"views/navegar.html"
     })
     .when("/adminempleados",{
         controller:"adminEmpleadosCtrl",
@@ -27,6 +35,6 @@ app.config(function($routeProvider){
         templateUrl:"views/calendar.html"
     })
     .otherwise({
-      redirectTo: '/login'
+      redirectTo: '/'
     });
 });
