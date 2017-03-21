@@ -22,9 +22,13 @@ app.config(function($routeProvider){
         controller:"navegarCtrl",
         templateUrl:"views/navegar.html"
     })
-    .when("/adminempleados",{
-        controller:"adminEmpleadosCtrl",
-        templateUrl:"views/adminempleados.html"
+    .when("/login",{
+        controller:"loginCtrl",
+        templateUrl:"views/login.html"
+    })
+    .when("/ver-estampa/:id",{
+        controller:"verEstampaCtrl",
+        templateUrl:"views/ver-estampa.html"
     })
     .when("/crearempleado",{
         controller:"crearEmpleadoCtrl",
