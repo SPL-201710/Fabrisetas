@@ -13,13 +13,7 @@ app.controller("navegarCtrl",["$scope","$routeParams","servicioHome",function($s
     return -$scope.orden;
   }
 	function init(){
-		servicioHome.traerEstampas().then(function(datos){
-			$scope.populares = datos.data;
-			console.log($scope.populares);
-		})
-		.catch(function(err){
-			console.log(err);
-		});
+    $scope.populares = servicioHome.traerEstampas().query();
 	}
 
 }]);
