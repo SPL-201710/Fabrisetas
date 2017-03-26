@@ -6,4 +6,7 @@ app.service("servicioHome",["$http","$q","$resource",function($http,$q,$resource
 	vm.traerEstampasPorId = function (id){
 		return $resource("http://52.88.20.109:3000/api/estampas/:id",{id:id});
 	}
+	vm.traerCamisas = function (){
+		return $resource("http://52.88.20.109:3000/api/camisas");
+	}
 }]);
