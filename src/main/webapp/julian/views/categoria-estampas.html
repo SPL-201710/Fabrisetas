@@ -53,19 +53,17 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 product-left-grid">
+      <div class="col-md-3 product-left-grid" ng-repeat="estampa in estampasTema">
         <div class="product-grid">
           <div class="product-grid-text">
-            <a href="single.html"><img src="images/t4.jpg" alt="" /></a>
+            <a href="#!/ver-estampa/{{estampa._id}}"><img src="{{estampa.urlimagen}}" alt="" width="300" height="350"/></a>
             <div class="products-grid-info">
-              <h3>Nike g87</h3>
-              <h4>Training Tank Top</h4>
-              <p>The Nike Tailwind Loose Women's Running Tank
-                Top is made with sweat-wicking fabric to help you
-                stay dry and comfortable on your run.
-              </p>
+              <h3>{{estampa.nombre}}</h3>
+              <h4>Rating: {{estampa.rating}}</h4>
+              <p>{{estampa.descripcion}}</p>
+              <p> <strong> <a href="#!/autor/{{estampa.autor}}">Autor: {{estampa.autor}} </a></strong> </p>
               <div class="price">
-                <p>$ 49.99</p>
+                <p>{{estampa.valor | currency}}</p>
               </div>
               <div class="like">
                 <a href="#"><img src="images/like.png" alt="" /></a>
@@ -77,7 +75,7 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
       <div class="clearfix"> </div>
     </div>
   </div>
