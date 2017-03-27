@@ -28,21 +28,17 @@ app.config(function($routeProvider){
         controller:"navegarCtrl",
         templateUrl:"views/navegar.html"
     })
-    .when("/login",{
-        controller:"loginCtrl",
-        templateUrl:"views/login.html"
-    })
     .when("/ver-estampa/:id",{
         controller:"verEstampaCtrl",
         templateUrl:"views/ver-estampa.html"
     })
-    .when("/crearempleado",{
-        controller:"crearEmpleadoCtrl",
-        templateUrl:"views/crearempleado.html"
+    .when("/camisas",{
+        controller:"camisasCtrl",
+        templateUrl:"views/camisas.html"
     })
-    .when("/calendario",{
-        controller:"calendarCtrl",
-        templateUrl:"views/calendar.html"
+    .when("/ver-camisa/:id",{
+        controller:"verCamisaCtrl",
+        templateUrl:"views/ver-camisa.html"
     })
     .otherwise({
       redirectTo: '/'
