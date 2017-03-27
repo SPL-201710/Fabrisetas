@@ -9,4 +9,7 @@ app.service("servicioHome",["$http","$q","$resource",function($http,$q,$resource
 	vm.traerCamisas = function (){
 		return $resource("http://52.88.20.109:3000/api/camisas");
 	}
+	vm.traerCamisasPorId = function (id){
+		return $resource("http://52.88.20.109:3000/api/camisas/:id",{id:id});
+	}
 }]);

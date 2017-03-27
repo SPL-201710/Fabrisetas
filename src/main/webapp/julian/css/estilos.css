@@ -7,3 +7,69 @@
   border-radius: 7px;
   width: 100%;
 }
+a{
+  cursor: pointer;
+}
+.imgvistadetallada{
+  max-width: 250px;
+  max-height: 450px;
+}
+.espacioColores{
+  margin:4px;
+}
+.cuadradosRojo{
+  width: 30px;
+  height: 30px;
+  background: red;
+  cursor: pointer;
+}
+.cuadradosVerde{
+  width: 30px;
+  height: 30px;
+  background: green;
+  cursor: pointer;
+}
+.cuadradosAzul{
+  width: 30px;
+  height: 30px;
+  background: blue;
+  cursor: pointer;
+}
+
+.cuadradosGrises{
+  width: 30px;
+  height: 30px;
+  background:gray;
+  cursor: pointer;
+}
+.cuadradosNegro{
+  width: 30px;
+  height: 30px;
+  background:black;
+  cursor: pointer;
+}
+.cuadradosColor{
+  width: 30px;
+  height: 30px;
+  background:#893131;
+  cursor: pointer;
+}
+.cuadradosColorUno{
+  width: 30px;
+  height: 30px;
+  background:#00F5B4;
+  cursor: pointer;
+}
+.cuadradosColorDos{
+  width: 30px;
+  height: 30px;
+  background:#92F059;
+  cursor: pointer;
+}
+.cuadradosTalla{
+  padding: 2px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background: #F1F6EF;
+}
