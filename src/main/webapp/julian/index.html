@@ -24,10 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
 <!--// css -->
 <script src="js/jquery.min.js"></script>
-<!--fonts-->
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
-<!--/fonts-->
+
 <!-- dropdown -->
 <script src="js/jquery.easydropdown.js"></script>
 <link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>
@@ -73,12 +70,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/controllers/camisasCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/verCamisaCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/registroCtrl.js" charset="utf-8"></script>
+		<script src="js/controllers/appCtrl.js" charset="utf-8"></script>
+		<script src="js/controllers/pagarCtrl.js" charset="utf-8"></script>
 
 		<script type="text/javascript" src="js/services/servicioHome.js"></script>
 		<script type="text/javascript" src="js/services/servicioAutores.js"></script>
 		<script src="js/services/servicioCookies.js" charset="utf-8"></script>
+		<script src="js/services/servicioLogin.js" charset="utf-8"></script>
 </head>
-<body>
+<body ng-controller="appCtrl">
 	<!-- header -->
 	<div class="header">
 		<!-- container -->
@@ -103,6 +103,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 						</li>
 					</ul>
+				</div>
+				<div class="clearfix"> </div>
+				<div class="col-md-12" ng-if="usuarioLogueado">
+					<br>
+					<label>{{usuarioLogueado.nombre}}</label>
+					<a ng-click="cerrarSesion();">Cerrar sesión</a>
+					<br>
 				</div>
 				<div class="clearfix"> </div>
 			</div>

@@ -75,6 +75,35 @@ a{
 }
 .img-login{
   max-width: 400px;
-  max-height: 700px;
-  margin-left: 3%; 
+  max-height: 800px;
+  margin-left: 3%;
+}
+.img-mediosPago{
+  max-width: 150px;
+  max-height: 150px;
+  cursor: pointer;
+}
+.divMediosPago{
+    height: 230px;
+    border: 1px solid rgba(36, 88, 255, 0.4);
+    margin-bottom: 8%;
+    margin-left: 2%;
+    border-radius: 5px;
+    padding: 3%;
+}
+.divMediosPago label{
+  margin-top: 15%;
+  font-size: 12px;
+}
+.divMediosPago:hover{
+  transition: 0.6s all ease;
+  -webkit-box-shadow: 1px 12px 26px -2px rgba(4,7,15,1);
+  -moz-box-shadow: 1px 12px 26px -2px rgba(4,7,15,1);
+  box-shadow: 1px 12px 26px -2px rgba(4,7,15,1);
+}
+.divMediosPagoSeleccionado{
+  border: 1px solid green;
+  -webkit-box-shadow: 1px 12px 26px -2px rgba(4,7,15,1);
+  -moz-box-shadow: 1px 12px 26px -2px rgba(4,7,15,1);
+  box-shadow: 1px 12px 26px -2px rgba(4,7,15,1);
 }

@@ -15,5 +15,14 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
     servicioCookies.eliminarCamisetaSeleccionada();
     servicioCookies.eliminarEstampaSeleccionada();
     $location.path('/');
-  }  
+  }
+  $scope.irACaja = function (){
+    if(servicioCookies.validarSiEstaAutenticado()){
+      $location.path("/pagar");
+    }
+    else
+    {
+        $location.path("/login");
+    }
+  }
 }]);

@@ -6,6 +6,7 @@ var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
   'remove': {method:'DELETE'},
   'delete': {method:'DELETE'} };
 */
+
 app.config(function($routeProvider){
 
     $routeProvider.when("/",{
@@ -43,6 +44,10 @@ app.config(function($routeProvider){
     .when("/ver-camisa/:id",{
         controller:"verCamisaCtrl",
         templateUrl:"views/ver-camisa.html"
+    })
+    .when("/pagar",{
+        controller:"pagarCtrl",
+        templateUrl:"views/pagar.html"
     })
     .otherwise({
       redirectTo: '/'

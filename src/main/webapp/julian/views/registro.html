@@ -17,19 +17,19 @@
               <input required  ng-model="usuarioNuevo.identificacion" type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1">
             </div>
             <br>
-            <select required  ng-model="usuarioNuevo.direccion.pais" class="form-control">
+            <select required  ng-model="direccion.pais" class="form-control">
               <option value="">Pais</option>
               <option value="Colombia">Colombia</option>
               <option value="Argentina">Argentina</option>
             </select>
             <br>
-            <select required  ng-model="usuarioNuevo.direccion.departamento" class="form-control">
+            <select required  ng-model="direccion.departamento" class="form-control">
               <option value="">Departamento</option>
               <option value="Bogotá DC" selected>Bogotá DC</option>
               <option value="2">Otro</option>
             </select>
             <br>
-            <select required  ng-model="usuarioNuevo.direccion.ciudad" class="form-control">
+            <select required  ng-model="direccion.ciudad" class="form-control">
               <option value="">Ciudad</option>
               <option value="Bogota" selected>Bogota</option>
               <option value="2">Otro</option>
@@ -37,18 +37,18 @@
             <br>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-street-view" aria-hidden="true"></i></span>
-              <input required  ng-model="usuarioNuevo.direccion.direccion" type="text" class="form-control" placeholder="Direccion" aria-describedby="sizing-addon1">
+              <input required  ng-model="direccion.direccion" type="text" class="form-control" placeholder="Direccion" aria-describedby="sizing-addon1">
             </div>
 <br>
             <label>Datos de inicio de sesión</label>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-              <input required  ng-model="usuarioNuevo.login.usuario" type="text" class="form-control" placeholder="Login" aria-describedby="sizing-addon1">
+              <input required  ng-model="login.usuario" type="text" class="form-control" placeholder="Login" aria-describedby="sizing-addon1">
             </div>
             <br>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-              <input required  ng-model="usuarioNuevo.login.pass" type="password" class="form-control" placeholder="Contraseña" aria-describedby="sizing-addon1">
+              <input required  ng-model="login.pass" type="password" class="form-control" placeholder="Contraseña" aria-describedby="sizing-addon1">
             </div>
             <br>
             <label>¿Qué tipo de usuario eres?</label>
@@ -60,6 +60,7 @@
 
             <div class="input-group col-md-12">
               <br>
+              <label ng-if="mensajeCreacion" ng-class="mostrarMensajeCreacion">¡Tu usuario se creó con exito! <br> <a href="#!/login">Iniciar Sesión</a> </label>
               <input type="submit" name="" value="Crear usuario" class="btn btn-primary btn-block">
             </div>
           </form>
