@@ -15,7 +15,7 @@ import com.fabricetas.dao.UserDao;
 import com.fabricetas.model.User;
 
 @Controller
-//@RequestMapping("/")
+@RequestMapping("/")
 public class IndexController {
 
 	@Autowired
@@ -58,9 +58,9 @@ public class IndexController {
 		return new ModelAndView("redirect:/");
 	}
 
-	// @RequestMapping(value = "/", method = RequestMethod.GET)
-	// public String getIndexPage() {
-	// return "/views/UserManagement.html";
-	// }
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String getIndexPage() {
+//		return "/views/UserManagement.html";
+//	}
 
 }

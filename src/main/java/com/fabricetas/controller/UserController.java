@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fabricetas.config.View;
 import com.fabricetas.dao.UserDao;
 import com.fabricetas.model.User;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Handles requests for the application home page.
@@ -25,13 +27,18 @@ public class UserController {
 
 	@Autowired
 	private UserDao userDao;
+	
+//	@Autowired
+//	private UserService userService;
 
 	// ------------------- Obtener todos los usuarios --------------------------------------------------------
 
+	@JsonView(View.Summary.class)
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> listAllUsers() {
-		// List<User> users = userService.findAllUsers();
+//		 List<User> users = userService.listAllUsers();
 		List<User> users = userDao.list();
+		
 		if (users.isEmpty()) {
 			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
 		}
@@ -72,7 +79,7 @@ public class UserController {
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
-	// ------------------- Update a User --------------------------------------------------------
+	// ------------------- Actualizar un usuario --------------------------------------------------------
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id,
@@ -87,7 +94,9 @@ public class UserController {
 		}
 
 		currentUser.setName(user.getName());
-		currentUser.setAddress(user.getAddress());
+		currentUser.setIdentificationNumber(user.getIdentificationNumber());
+		currentUser.setTipo(user.getTipo());
+//		currentUser.setAddress(user.getAddress());
 		currentUser.setIdentificationType(user.getIdentificationType());
 
 		userDao.saveOrUpdate(currentUser);

@@ -19,7 +19,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.fabricetas.dao.UserDao;
 import com.fabricetas.dao.UserDaoImpl;
 import com.fabricetas.model.Address;
+import com.fabricetas.model.Camiseta;
+import com.fabricetas.model.Estampa;
 import com.fabricetas.model.Role;
+import com.fabricetas.model.Tema;
+import com.fabricetas.model.Texto;
 import com.fabricetas.model.User;
 
 @Configuration
@@ -34,19 +38,26 @@ public class PersistentConfig {
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-		dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/FABRICETAS");
+		dataSource.setUsername("root");
+		dataSource.setPassword("admin");
+//		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
+//		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
+//		dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
+//		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
 
 		return dataSource;
 	}
 
 	private Properties getHibernateProperties() {
 		Properties properties = new Properties();
-		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
-		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
-		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		properties.put("hibernate.format_sql", "false");
+//		properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+//		properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
+//		properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
 		return properties;
 	}
 
@@ -58,6 +69,10 @@ public class PersistentConfig {
 		sessionBuilder.addAnnotatedClasses(User.class);
 		sessionBuilder.addAnnotatedClasses(Address.class);
 		sessionBuilder.addAnnotatedClasses(Role.class);
+		sessionBuilder.addAnnotatedClasses(Texto.class);
+		sessionBuilder.addAnnotatedClasses(Tema.class);
+		sessionBuilder.addAnnotatedClasses(Camiseta.class);
+		sessionBuilder.addAnnotatedClasses(Estampa.class);
 		return sessionBuilder.buildSessionFactory();
 	}
 
