@@ -1,4 +1,4 @@
-var app = angular.module('fabrisetas', ['ngRoute','ngResource']);
+var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
 /*
 { 'get':    {method:'GET'},
   'save':   {method:'POST'},
@@ -15,6 +15,10 @@ app.config(function($routeProvider){
     .when("/login",{
         controller:"loginCtrl",
         templateUrl:"views/login.html"
+    })
+    .when("/registro",{
+        controller:"registroCtrl",
+        templateUrl:"views/registro.html"
     })
     .when("/categoria-estampas/:id?",{
         controller:"categoriaCtrl",

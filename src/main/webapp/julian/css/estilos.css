@@ -73,3 +73,8 @@ a{
   cursor: pointer;
   background: #F1F6EF;
 }
+.img-login{
+  max-width: 400px;
+  max-height: 700px;
+  margin-left: 3%; 
+}
