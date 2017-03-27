@@ -120,6 +120,17 @@ public class UserController {
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 
+	@RequestMapping(value = "/user/artistas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<User>> listAllArtistas() {
+		
+		List<User> users = userDao.listArtistas();
+		
+		if (users.isEmpty()) {
+			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	}
+	
 	// ------------------- Borrar todos los usuarios --------------------------------------------------------
 
 //	@RequestMapping(value = "/user", method = RequestMethod.DELETE)

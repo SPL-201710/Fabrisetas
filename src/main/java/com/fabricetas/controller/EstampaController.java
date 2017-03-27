@@ -119,7 +119,30 @@ public class EstampaController {
 		estampaDao.delete(Integer.parseInt(id + ""));
 		return new ResponseEntity<Estampa>(HttpStatus.NO_CONTENT);
 	}
-
+	// -- Filtros adicionales estampas
+	
+	@JsonView(View.Summary.class)
+	@RequestMapping(value = "/estampa/autor/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Estampa>> listAllEstampasAutor(@PathVariable("id") long id) {
+		List<Estampa> estampas = estampaDao.listXAutor(Integer.parseInt(id + ""));
+		
+		if (estampas.isEmpty()) {
+			return new ResponseEntity<List<Estampa>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Estampa>>(estampas, HttpStatus.OK);
+	}
+	
+	@JsonView(View.Summary.class)
+	@RequestMapping(value = "/estampa/tema/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Estampa>> listAllEstampasTema(@PathVariable("id") long id) {
+		List<Estampa> estampas = estampaDao.listXTema(Integer.parseInt(id + ""));
+		
+		if (estampas.isEmpty()) {
+			return new ResponseEntity<List<Estampa>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Estampa>>(estampas, HttpStatus.OK);
+	}
+	
 	// ------------------- Borrar todos los usuarios --------------------------------------------------------
 
 //	@RequestMapping(value = "/estampa", method = RequestMethod.DELETE)

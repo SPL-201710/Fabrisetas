@@ -23,7 +23,7 @@ public class Estampa implements Serializable {
 	@JsonView(View.Summary.class)
     @Id @GeneratedValue	
     @Column(name = "ESTAMPA_ID")
-	private Integer estampaId;
+	private Integer _id;
 
 	@JsonView(View.Summary.class)
     @Column(name = "NOMBRE")  
@@ -35,7 +35,7 @@ public class Estampa implements Serializable {
 
 	@JsonView(View.Summary.class)
     @Column(name = "URL_ESTAMPA")  
-	private String urlEstampa;
+	private String urlimagen;
 
 	@JsonView(View.Summary.class)
     @Column(name = "RATING")  
@@ -43,20 +43,26 @@ public class Estampa implements Serializable {
 
 	@JsonView(View.Summary.class)
     @Column(name = "PRECIO")  
-	private String precio;
+	private String valor;
 	
 	@JsonView(View.Summary.class)
 	@JsonBackReference
     @ManyToOne
 	@JoinColumn(name="USER_ID", nullable = false)
     private User user;
+	
+	@JsonView(View.Summary.class)
+	@JsonBackReference
+    @ManyToOne
+	@JoinColumn(name="TEMA_ID", nullable = false)
+    private Tema tema ;
 
 	public Integer getEstampaId() {
-		return estampaId;
+		return _id;
 	}
 
 	public void setEstampaId(Integer estampaId) {
-		this.estampaId = estampaId;
+		this._id = estampaId;
 	}
 
 	public String getNombre() {
@@ -76,11 +82,11 @@ public class Estampa implements Serializable {
 	}
 
 	public String getUrlEstampa() {
-		return urlEstampa;
+		return urlimagen;
 	}
 
 	public void setUrlEstampa(String urlEstampa) {
-		this.urlEstampa = urlEstampa;
+		this.urlimagen = urlEstampa;
 	}
 
 	public String getRating() {
@@ -92,11 +98,11 @@ public class Estampa implements Serializable {
 	}
 
 	public String getPrecio() {
-		return precio;
+		return valor;
 	}
 
 	public void setPrecio(String precio) {
-		this.precio = precio;
+		this.valor = precio;
 	}
 
 	public User getUser() {
@@ -105,5 +111,13 @@ public class Estampa implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 }

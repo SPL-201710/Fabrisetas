@@ -23,7 +23,7 @@ public class Camiseta implements Serializable {
 	@JsonView(View.Summary.class)
     @Id @GeneratedValue	
     @Column(name = "CAMISETA_ID")
-	private Integer camisetaId;
+	private Integer _id;
 
 	@JsonView(View.Summary.class)
     @Column(name = "NOMBRE")  
@@ -35,7 +35,7 @@ public class Camiseta implements Serializable {
 
 	@JsonView(View.Summary.class)
     @Column(name = "URL_CAMISETA")  
-	private String urlCamiseta;
+	private String urlimagen;
 
 	@JsonView(View.Summary.class)
     @Column(name = "MATERIAL")  
@@ -62,11 +62,11 @@ public class Camiseta implements Serializable {
     private Texto texto;
 
 	public Integer getCamisetaId() {
-		return camisetaId;
+		return _id;
 	}
 
 	public void setCamisetaId(Integer camisetaId) {
-		this.camisetaId = camisetaId;
+		this._id = camisetaId;
 	}
 
 	public String getNombre() {
@@ -86,11 +86,11 @@ public class Camiseta implements Serializable {
 	}
 
 	public String getUrlCamiseta() {
-		return urlCamiseta;
+		return urlimagen;
 	}
 
 	public void setUrlCamiseta(String urlCamiseta) {
-		this.urlCamiseta = urlCamiseta;
+		this.urlimagen = urlCamiseta;
 	}
 
 	public String getMaterial() {

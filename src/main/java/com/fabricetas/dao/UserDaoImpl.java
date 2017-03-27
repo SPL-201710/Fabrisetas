@@ -63,4 +63,21 @@ public class UserDaoImpl implements UserDao {
          
         return null;
     }
+    
+    @Override
+    @Transactional
+    public List<User> listArtistas() {
+        
+        String hql = "from User where tipo='Artista'";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        
+        @SuppressWarnings("unchecked")
+        List<User> listUser = (List<User>) query.list();
+        
+        if (listUser != null && !listUser.isEmpty()) {
+            return listUser;
+        }
+ 
+        return null;
+    }
 }

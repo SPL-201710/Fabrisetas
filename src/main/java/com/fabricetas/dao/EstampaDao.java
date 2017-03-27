@@ -13,5 +13,9 @@ public interface EstampaDao {
     public void saveOrUpdate(Estampa estampa);
      
     public void delete(Integer id);
+    
+    public List<Estampa> listXAutor(Integer autor);
+    
+    public List<Estampa> listXTema(Integer tema);
 
 }
