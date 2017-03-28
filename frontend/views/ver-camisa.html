@@ -23,6 +23,32 @@
           <p>{{camisetaSeleccionada.nombre}}</p>
           <p>{{camisetaSeleccionada.valor | currency}}</p>
           <p>{{camisetaSeleccionada.descripcion}}</p>
+          <div class="col-md-12">
+            <br>
+            <label>Seleccione color</label>
+            <br>
+            <span class="cuadradosRojo col-md-4 espacioColores" ng-click="seleccionColor('Rojo');"></span>
+            <span class="cuadradosAzul col-md-4 espacioColores" ng-click="seleccionColor('Azul');"></span>
+            <span class="cuadradosVerde col-md-4 espacioColores" ng-click="seleccionColor('Verde');"></span>
+
+            <span class="cuadradosGrises col-md-4 espacioColores" ng-click="seleccionColor('Gris');"></span>
+            <span class="cuadradosNegro col-md-4 espacioColores" ng-click="seleccionColor('Negro');"></span>
+            <span class="cuadradosColor col-md-4 espacioColores" ng-click="seleccionColor('Color 0');"></span>
+
+            <span class="cuadradosColorUno col-md-4 espacioColores" ng-click="seleccionColor('Color 1');"></span>
+            <span class="cuadradosColorDos col-md-4 espacioColores" ng-click="seleccionColor('Color 2');"></span>
+          </div>
+          <div class="col-md-12" style="padding-top:5px;">
+            <br>
+            <label>Seleccione talla</label>
+            <br>
+            <span class="cuadradosTalla" ng-click="seleccionTalla('XS');">XS</span>
+            <span class="cuadradosTalla" ng-click="seleccionTalla('S');">S</span>
+            <span class="cuadradosTalla" ng-click="seleccionTalla('M');">M</span>
+            <span class="cuadradosTalla" ng-click="seleccionTalla('L');">L</span>
+            <span class="cuadradosTalla" ng-click="seleccionTalla('XL');">XL</span>
+            <span class="cuadradosTalla" ng-click="seleccionTalla('XXL');">XXL</span>
+          </div>
         </div>
         <div class="col-md-4 animated bounceInLeft">
           <div class="col-md-12">
@@ -50,6 +76,8 @@
       </div>
       <div class="col-md-5 col-md-offset-4 animated bounceInLeft">
           <h3>Resultado</h3>
+          <h4>*** Talla:{{talla}} ***</h4>
+          <h4>*** Color:{{color}} ***</h4>
         <canvas id="canvas"></canvas>
       </div>
       <div class="col-md-12 animated bounceInDown">
