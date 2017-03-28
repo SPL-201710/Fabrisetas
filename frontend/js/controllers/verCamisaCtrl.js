@@ -46,7 +46,7 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
     }
     else
     {
-        $location.path("/login");
+        $location.path("/login/"+$routeParams.id);
     }
   }
 }]);

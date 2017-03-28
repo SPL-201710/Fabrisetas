@@ -13,7 +13,7 @@ app.config(function($routeProvider){
         controller:"homeCtrl",
         templateUrl:"views/home.html"
     })
-    .when("/login",{
+    .when("/login/:id?",{
         controller:"loginCtrl",
         templateUrl:"views/login.html"
     })
@@ -48,6 +48,10 @@ app.config(function($routeProvider){
     .when("/pagar",{
         controller:"pagarCtrl",
         templateUrl:"views/pagar.html"
+    })
+    .when("/artista",{
+        controller:"artistaCtrl",
+        templateUrl:"views/artista.html"
     })
     .otherwise({
       redirectTo: '/'

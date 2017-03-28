@@ -1,4 +1,4 @@
-app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location","servicioCookies",function($scope,servicioHome,servicioLogin,$location,servicioCookies){
+app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location","servicioCookies","$routeParams",function($scope,servicioHome,servicioLogin,$location,servicioCookies,$routeParams){
   init();
   function init (){
     $scope.noExiste=false;
@@ -9,8 +9,16 @@ app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location",
       servicioLogin.validarUsuario().save($scope.login).$promise.then((datos)=>{
         if (datos.encontrado)
         {
-          servicioCookies.crearCookieUsuarioAutenticado(datos);
-          $location.path("/");
+          if(typeof $routeParams.id=='undefined')
+          {
+            servicioCookies.crearCookieUsuarioAutenticado(datos);
+            $location.path("/");
+          }
+          else
+          {
+            servicioCookies.crearCookieUsuarioAutenticado(datos);
+            $location.path("/ver-camisa/"+$routeParams.id);
+          }
         }
         else
         {
