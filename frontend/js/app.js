@@ -1,4 +1,4 @@
-var app = angular.module('fabrisetas', ['ngRoute','ngResource']);
+var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
 /*
 { 'get':    {method:'GET'},
   'save':   {method:'POST'},
@@ -6,6 +6,7 @@ var app = angular.module('fabrisetas', ['ngRoute','ngResource']);
   'remove': {method:'DELETE'},
   'delete': {method:'DELETE'} };
 */
+
 app.config(function($routeProvider){
 
     $routeProvider.when("/",{
