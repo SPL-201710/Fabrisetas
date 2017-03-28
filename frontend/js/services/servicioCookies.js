@@ -24,4 +24,25 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
     delete $cookies["camisetaSeleccionada"];
   }
 
+  //cookies de usuario autenticado
+  vm.crearCookieUsuarioAutenticado = function (usuario){
+    $cookies.usuarioAutenticado = usuario;
+  }
+  vm.traerUsuarioAutenticado = function (){
+    return $cookies.usuarioAutenticado;
+  }
+  vm.eliminarUsuarioAutenticado = function (){
+    delete $cookies["usuarioAutenticado"];
+  }
+  vm.validarSiEstaAutenticado = function(){
+    if (typeof $cookies.usuarioAutenticado=='undefined')
+    {
+      return false;
+    }
+    else
+    {
+        return true;
+    }
+  }
+
 }]);

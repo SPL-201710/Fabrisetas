@@ -16,6 +16,10 @@ app.config(function($routeProvider){
         controller:"loginCtrl",
         templateUrl:"views/login.html"
     })
+    .when("/registro",{
+        controller:"registroCtrl",
+        templateUrl:"views/registro.html"
+    })
     .when("/categoria-estampas/:id?",{
         controller:"categoriaCtrl",
         templateUrl:"views/categoria-estampas.html"
@@ -39,6 +43,10 @@ app.config(function($routeProvider){
     .when("/ver-camisa/:id",{
         controller:"verCamisaCtrl",
         templateUrl:"views/ver-camisa.html"
+    })
+    .when("/pagar",{
+        controller:"pagarCtrl",
+        templateUrl:"views/pagar.html"
     })
     .otherwise({
       redirectTo: '/'

@@ -40,4 +40,13 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
     img1.src = $scope.camisetaSeleccionada.urlImagen;
     console.log("probando 2");
   }
+  $scope.irACaja = function (){
+    if(servicioCookies.validarSiEstaAutenticado()){
+      $location.path("/pagar");
+    }
+    else
+    {
+        $location.path("/login");
+    }
+  }
 }]);
