@@ -35,7 +35,7 @@ public class Camiseta implements Serializable {
 
 	@JsonView(View.Summary.class)
     @Column(name = "URL_CAMISETA")  
-	private String urlCamiseta;
+	private String urlImagen;
 
 	@JsonView(View.Summary.class)
     @Column(name = "MATERIAL")  
@@ -86,11 +86,11 @@ public class Camiseta implements Serializable {
 	}
 
 	public String getUrlCamiseta() {
-		return urlCamiseta;
+		return urlImagen;
 	}
 
 	public void setUrlCamiseta(String urlCamiseta) {
-		this.urlCamiseta = urlCamiseta;
+		this.urlImagen = urlCamiseta;
 	}
 
 	public String getMaterial() {

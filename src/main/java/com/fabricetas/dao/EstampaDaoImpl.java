@@ -63,4 +63,41 @@ public class EstampaDaoImpl implements EstampaDao {
          
         return null;
     }
+    
+    @Override
+    @Transactional
+    public List<Estampa> listXAutor(Integer autor) {
+        
+    	String hql = "from Estampa where user=" + autor;
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        
+    	@SuppressWarnings("unchecked")
+        List<Estampa> listEstampa = (List<Estampa>) query.list();
+        
+       if (listEstampa != null && !listEstampa.isEmpty()) {
+           return listEstampa;
+       }
+        
+       return null;
+
+    }
+    
+    @Override
+    @Transactional
+    public List<Estampa> listXTema(Integer tema) {
+        
+    	String hql = "from Estampa where tema=" + tema;
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        
+    	@SuppressWarnings("unchecked")
+        List<Estampa> listEstampa = (List<Estampa>) query.list();
+        
+       if (listEstampa != null && !listEstampa.isEmpty()) {
+           return listEstampa;
+       }
+        
+       return null;
+
+    }
+    
 }

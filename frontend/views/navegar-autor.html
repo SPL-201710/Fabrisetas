@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="products-heading" style="margin-bottom:2%;">
+      <h3 ng-repeat="iAutor in autores | filter:{userId:autor}">Estampas de {{iAutor.name}}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="col-md-12" id="otrosAutores">
+        <h2>Algunos de nuestros autores</h2>
+        <img src="images/tienda_autores.png" alt="" class="img-responsive" style="margin-top:2%;">
+        <ul>
+          <li ng-repeat="iAutor in autores">
+            <a href="#!/navegar-autor/{{iAutor.userId}}">{{iAutor.name}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-12" id="otrosAutores">
+        <h2>Filtrar por</h2>
+          <div class="form-group">
+            <label class="col-md-12 control-label">Nombre</label>
+              <div class="col-md-12">
+                <input id="nombre" ng-model="nombre" type="text" placeholder="Nombre" class="form-control input-md">
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="col-md-4 product-left-grid" ng-repeat="estampa in estampasAutor | filter:{$:nombre} | orderBy:'autor' ">
+        <div class="product-grid">
+          <div class="product-grid-text">
+            <a href="#!/ver-estampa/{{estampa.estampaId}}"><img src="{{estampa.urlImagen}}" alt="" width="300" height="350"/></a>
+            <div class="products-grid-info">
+              <h3>{{estampa.nombre}}</h3>
+              <h4>Rating: {{estampa.rating}}</h4>
+              <p>{{estampa.descripcion}}</p>
+              <p> <strong> <a href="#!/navegar-autor/{{estampa.autor}}">Autor: {{estampa.autor}} </a></strong> </p>
+              <div class="price">
+                <p>{{estampa.valor | currency}}</p>
+              </div>
+              <div class="like">
+                <a href="#"><img src="images/like.png" alt="" /></a>
+              </div>
+              <div class="clearfix"> </div>
+            </div>
+            <div class="plus">
+              <a href="#!/ver-estampa/{{estampa.estampaId}}"><img src="images/plus.png" alt="" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

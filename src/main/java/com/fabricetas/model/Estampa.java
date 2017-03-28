@@ -35,7 +35,7 @@ public class Estampa implements Serializable {
 
 	@JsonView(View.Summary.class)
     @Column(name = "URL_ESTAMPA")  
-	private String urlEstampa;
+	private String urlImagen;
 
 	@JsonView(View.Summary.class)
     @Column(name = "RATING")  
@@ -43,13 +43,19 @@ public class Estampa implements Serializable {
 
 	@JsonView(View.Summary.class)
     @Column(name = "PRECIO")  
-	private String precio;
+	private String valor;
 	
 	@JsonView(View.Summary.class)
 	@JsonBackReference
     @ManyToOne
 	@JoinColumn(name="USER_ID", nullable = false)
     private User user;
+	
+	@JsonView(View.Summary.class)
+	@JsonBackReference
+    @ManyToOne
+	@JoinColumn(name="TEMA_ID", nullable = false)
+    private Tema tema ;
 
 	public Integer getEstampaId() {
 		return estampaId;
@@ -76,11 +82,11 @@ public class Estampa implements Serializable {
 	}
 
 	public String getUrlEstampa() {
-		return urlEstampa;
+		return urlImagen;
 	}
 
 	public void setUrlEstampa(String urlEstampa) {
-		this.urlEstampa = urlEstampa;
+		this.urlImagen = urlEstampa;
 	}
 
 	public String getRating() {
@@ -92,11 +98,11 @@ public class Estampa implements Serializable {
 	}
 
 	public String getPrecio() {
-		return precio;
+		return valor;
 	}
 
 	public void setPrecio(String precio) {
-		this.precio = precio;
+		this.valor = precio;
 	}
 
 	public User getUser() {
@@ -105,5 +111,13 @@ public class Estampa implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 }
