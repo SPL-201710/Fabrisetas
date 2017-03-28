@@ -30,14 +30,14 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
     img1.onload = function() {
       canvas.width = 300;
       canvas.height = 300;
-      img2.src = $scope.estampaSeleccionada.urlimagen;
+      img2.src = $scope.estampaSeleccionada.urlImagen;
     };
     img2.onload = function() {
       context.globalAlpha = 1.0;
       context.drawImage(img1, 0, 0,300,300);
       context.drawImage(img2, 125, 110,50,80);
     };
-    img1.src = $scope.camisetaSeleccionada.urlimagen;
+    img1.src = $scope.camisetaSeleccionada.urlImagen;
     console.log("probando 2");
   }
 }]);

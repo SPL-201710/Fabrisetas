@@ -31,7 +31,7 @@
       <div class="col-md-3 product-left-grid" ng-repeat="popular in populares | filter:{$:nombre} | orderBy:filtrarPor()">
         <div class="product-grid">
           <div class="product-grid-text">
-            <a href="#!/ver-estampa/{{popular._id}}"><img src="{{popular.urlimagen}}" alt="" width="300" height="350"/></a>
+            <a href="#!/ver-estampa/{{popular.estampaId}}"><img src="{{popular.urlImagen}}" alt="" width="300" height="350"/></a>
             <div class="products-grid-info">
               <h3>{{popular.nombre}}</h3>
               <h4>Rating: {{popular.rating}}</h4>
@@ -46,7 +46,7 @@
               <div class="clearfix"> </div>
             </div>
             <div class="plus">
-              <a href="#!/ver-estampa/{{popular._id}}"><img src="images/plus.png" alt="" /></a>
+              <a href="#!/ver-estampa/{{popular.estampaId}}"><img src="images/plus.png" alt="" /></a>
             </div>
           </div>
         </div>

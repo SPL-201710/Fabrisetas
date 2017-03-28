@@ -3,10 +3,10 @@ app.controller("camisasCtrl",["$scope","servicioHome","servicioCookies","$locati
 
 $scope.verDetalleCamiseta = function (camisa_id){
   let camisetaSeleccionada = $scope.listaCamisas.filter(function(element){
-      return element._id ===camisa_id;
+      return element.camisetaId ===camisa_id;
   });
   servicioCookies.crearCookieCamisetaSeleccionada(camisetaSeleccionada[0]);
-  $location.path("ver-camisa/"+camisetaSeleccionada[0]._id);
+  $location.path("ver-camisa/"+camisetaSeleccionada[0].camisetaId);
 }
 
 //Elimina la cookie donde se almacena la camiseta seleccionada
