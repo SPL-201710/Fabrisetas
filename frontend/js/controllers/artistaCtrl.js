@@ -59,7 +59,7 @@
    $scope.cargarImagen = function (){
      if ($scope.accionEstampa=="Actualizar estampa")
      {
-
+       //falta poner servicios
      }
      else
      {
