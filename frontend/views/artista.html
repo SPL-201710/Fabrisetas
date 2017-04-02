@@ -2,13 +2,13 @@
   <br>
   <div class="row">
     <div class="col-md-4">
-      <form>
+      <form ng-submit="cargarImagen();">
         <fieldset style="margin-bottom:6%;">
           <legend>Cargar una estampa</legend>
           <br>
           <div class="">
             <label>Vista previa</label>
-            <img src="{{estampaNueva.urlimagen}}" alt="" class="img-responsive">
+            <img src="{{thumbnail.dataUrl}}" alt="" class="img-responsive" width="400" height="500">
           </div>
           <br>
           <div class="input-group">
@@ -22,12 +22,11 @@
           </div>
           <br>
           <div class="input-group">
-            <textarea required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
+            <textarea ng-model="estampaNueva.descripcion" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
           </div>
           <br>
           <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-            <input required ng-model="estampaNueva.urlimagen" type="text" class="form-control" placeholder="Url de la imagen" aria-describedby="sizing-addon1">
+            <input multiple onchange="angular.element(this).scope().photoChanged(this.files)" type="file" name="file" uploader-model="file" />
           </div>
           <br>
             <select class="form-control" ng-model="estampaNueva.tema">
@@ -39,11 +38,12 @@
             <br>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-              <input disabled required ng-model="estampaNueva.autor" type="text" class="form-control" placeholder="Autor" aria-describedby="sizing-addon1">
+              <input disabled required ng-model="autor.nombre" type="text" class="form-control" placeholder="Autor" aria-describedby="sizing-addon1">
             </div>
             <br>
             <div class="col-md-12">
-              <input type="submit" value="Guardar estampa" class="btn btn-success btn-block">
+              <input type="submit" value="{{accionEstampa}}" class="btn btn-success btn-block">
+              <button type="button" name="button" class="btn btn-danger btn-block" ng-if="botonCancelar" ng-click="cancelar();">Cancelar</button>
             </div>
         </fieldset>
       </form>
@@ -73,7 +73,7 @@
                  <td>{{estampa.tema==1 ? "Musica":"Sentimientos"}}</td>
                  <td>{{estampa.rating}}</td>
                  <td>
-                   <button type="button" class="btn btn-info zoom" ng-click=""><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                   <button type="button" class="btn btn-info zoom" ng-click="editarEstampa(estampa.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
      						 </td>
      					</tr>
      				</tbody>

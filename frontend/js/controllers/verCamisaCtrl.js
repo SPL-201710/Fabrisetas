@@ -14,6 +14,11 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
       imprimirConEstampa();
     });
   }
+
+  $scope.agregarCarrito = function (){
+    servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);
+  }
+
   $scope.descartar = function (){
     servicioCookies.eliminarCamisetaSeleccionada();
     servicioCookies.eliminarEstampaSeleccionada();

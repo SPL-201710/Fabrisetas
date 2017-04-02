@@ -45,4 +45,17 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
     }
   }
 
+  //carrito de compras!
+  vm.inicializarCarrito = function (){
+    $cookies.carrito = new Array();
+    $cookies.total = 0;
+  }
+  vm.aregarAlCarrito = function (camiseta,estampa,total){
+    $cookies.total = $cookies.total+total;
+    var configuracion = new Array();
+    configuracion.push(camiseta);
+    configuracion.push(estampa);
+    $cookies.carrito.push(configuracion);
+  }
+
 }]);
