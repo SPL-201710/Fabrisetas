@@ -98,13 +98,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li class="phone">+57 310 346 6431</li>
 						<li class="mail"><a href="mailto:contacto@fabrisetas.com">contacto@fabrisetas.com</a></li>
 						<li class="checkout">
-							<a href="add-to-cart.html">
-								<span class="cart">{{0 | currency}}</span>
+							<a href="#!/pagar">
+								<span class="cart">{{valorCarrito | currency}}</span>
 								<span class="check">Checkout</span>
 							</a>
 							<div class="shopping">
-								<h5>Your Shopping Cart is empty.</h5>
-								<p>Give it purpose—fill it with books, movies, mobiles, cameras, toys and fashion jewellery.</p>
+								<h5>Último item agregado.</h5>
+								<p ng-repeat="item in vistaRapidaCarrito">{{item.nombre}}</p>
 							</div>
 						</li>
 					</ul>

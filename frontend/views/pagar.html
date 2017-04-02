@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <form ng-submit="">
-      <div class="col-md-6">
+      <div class="col-md-6"  class="animated fadeIn" ng-if="tieneItemsAgregados">
         <fieldset>
           <legend>Selecciona un medio de pago</legend>
           <div class="col-md-4 divMediosPago" ng-class="bancaria">
@@ -22,7 +22,10 @@
           </div>
         </fieldset>
       </div>
-      <div class="col-md-6">
+
+      <!-- datos de envio, detalle de compra y pago --><!-- datos de envio, detalle de compra y pago --><!-- datos de envio, detalle de compra y pago -->
+      <!-- datos de envio, detalle de compra y pago --><!-- datos de envio, detalle de compra y pago --><!-- datos de envio, detalle de compra y pago -->
+      <div class="col-md-6" ng-if="tieneItemsAgregados">
         <fieldset>
           <legend>Selecciona tus datos de envío</legend>
           <div class="form-group">
@@ -74,28 +77,41 @@
 
             <!-- datos de lacompra fijos --><!-- datos de lacompra fijos --><!-- datos de lacompra fijos --><!-- datos de lacompra fijos -->
             <!-- datos de lacompra fijos --><!-- datos de lacompra fijos --><!-- datos de lacompra fijos -->
-            <div class="col-md-12">
+            <div class="col-md-12" class="animated fadeIn">
               <h2>Detalles de la compra</h2>
               <label>Items:</label>
             </div>
-            <div class="col-md-6">
-              <p>{{camisetaSeleccionada.nombre}}</p>
-              <p>{{estampaSeleccionada.nombre}}</p>
-              <hr>
-              <p><strong>Total: </strong></p>
+            <div class="col-md-12" ng-repeat="configuracion in carrito">
+              <div class="col-md-12" ng-repeat="item in configuracion">
+                <div class="col-md-6">
+                  <p>{{item.nombre}}</p>
+                </div>
+                <div class="col-md-6">
+                   <strong>{{item.valor | currency}}</strong>
+                </div>
+                <hr>
+              </div>
             </div>
             <div class="col-md-6">
-              <p>{{camisetaSeleccionada.valor | currency }}</p>
-              <p>{{estampaSeleccionada.valor | currency }}</p>
-              <hr>
-              <p>{{total | currency }}</p>
+              <strong style="margin-left:11%;">Total: </strong>
+            </div>
+            <div class="col-md-6" ng-if="tieneItemsAgregados" >
+              {{total | currency}}
             </div>
           </div>
           <div class="col-md-12">
             <button type="button" name="button" class="btn btn-success btn-block">Realizar pago</button>
+            <br>
+            <button type="button" name="button" class="btn btn-success btn-danger btn-block" ng-click="descartarCarrito();">Descartar</button>
           </div>
         </fieldset>
       </div>
     </form>
+    <!-- Caso en elque no tiene nada agregado al carrito -->
+    <div class="col-md-12" style="text-align:center;"  ng-if="!tieneItemsAgregados">
+      <h1 class="animated rubberBand">Tu carrito está vacío</h1>
+      <img src="images/carrito.gif" alt="" class="animated bounceInLeft">
+      <br><br>
+    </div>
   </div>
 </div>

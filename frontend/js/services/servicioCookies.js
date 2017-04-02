@@ -56,6 +56,17 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
     configuracion.push(camiseta);
     configuracion.push(estampa);
     $cookies.carrito.push(configuracion);
+    console.log($cookies.carrito);
+  }
+  vm.valorCarrito = function (){
+    return $cookies.total;
+  }
+  vm.retornarCarrito = function (){
+    return $cookies.carrito;
+  }
+  vm.descartarCarrito = function (){
+    delete $cookies["total"];
+    delete $cookies["carrito"];
   }
 
 }]);

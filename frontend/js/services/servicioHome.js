@@ -16,4 +16,10 @@ app.service("servicioHome",["$http","$q","$resource",function($http,$q,$resource
 		return $resource("http://52.88.20.109:8080/fabricetas/camiseta/:id",{id:id});
 		//return $resource("http://52.88.20.109:3000/api/camisas/:id",{id:id});
 	}
+	/*
+	Ejemplo de put
+	vm.actualizarAlgo = function (id){
+		return  $resource("https://jsonplaceholder.typicode.com/posts/:id",{ id: "@id" },{ update: { method: "PUT" }});
+	}
+	*/
 }]);

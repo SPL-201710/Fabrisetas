@@ -4,6 +4,12 @@ app.controller("homeCtrl",["$scope","servicioHome", "servicioCategoria","servici
 	function init(){
 		$scope.populares= servicioHome.traerEstampas().query();
 		$scope.temas= servicioCategoria.traerCategorias().query();
-		servicioCookies.inicializarCarrito();
+		/*
+		ejemplo de put
+		var data = {
+		 'id': '5',
+		 "title":"camisaActualizada"
+		};
+		servicioHome.actualizarAlgo().update(data);*/
 	}
 }]);

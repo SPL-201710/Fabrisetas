@@ -2,21 +2,26 @@
    init();
    function  init(){
      $scope.direccion=false;
+     $scope.tieneItemsAgregados=false;
    }
    $scope.cambiarDireccion = function (){
      console.log($scope.direccion);
    }
-   if(!servicioCookies.validarSiEstaAutenticado())
+   $scope.descartarCarrito = function (){
+     servicioCookies.descartarCarrito();
+     $location.path("/");
+   }
+   if(servicioCookies.validarSiEstaAutenticado())
    {
-      //$location.path("/");
+     $scope.tieneItemsAgregados = true;
+     $scope.datosUsuario = servicioCookies.traerUsuarioAutenticado();
+     $scope.carrito = servicioCookies.retornarCarrito();
+     $scope.total = servicioCookies.valorCarrito();
+     $scope.datosUsuario.direccion="Av 102 # 10 - 12";
+     console.log($scope.datosUsuario);
    }
    else
    {
-     $scope.datosUsuario = servicioCookies.traerUsuarioAutenticado();
-     $scope.estampaSeleccionada = servicioCookies.traerEstampaSeleccionada();
-     $scope.camisetaSeleccionada = servicioCookies.traerCamisetaSeleccionada();
-     $scope.total =parseInt($scope.estampaSeleccionada.valor)+parseInt($scope.camisetaSeleccionada.valor);
-     $scope.datosUsuario.direccion="Av 102 # 10 - 12";
-     console.log($scope.datosUsuario);
+     $scope.tieneItemsAgregados=false;
    }
  }]);

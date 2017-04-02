@@ -16,7 +16,14 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
   }
 
   $scope.agregarCarrito = function (){
-    servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);
+    if(servicioCookies.validarSiEstaAutenticado()){
+      servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);
+      $location.path("/pagar");
+    }
+    else
+    {
+        $location.path("/login/"+$routeParams.id);
+    }
   }
 
   $scope.descartar = function (){
@@ -46,15 +53,6 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
     };
     img1.src = $scope.camisetaSeleccionada.urlImagen;
     console.log("probando 2");
-  }
-  $scope.irACaja = function (){
-    if(servicioCookies.validarSiEstaAutenticado()){
-      $location.path("/pagar");
-    }
-    else
-    {
-        $location.path("/login/"+$routeParams.id);
-    }
   }
   $scope.seleccionTalla = function (talla){
     $scope.talla = talla;
