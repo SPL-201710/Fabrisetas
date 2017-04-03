@@ -53,6 +53,10 @@ app.config(function($routeProvider){
         controller:"artistaCtrl",
         templateUrl:"views/artista.html"
     })
+    .when("/reportes",{
+        controller:"reportesCtrl",
+        templateUrl:"views/reportes.html"
+    })
     .otherwise({
       redirectTo: '/'
     });

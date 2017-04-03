@@ -18,17 +18,17 @@ app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resou
 			var deferred = $q.defer();
 			var formData = new FormData();
 			formData.append("name", name);
-			formData.append("file", file);
+			formData.append("description", file);
 
-			formData.append("nombre",detalle.nombre);
+			/*formData.append("nombre",detalle.nombre);
 			formData.append("valor", detalle.valor);
 			formData.append("descripcion", detalle.descripcion);
 			formData.append("tema", detalle.tema);
 			formData.append("autor", detalle.autor);
-			console.log(formData.nombre);
-			return $http.post("http://localhost/gomelo/cargarimagen.php", formData, {
+			console.log(formData.nombre);*/
+			return $http.post("http://52.88.20.109:8080/fabricetas/add-document-3", formData, {
 				headers: {
-					"Content-type": undefined
+					"Content-type": "multipart/form-data"
 				},
 				transformRequest: angular.identity
 			})

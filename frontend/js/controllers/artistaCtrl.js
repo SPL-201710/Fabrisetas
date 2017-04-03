@@ -66,12 +66,12 @@
        var name = $scope.name;
        var file = $scope.file;
        console.log(file);
-       /*servicioAutores.cargarNuevaEstampa(file,name,$scope.estampaNueva).then(function(datos){
+       servicioAutores.cargarNuevaEstampa(file,name,$scope.estampaNueva).then(function(datos){
          console.log(datos);
        })
        .catch(function(err){
          console.log(err);
-       });*/
+       });
      }
    }
  }]);
