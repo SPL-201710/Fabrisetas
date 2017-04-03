@@ -27,11 +27,11 @@ public class Address implements Serializable {
 	
 	@JsonView(View.Summary.class)
     @Column(name = "NAME")  
-    private String name;  
+    private String name;
 
+	@ManyToOne
+	//@JsonBackReference
 	@JsonView(View.Summary.class)
-	@JsonBackReference
-    @ManyToOne
 	@JoinColumn(name="USER_ID", nullable = false)
     private User user;
     

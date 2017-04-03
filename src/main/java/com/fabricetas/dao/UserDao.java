@@ -1,19 +1,22 @@
 package com.fabricetas.dao;
 
-import java.util.List;
-
 import com.fabricetas.model.User;
+
+import java.util.List;
 
 public interface UserDao {
 
-    public List<User> list();
-     
-    public User get(Integer id);
-     
-    public void saveOrUpdate(User user);
-     
-    public void delete(Integer id);
-    
-    public List<User> listArtistas();
+	User findById(Integer id);
+	
+	User findBySSO(String sso);
+	
+	void save(User user);
+
+	void deleteBySSO(String sso);
+
+	void deleteById(Integer sso);
+	
+	List<User> findAllUsers();
 
 }
+

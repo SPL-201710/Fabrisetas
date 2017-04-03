@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabricetas.config.View;
-import com.fabricetas.dao.UserDao;
+import com.fabricetas.dao.UserDaoBackup;
 import com.fabricetas.model.User;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -26,23 +26,19 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class UserController {
 
 	@Autowired
-	private UserDao userDao;
-	
-//	@Autowired
-//	private UserService userService;
+	private UserDaoBackup userDao;
 
 	// ------------------- Obtener todos los usuarios --------------------------------------------------------
 
 	@JsonView(View.Summary.class)
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> listAllUsers() {
-//		 List<User> users = userService.listAllUsers();
 		List<User> users = userDao.list();
 		
 		if (users.isEmpty()) {
-			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 	// ------------------- Obtener un usuario --------------------------------------------------------
@@ -55,20 +51,19 @@ public class UserController {
 			System.out.println("User with id " + id + " not found");
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	// ------------------- Crear un usuario --------------------------------------------------------
 
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseEntity<Void> createUser(@RequestBody User user,
-			UriComponentsBuilder ucBuilder) {
+	@RequestMapping(value = "/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating User " + user.getName());
 
 		if (userDao.get(user.getUserId()) != null) {
 			System.out.println("A User with name " + user.getName()
 					+ " already exist");
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
 		userDao.saveOrUpdate(user);
@@ -76,12 +71,12 @@ public class UserController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/user/{id}")
 				.buildAndExpand(user.getUserId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 
 	// ------------------- Actualizar un usuario --------------------------------------------------------
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> updateUser(@PathVariable("id") long id,
 			@RequestBody User user) {
 		System.out.println("Updating User " + id);
@@ -90,7 +85,7 @@ public class UserController {
 
 		if (currentUser == null) {
 			System.out.println("User with id " + id + " not found");
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		currentUser.setName(user.getName());
@@ -100,7 +95,7 @@ public class UserController {
 		currentUser.setIdentificationType(user.getIdentificationType());
 
 		userDao.saveOrUpdate(currentUser);
-		return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+		return new ResponseEntity<>(currentUser, HttpStatus.OK);
 	}
 
 	// ------------------- Borrar un Usuario --------------------------------------------------------
@@ -113,32 +108,22 @@ public class UserController {
 		if (user == null) {
 			System.out.println("Unable to delete. User with id " + id
 					+ " not found");
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		userDao.delete(Integer.parseInt(id + ""));
-		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/artistas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> listAllArtistas() {
-		
-		List<User> users = userDao.listArtistas();
-		
-		if (users.isEmpty()) {
-			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-	}
-	
-	// ------------------- Borrar todos los usuarios --------------------------------------------------------
 
-//	@RequestMapping(value = "/user", method = RequestMethod.DELETE)
-//	public ResponseEntity<User> deleteAllUsers() {
-//		System.out.println("Deleting All Users");
-//
-//		userService.deleteAllUsers();
-//		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-//	}
+		List<User> users = userDao.listArtistas();
+
+		if (users.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
 
 }
