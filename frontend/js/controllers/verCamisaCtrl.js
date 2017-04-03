@@ -3,6 +3,8 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
   function init(){
     let id = $routeParams.id;
     $scope.total;
+    $scope.talla='Sin seleccionar';
+    $scope.color='Sin seleccionar';
     $scope.estampaSeleccionada = servicioCookies.traerEstampaSeleccionada();
     servicioHome.traerCamisasPorId(id).get().$promise.then(function (result) {
       console.log(result);
@@ -12,6 +14,18 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
       imprimirConEstampa();
     });
   }
+
+  $scope.agregarCarrito = function (){
+    if(servicioCookies.validarSiEstaAutenticado()){
+      servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);
+      $location.path("/pagar");
+    }
+    else
+    {
+        $location.path("/login/"+$routeParams.id);
+    }
+  }
+
   $scope.descartar = function (){
     servicioCookies.eliminarCamisetaSeleccionada();
     servicioCookies.eliminarEstampaSeleccionada();
@@ -40,13 +54,12 @@ app.controller("verCamisaCtrl",["$scope","servicioHome","$location","$routeParam
     img1.src = $scope.camisetaSeleccionada.urlImagen;
     console.log("probando 2");
   }
-  $scope.irACaja = function (){
-    if(servicioCookies.validarSiEstaAutenticado()){
-      $location.path("/pagar");
-    }
-    else
-    {
-        $location.path("/login");
-    }
+  $scope.seleccionTalla = function (talla){
+    $scope.talla = talla;
+    console.log(talla);
+  }
+  $scope.seleccionColor = function (color){
+    $scope.color = color;
+    console.log(color);
   }
 }]);

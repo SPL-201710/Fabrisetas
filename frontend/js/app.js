@@ -1,4 +1,4 @@
-var app = angular.module('fabrisetas', ['ngRoute','ngResource']);
+var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
 /*
 { 'get':    {method:'GET'},
   'save':   {method:'POST'},
@@ -6,13 +6,14 @@ var app = angular.module('fabrisetas', ['ngRoute','ngResource']);
   'remove': {method:'DELETE'},
   'delete': {method:'DELETE'} };
 */
+
 app.config(function($routeProvider){
 
     $routeProvider.when("/",{
         controller:"homeCtrl",
         templateUrl:"views/home.html"
     })
-    .when("/login",{
+    .when("/login/:id?",{
         controller:"loginCtrl",
         templateUrl:"views/login.html"
     })
@@ -47,6 +48,22 @@ app.config(function($routeProvider){
     .when("/pagar",{
         controller:"pagarCtrl",
         templateUrl:"views/pagar.html"
+    })
+    .when("/artista",{
+        controller:"artistaCtrl",
+        templateUrl:"views/artista.html"
+    })
+    .when("/reportes",{
+        controller:"reportesCtrl",
+        templateUrl:"views/reportes.html"
+    })
+    .when("/adminTemas",{
+        controller:"adminTemasCtrl",
+        templateUrl:"views/adminTemas.html"
+    })
+    .when("/adminCamisetas",{
+        controller:"adminCamisetasCtrl",
+        templateUrl:"views/adminCamisetas.html"
     })
     .otherwise({
       redirectTo: '/'

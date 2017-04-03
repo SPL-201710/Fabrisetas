@@ -98,20 +98,11 @@
         <!-- cierra DIV DONDE MUESTRA LAS IMAGENS -->
 				<div class="col-md-3 side-bar">
 					<div class="categories">
-						<h3>CATEGORIES</h3>
+						<h3>TEMAS</h3>
 						<ul>
-							<li><a href="#">accessories</a></li>
-							<li><a href="#">basics</a></li>
-							<li><a href="#">jackets</a></li>
-							<li><a href="#">jeans</a></li>
-							<li><a href="#">knits</a></li>
-							<li><a href="#">overalls</a></li>
-							<li><a href="#">over coats</a></li>
-							<li><a href="#">shoes</a></li>
-							<li><a href="#">sweatshirts</a></li>
-							<li><a href="#">trousers</a></li>
-							<li><a href="#"><del>tops</del></a></li>
-							<li><a href="#">watersuits</a></li>
+							<li ng-repeat="tema in temas">
+		            <a href="#!/categoria-estampas/{{tema.temaId}}">{{tema.nombre}}</a>
+		          </li>
 						</ul>
 					</div>
 				</div>
