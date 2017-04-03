@@ -24,6 +24,12 @@ public class PersistentFileServiceImpl implements PersistentFileService {
 	}
 
 	public List<PersistentFile> findAllByUserId(Integer userId) { return dao.findAllByUserId(userId); }
+
+	public List<PersistentFile> findAllByCamisetaId(Integer camisetaId) { return dao.findAllByCamisetaId(camisetaId); }
+
+	public List<PersistentFile> findAllByEstampaId(Integer estampaId) { return dao.findAllByEstampaId(estampaId); }
+
+	public List<PersistentFile> findAllByTemaId(Integer temaId) { return dao.findAllByTemaId(temaId); }
 	
 	public void saveDocument(PersistentFile document){
 		dao.save(document);

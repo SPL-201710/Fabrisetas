@@ -11,8 +11,14 @@ public interface PersistentFileDao {
 	PersistentFile findById(Integer id);
 	
 	void save(PersistentFile document);
-	
+
 	List<PersistentFile> findAllByUserId(Integer userId);
+
+	List<PersistentFile> findAllByCamisetaId(Integer camisetaId);
+
+	List<PersistentFile> findAllByEstampaId(Integer estampaId);
+
+	List<PersistentFile> findAllByTemaId(Integer temaId);
 	
 	void deleteById(Integer id);
 }

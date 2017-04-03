@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import com.fabricetas.model.TransientFile;
-import com.fabricetas.model.User;
-import com.fabricetas.model.PersistentFile;
-import com.fabricetas.service.PersistentFileService;
-import com.fabricetas.service.UserService;
+import com.fabricetas.model.*;
+import com.fabricetas.service.*;
 import com.fabricetas.util.FileValidator;
 import org.apache.commons.codec.binary.Base64;
 import org.hibernate.Hibernate;
@@ -37,6 +34,15 @@ public class FileController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	CamisetaService camisetaService;
+
+	@Autowired
+	EstampaService estampaService;
+
+	@Autowired
+	TemaService temaService;
 	
 	@Autowired
 	PersistentFileService persistentFileService;
@@ -133,12 +139,12 @@ public class FileController {
 		return "redirect:/list";
 	}
 
-    /**
-     * Este método retorna todos los documentos de un usuario
-     * @param userId
-     * @param model
-     * @return
-     */
+	/**
+	 * Este método retorna todos los documentos de un usuario
+	 * @param userId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = { "/add-document-{userId}" }, method = RequestMethod.GET)
 	public ResponseEntity<List<PersistentFile>> /*String*/ addDocuments(@PathVariable Integer userId, ModelMap model) {
 		User user = userService.findById(userId);
@@ -150,12 +156,87 @@ public class FileController {
 		List<PersistentFile> documents = persistentFileService.findAllByUserId(userId);
 
 		for (PersistentFile document: documents)
-            document.setImage(new String(Base64.encodeBase64(document.getContent())));
+			document.setImage(new String(Base64.encodeBase64(document.getContent())));
 
-        model.addAttribute("documents", documents);
+		model.addAttribute("documents", documents);
 
-        //return "managedocuments";
-        return new ResponseEntity<>(documents, HttpStatus.OK);
+		//return "managedocuments";
+		return new ResponseEntity<>(documents, HttpStatus.OK);
+	}
+
+	/**
+	 * Este método retorna todas las imagenes de una camiseta configurada
+	 * @param camisetaId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = { "/add-camiseta-{camisetaId}" }, method = RequestMethod.GET)
+	public ResponseEntity<List<PersistentFile>> /*String*/ addCamisetaImagen(@PathVariable Integer camisetaId, ModelMap model) {
+		Camiseta camiseta = camisetaService.findById(camisetaId);
+		//model.addAttribute("user", user);
+
+		TransientFile fileModel = new TransientFile();
+		model.addAttribute("transientFile", fileModel);
+
+		List<PersistentFile> documents = persistentFileService.findAllByCamisetaId(camisetaId);
+
+		for (PersistentFile document: documents)
+			document.setImage(new String(Base64.encodeBase64(document.getContent())));
+
+		model.addAttribute("documents", documents);
+
+		//return "managedocuments";
+		return new ResponseEntity<>(documents, HttpStatus.OK);
+	}
+
+	/**
+	 * Este método retorna todos los documentos de un usuario
+	 * @param estampaId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = { "/add-estampa-{estampaId}" }, method = RequestMethod.GET)
+	public ResponseEntity<List<PersistentFile>> /*String*/ addEstampaImagen(@PathVariable Integer estampaId, ModelMap model) {
+		Estampa estampa = estampaService.findById(estampaId);
+		//model.addAttribute("user", user);
+
+		TransientFile fileModel = new TransientFile();
+		model.addAttribute("transientFile", fileModel);
+
+		List<PersistentFile> documents = persistentFileService.findAllByEstampaId(estampaId);
+
+		for (PersistentFile document: documents)
+			document.setImage(new String(Base64.encodeBase64(document.getContent())));
+
+		model.addAttribute("documents", documents);
+
+		//return "managedocuments";
+		return new ResponseEntity<>(documents, HttpStatus.OK);
+	}
+
+	/**
+	 * Este método retorna todos los documentos de un usuario
+	 * @param temaId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = { "/add-tema-{temaId}" }, method = RequestMethod.GET)
+	public ResponseEntity<List<PersistentFile>> /*String*/ addTemaImagen(@PathVariable Integer temaId, ModelMap model) {
+		Tema tema= temaService.findById(temaId);
+		//model.addAttribute("user", user);
+
+		TransientFile fileModel = new TransientFile();
+		model.addAttribute("transientFile", fileModel);
+
+		List<PersistentFile> documents = persistentFileService.findAllByTemaId(temaId);
+
+		for (PersistentFile document: documents)
+			document.setImage(new String(Base64.encodeBase64(document.getContent())));
+
+		model.addAttribute("documents", documents);
+
+		//return "managedocuments";
+		return new ResponseEntity<>(documents, HttpStatus.OK);
 	}
 
     /**

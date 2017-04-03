@@ -11,6 +11,12 @@ public interface PersistentFileService {
 	List<PersistentFile> findAll();
 	
 	List<PersistentFile> findAllByUserId(Integer id);
+
+	List<PersistentFile> findAllByCamisetaId(Integer camisetaId);
+
+	List<PersistentFile> findAllByEstampaId(Integer estampaId);
+
+	List<PersistentFile> findAllByTemaId(Integer temaId);
 	
 	void saveDocument(PersistentFile document);
 	

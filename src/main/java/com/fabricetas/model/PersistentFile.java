@@ -2,6 +2,7 @@ package com.fabricetas.model;
 
 import com.fabricetas.config.View;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -38,10 +39,25 @@ public class PersistentFile implements Serializable {
 	private String type;
 
 	@ManyToOne
-	//@JsonBackReference
 	@JsonView(View.Summary.class)
 	@JoinColumn(name = "USER_ID")
 	private User user;
+
+	@ManyToOne
+	@JsonIgnore
+	@JsonView(View.Summary.class)
+	@JoinColumn(name = "CAMISETA_ID")
+	private Camiseta camiseta;
+
+	@ManyToOne
+	@JsonView(View.Summary.class)
+	@JoinColumn(name = "ESTAMPA_ID")
+	private Estampa estampa;
+
+	@ManyToOne
+	@JsonView(View.Summary.class)
+	@JoinColumn(name = "TEMA_ID")
+	private Tema tema;
 
 	public Integer getFileId() {
 		return fileId;
@@ -101,6 +117,30 @@ public class PersistentFile implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Camiseta getCamiseta() {
+		return camiseta;
+	}
+
+	public void setCamiseta(Camiseta camiseta) {
+		this.camiseta = camiseta;
+	}
+
+	public Estampa getEstampa() {
+		return estampa;
+	}
+
+	public void setEstampa(Estampa estampa) {
+		this.estampa = estampa;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 	@Override
