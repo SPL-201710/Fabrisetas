@@ -15,5 +15,7 @@ public interface UserDaoBackup {
     public void delete(Integer id);
     
     public List<User> listArtistas();
+    
+    public User get(String usuario);
 
 }
