@@ -1,0 +1,125 @@
+// +++++++++++++++++++++++++++ reporte por fechas - tipo POST  ++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++ reporte por fechas - tipo POST ++++++++++++++++++++++++++++++++++++++++++++++
+//el front envía
+{
+  "artistaId":3,
+  "fechaInicial":"2017-03-01", // año mes dia en el formato ISO
+  "fechaFinal":"2017-03-20",
+}
+
+// espera recibir un objeto
+[
+  {
+    "nombre":"Devil may Cry",
+    "tema":"Videojuegos",
+    "valor":20000,
+    "cantidad":4,
+    "total":80000
+  },
+  {
+    "nombre":"Devil may Cry",
+    "tema":"Videojuegos",
+    "valor":20000,
+    "cantidad":4,
+    "total":80000
+  }
+]
+
+// +++++++++++++++++++++++++++ reporte por TEMAS - tipo post ++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++ reporte por TEMAS - tipo post+++++++++++++++++++++++++++++++++++++++++++++++
+// el front envía
+{
+  "artistaId":3,
+  "temaId":2,
+  "temaNombre":"Musica"
+}
+
+//espera recibir un objeto
+[
+  {
+    "nombre":"Devil may Cry",
+    "tema":"Videojuegos",
+    "valor":20000,
+    "cantidad":4,
+    "total":80000
+  },
+  {
+    "nombre":"League of Legends",
+    "tema":"Videojuegos",
+    "valor":22000,
+    "cantidad":1,
+    "total":22000
+  }
+]
+
+// +++++++++++++++++++++++++++ reporte por ESTAMPAS - tipo GET ++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++ reporte por ESTAMPAS - tipo GET +++++++++++++++++++++++++++++++++++++++++++++++
+// EL fornt envía
+{
+  "estampaId":1
+}
+"http://52.88.20.109:8080/fabricetas/nombre-servicio/reporte-estampas/1"
+
+// ES POSIBLE QUE SI SE ENVÍA UN 0 TRAIGA TODAS LAS ESTAMPAS?
+
+//espera recibir un objeto
+{
+    "nombre":"Devil may Cry",
+    "tema":"Videojuegos",
+    "valor":20000,
+    "cantidad":4,
+    "total":80000
+};
+
+// +++++++++++++++++++++++++++ reporte por ARTISTAS - tipo GET ++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++ reporte por ARTISTAS - tipo GET+++++++++++++++++++++++++++++++++++++++++++++++
+// EL fornt envía
+{
+  "artistaId":1
+}
+"http://52.88.20.109:8080/fabricetas/nombre-servicio/reporte-artistas/1"
+//espera recibir un objeto con todas las estampas del artista
+[
+  {
+    "artista":"Bernad",
+    "nombre":"Devil may Cry",
+    "tema":"Videojuegos",
+    "valor":20000,
+    "cantidad":4,
+    "total":80000
+  },
+  {
+    "artista":"Bernad",
+    "nombre":"Abuelo",
+    "tema":"Animaciones",
+    "valor":22000,
+    "cantidad":1,
+    "total":22000
+  }
+]
+
+// +++++++++++++++++++++++++++ reporte por Camiseta - tipo GET ++++++++++++++++++++++++++++++++++++++++++++++
+// +++++++++++++++++++++++++++ reporte por Camiseta - tipo GET+++++++++++++++++++++++++++++++++++++++++++++++
+// GET A
+"http://52.88.20.109:8080/fabricetas/nombre-servicio/reporte-camiseta"
+// debe traer todas las camisetas vendidas
+
+// el front espera un objeto así
+[
+  {
+    "nombre":"Camiseta ligera",
+    "color":"rojo",
+    "talla":"S",
+    "valor":20000,
+    "cantidad":4,
+    "total":80000
+  },
+  {
+    "nombre":"Camiseta esqueleto",
+    "color":"azul",
+    "talla":"L",
+    "valor":22000,
+    "cantidad":1,
+    "total":22000
+  }
+]
