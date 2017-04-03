@@ -1,39 +1,41 @@
- app.controller('artistaCtrl',["$scope","servicioAutores","servicioCookies","$timeout",function($scope,servicioAutores,servicioCookies,$timeout){
+ app.controller('adminTemasCtrl',["$scope","servicioCategoria","servicioAutores","servicioCookies","$timeout",function($scope,servicioCategoria,servicioAutores,servicioCookies,$timeout){
    init();
 
 
    function init(){
      $scope.thumbnail = {};
      $scope.botonCancelar = false;
-     $scope.accionEstampa="Guardar estampa";
+     $scope.accionRealizar = "Guardar Tema";
      if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
-        servicioAutores.traerEstampasAutor($scope.artista.userId).query().$promise.then((datos)=>{
-          console.log(datos);
-          $scope.estampasArtista = datos;
-          angular.forEach($scope.estampasArtista,function(valor,llave){
-            valor.indice=llave;
-          });
-        });
+       recargarTemas();
         if(servicioCookies.validarSiEstaAutenticado())
         {
             $scope.autor = servicioCookies.traerUsuarioAutenticado();
         }
      }
    }
-
-   $scope.editarEstampa = function (indice){
-     $scope.accionEstampa ="Actualizar estampa";
+   function recargarTemas(){
+     servicioCategoria.traerCategorias().query().$promise.then((datos) => {
+        $scope.temas = datos;
+        angular.forEach($scope.temas,function(valor, llave){
+          valor.indice = llave;
+        });
+      });
+   }
+   $scope.editarTema = function (indice){
+     $scope.accionRealizar = "Actualizar tema";
      $scope.botonCancelar = true;
-     $scope.estampaNueva = $scope.estampasArtista[indice];
-     $scope.thumbnail.dataUrl = $scope.estampasArtista[indice].urlimagen;
+     $scope.temaNuevo = $scope.temas[indice];
+     $scope.thumbnail.dataUrl = $scope.temas[indice].urlTema;
    }
 
    $scope.cancelar = function (){
-     $scope.accionEstampa="Guardar estampa";
+     $scope.accionRealizar = "Guardar tema";
      $scope.botonCancelar = false;
-     $scope.estampaNueva =[];
+     $scope.temaNuevo ={};
+     $scope.thumbnail.dataUrl = {};
    }
 
    $scope.fileReaderSupported = window.FileReader != null;
@@ -57,17 +59,25 @@
    };
 
    $scope.cargarImagen = function (){
-     if ($scope.accionEstampa=="Actualizar estampa")
+     if ($scope.accionRealizar == "Actualizar tema")
      {
-       //falta poner servicios
+        $scope.temaNuevo.urlTema = $scope.thumbnail.dataUrl;
+        console.log($scope.temaNuevo);
+        servicioCategoria.actualizarCategoria($scope.temaNuevo.temaId).update($scope.temaNuevo).$promise.then(function(){
+          $scope.cancelar();
+       });
      }
      else
      {
        var name = $scope.name;
        var file = $scope.file;
-       console.log(file);
-       servicioAutores.cargarNuevaEstampa(file,name,$scope.estampaNueva).then(function(datos){
+       $scope.temaNuevo.urlTema = $scope.thumbnail.dataUrl;
+       //$scope.temaNuevo.temaId = 0;
+       console.log($scope.temaNuevo);
+       servicioCategoria.crearCategoria().save($scope.temaNuevo).$promise.then(function(datos){
          console.log(datos);
+         recargarTemas();
+         $scope.cancelar();
        })
        .catch(function(err){
          console.log(err);

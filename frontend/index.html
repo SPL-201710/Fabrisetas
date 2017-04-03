@@ -76,6 +76,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/controllers/pagarCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/artistaCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/reportesCtrl.js" charset="utf-8"></script>
+		<script src="js/controllers/adminTemasCtrl.js" charset="utf-8"></script>
+		<script src="js/controllers/adminCamisetasCtrl.js" charset="utf-8"></script>
 
 		<script type="text/javascript" src="js/services/servicioHome.js"></script>
 		<script type="text/javascript" src="js/services/servicioAutores.js"></script>
@@ -83,6 +85,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/services/servicioCookies.js" charset="utf-8"></script>
 		<script src="js/services/servicioLogin.js" charset="utf-8"></script>
 		<script src="js/services/servicioReportes.js" charset="utf-8"></script>
+		<script src="js/services/servicioCamiseta.js" charset="utf-8"></script>
 
 		<script src="js/directives/cargarImagenes.js" charset="utf-8"></script>
 
@@ -117,7 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"> </div>
 				<div class="col-md-12" ng-if="usuarioLogueado">
 					<br>
-					<label>{{usuarioLogueado.nombre}}</label>
+					<label>{{usuarioLogueado.name}}</label>
 					<br>
 					<a ng-click="cerrarSesion();">Cerrar sesión</a>
 					<br>
@@ -153,26 +156,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="women.html">Beauty & Wellness</a></li>
 						</ul>
 					</li>
-					<!--<li class="dropdown1"><a href="women.html">KIDS</a>
+					<li ng-if="tipoUsuario=='Administrador'"><i class="fa fa-bookmark" aria-hidden="true"></i> Administrar
 						<ul class="dropdown2">
-							<li><a href="women.html">Clothing</a></li>
-							<li><a href="women.html">Footwear</a></li>
-							<li><a href="women.html">Accessories</a></li>
+							<li><a href="#!/adminTemas">Temas</a></li>
+							<li><a href="women.html">Recategorizar Estampa</a></li>
+							<li><a href="women.html">Usuario</a></li>
+							<li><a href="#!/adminCamisetas">Camisetas</a></li>
 						</ul>
 					</li>
-					<li class="dropdown1"><a href="men.html">SALE</a>
-						<ul class="dropdown2">
-							<li><a href="men.html">Clothing</a></li>
-							<li><a href="men.html">Footwear</a></li>
-							<li><a href="men.html">Watches</a></li>
-							<li><a href="men.html">Accessories</a></li>
-						</ul>
-					</li>-->
+
 					<!--<li><a href="about.html"><i class="fa fa-users" aria-hidden="true"></i> Nosotros</a></li>
 					<li><a href="404.html"><i class="fa fa-commenting-o" aria-hidden="true"></i> Contactenos</a></li> -->
 					<li><a href="#!/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a></li>
-					<li ng-if="artista==2"><a href="#!/artista"  style="color:blue;"><i class="fa fa-bookmark" aria-hidden="true"></i> Mis estampas</a></li>
-					<li ng-if="artista==2"><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
+					<li ng-if="tipoUsuario=='Artista'"><a href="#!/artista"  style="color:blue;"><i class="fa fa-bookmark" aria-hidden="true"></i> Mis estampas</a></li>
+					<li ng-if="tipoUsuario=='Artista'"><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>

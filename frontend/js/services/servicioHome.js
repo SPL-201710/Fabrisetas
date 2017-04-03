@@ -1,25 +1,18 @@
 app.service("servicioHome",["$http","$q","$resource",function($http,$q,$resource){
 	var vm= this;
+	var dirServ = "http://localhost:8080/fabricetas/";
+
 	vm.traerEstampas = function (){
-		return $resource("http://52.88.20.109:8080/fabricetas/estampa");
-		//return $resource("http://52.88.20.109:3000/api/estampas");
+		return $resource(dirServ + "estampa");
 	}
 	vm.traerEstampasPorId = function (id){
-		return $resource("http://52.88.20.109:8080/fabricetas/estampa/:id",{id:id});
-		//return $resource("http://52.88.20.109:3000/api/estampas/:id",{id:id});
+		return $resource(dirServ + "estampa/:id",{id:id});
 	}
 	vm.traerCamisas = function (){
-		return $resource("http://52.88.20.109:8080/fabricetas/camiseta");
-		//return $resource("http://52.88.20.109:3000/api/camisas");
+		return $resource(dirServ + "camiseta");
 	}
 	vm.traerCamisasPorId = function (id){
-		return $resource("http://52.88.20.109:8080/fabricetas/camiseta/:id",{id:id});
-		//return $resource("http://52.88.20.109:3000/api/camisas/:id",{id:id});
+		return $resource(dirServ + "camiseta/:id",{id:id});
 	}
-	/*
-	Ejemplo de put
-	vm.actualizarAlgo = function (id){
-		return  $resource("https://jsonplaceholder.typicode.com/posts/:id",{ id: "@id" },{ update: { method: "PUT" }});
-	}
-	*/
+	
 }]);

@@ -57,6 +57,14 @@ app.config(function($routeProvider){
         controller:"reportesCtrl",
         templateUrl:"views/reportes.html"
     })
+    .when("/adminTemas",{
+        controller:"adminTemasCtrl",
+        templateUrl:"views/adminTemas.html"
+    })
+    .when("/adminCamisetas",{
+        controller:"adminCamisetasCtrl",
+        templateUrl:"views/adminCamisetas.html"
+    })
     .otherwise({
       redirectTo: '/'
     });

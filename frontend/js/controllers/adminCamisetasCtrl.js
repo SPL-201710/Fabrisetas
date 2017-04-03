@@ -1,39 +1,41 @@
- app.controller('artistaCtrl',["$scope","servicioAutores","servicioCookies","$timeout",function($scope,servicioAutores,servicioCookies,$timeout){
+ app.controller('adminCamisetasCtrl',["$scope","servicioCamiseta","servicioCookies","$timeout",function($scope,servicioCamiseta,servicioCookies,$timeout){
    init();
 
 
    function init(){
      $scope.thumbnail = {};
      $scope.botonCancelar = false;
-     $scope.accionEstampa="Guardar estampa";
+     $scope.accionRealizar = "Guardar camiseta";
      if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
-        servicioAutores.traerEstampasAutor($scope.artista.userId).query().$promise.then((datos)=>{
-          console.log(datos);
-          $scope.estampasArtista = datos;
-          angular.forEach($scope.estampasArtista,function(valor,llave){
-            valor.indice=llave;
-          });
-        });
+       recargarCamisetas();
         if(servicioCookies.validarSiEstaAutenticado())
         {
             $scope.autor = servicioCookies.traerUsuarioAutenticado();
         }
      }
    }
-
-   $scope.editarEstampa = function (indice){
-     $scope.accionEstampa ="Actualizar estampa";
+   function recargarCamisetas(){
+     servicioCamiseta.traerCamisas().query().$promise.then((datos) => {
+        $scope.camisetas = datos;
+        angular.forEach($scope.camisetas,function(valor, llave){
+          valor.indice = llave;
+        });
+      });
+   }
+   $scope.editarCamiseta = function (indice){
+     $scope.accionRealizar = "Actualizar camiseta";
      $scope.botonCancelar = true;
-     $scope.estampaNueva = $scope.estampasArtista[indice];
-     $scope.thumbnail.dataUrl = $scope.estampasArtista[indice].urlimagen;
+     $scope.camisetaNueva = $scope.camisetas[indice];
+     $scope.thumbnail.dataUrl = $scope.camisetas[indice].urlImagen;
    }
 
    $scope.cancelar = function (){
-     $scope.accionEstampa="Guardar estampa";
+     $scope.accionRealizar = "Guardar camiseta";
      $scope.botonCancelar = false;
-     $scope.estampaNueva =[];
+     $scope.camisetaNueva ={};
+     $scope.thumbnail.dataUrl = {};
    }
 
    $scope.fileReaderSupported = window.FileReader != null;
@@ -57,17 +59,23 @@
    };
 
    $scope.cargarImagen = function (){
-     if ($scope.accionEstampa=="Actualizar estampa")
+     if ($scope.accionRealizar == "Actualizar camiseta")
      {
-       //falta poner servicios
+       console.log($scope.camisetaNueva);
+        servicioCamiseta.actualizarCamiseta($scope.camisetaNueva.temaId).update($scope.camisetaNueva).$promise.then(function(){
+          $scope.cancelar();
+       });
      }
      else
      {
        var name = $scope.name;
        var file = $scope.file;
-       console.log(file);
-       servicioAutores.cargarNuevaEstampa(file,name,$scope.estampaNueva).then(function(datos){
+       $scope.camisetaNueva.urlImagen = "esta/url";
+       //$scope.temaNuevo.temaId = 0;
+       console.log($scope.camisetaNueva);
+       servicioCamiseta.crearCamiseta().save($scope.camisetaNueva).$promise.then(function(datos){
          console.log(datos);
+         recargarCamisetas();
        })
        .catch(function(err){
          console.log(err);

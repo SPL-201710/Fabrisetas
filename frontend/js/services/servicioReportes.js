@@ -1,6 +1,7 @@
 app.service("servicioReportes",["$http","$q","$resource",function($http,$q,$resource){
 	var vm= this;
-
+	var dirServ = "http://localhost:8080/fabricetas/";
+	
   vm.reportePorFechas = function (autor,fechas){
     // return $resource("http://52.88.20.109:8080/fabricetas/estampa"); deberia ser un post
     let objeto =[
