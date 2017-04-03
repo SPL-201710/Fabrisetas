@@ -14,7 +14,7 @@
          let tam = $scope.carrito.length;
          $scope.vistaRapidaCarrito = $scope.carrito[tam-1];
          console.log($scope.vistaRapidaCarrito);
-         $scope.artista  = $scope.usuarioLogueado.tipo;
+         $scope.tipoUsuario  = $scope.usuarioLogueado.tipo;
        }
 
      }
