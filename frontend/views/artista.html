@@ -30,10 +30,8 @@
           </div>
           <br>
             <select class="form-control" ng-model="estampaNueva.temaId">
-              <option value="">Tema</option>
-              <option value="1">Religión</option>
-              <option value="2">Música</option>
-              <option value="3">Sentimientos</option>
+              <option value="" selected>Tema</option>
+              <option ng-repeat="tema in temas" value="{{tema.temaId}}">{{tema.nombre}}</option>
             </select>
             <br>
             <div class="input-group">
@@ -42,8 +40,8 @@
             </div>
             <br>
             <div class="col-md-12">
-              <p ng-show="estampaNuevaCargada">Estampa cargada con éxito</p>
-              <p ng-show="estampaActualizada">Estampa cargada con éxito</p>
+              <p ng-show="estampaNuevaCargada">Estampa creada con éxito</p>
+              <p ng-show="estampaActualizada">Estampa actualizada con éxito</p>
               <input type="submit" value="{{accionEstampa}}" class="btn btn-success btn-block">
               <button type="button" name="button" class="btn btn-danger btn-block" ng-if="botonCancelar" ng-click="cancelar();">Cancelar</button>
             </div>
@@ -72,7 +70,7 @@
                  <td>{{estampa.nombre}}</td>
                  <td>{{estampa.valor}}</td>
                  <td>{{estampa.descripcion}}</td>
-                 <td>{{estampa.tema==1 ? "Musica":"Sentimientos"}}</td>
+                 <td>{{estampa.temaNombre}}</td>
                  <td>{{estampa.rating}}</td>
                  <td>
                    <button type="button" class="btn btn-info zoom" ng-click="editarEstampa(estampa.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>

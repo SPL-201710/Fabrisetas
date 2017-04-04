@@ -5,7 +5,7 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 	$scope.editarUsuario = function (indice){
 		$scope.titulo="Edición de usuario";
 		$scope.nuevoOActualizar = true;
-		$scope.accion="actualizar";
+		$scope.accion="Actualizar";
 		$scope.usuarioSeleccionado = $scope.listaUsuarios[indice];
 		console.log($scope.usuarioSeleccionado);
 	}
@@ -13,7 +13,7 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 	$scope.crearUsuario = function (indice){
 		$scope.titulo="Creación de usuario";
 		$scope.nuevoOActualizar = true;
-		$scope.accion="crear";
+		$scope.accion="Crear";
 		$scope.usuarioSeleccionado={};
 		$scope.usuarioSeleccionado.userId=null;
 		$scope.usuarioSeleccionado.ssoId=null;
@@ -22,10 +22,11 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 
 	$scope.eliminarUsuario = function (userId){
 		servicioAdminUsuarios.eliminarUsuario(userId).delete().$promise.then((datos)=>{
-			$scope.listaUsuarios.filter(function(usuario){
+			/*$scope.listaUsuarios.filter(function(usuario){
 						// si retorna falso la funcion filter elimina el objeto
 						return usuario.userId!==userId;
-			});
+			});*/
+			recargarUsuarios();
 		},
 		(err)=>{
 			alert("err");
@@ -34,23 +35,25 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 	}
 
 	$scope.crearOActualizarUsuario = function (){
-		if ($scope.accion=='actualizar')
+		if ($scope.accion=='Actualizar')
 		{
 				servicioAdminUsuarios.actualizarUsuario($scope.usuarioSeleccionado.userId).update($scope.usuarioSeleccionado).$promise.then((datos)=>{
 					$scope.nuevoOActualizar=false;
+					recargarUsuarios();
 				},
 				(err)=>{
 						alert("error");
 						console.log(err);
 				});
 		}
-		else if ($scope.accion=="crear")
+		else if ($scope.accion=="Crear")
 		{
 			console.log($scope.usuarioSeleccionado);
 			servicioAdminUsuarios.crearUsuario().save($scope.usuarioSeleccionado).$promise.then((datos)=>{
 				$scope.nuevoOActualizar=false;
-				 $scope.listaUsuarios.push(datos)
-				console.log(datos);
+				 //$scope.listaUsuarios.push(datos)
+				//console.log(datos);
+				recargarUsuarios();
 			},
 			(err)=>{
 				alert("error");
@@ -58,16 +61,19 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 			});
 		}
 	}
+	function recargarUsuarios(){
+		$scope.listaUsuarios = servicioAdminUsuarios.traerUsuarios().query().$promise.then((datos)=>{
+			$scope.listaUsuarios = datos;
+			angular.forEach($scope.listaUsuarios,function(valor,llave){
+				valor.indice=llave;
+			});
+		});
+	}
+
 	function init(){
 		if(servicioCookies.validarSiEstaAutenticado())
 		{
-			$scope.listaUsuarios = servicioAdminUsuarios.traerUsuarios().query().$promise.then((datos)=>{
-				$scope.listaUsuarios = datos;
-				angular.forEach($scope.listaUsuarios,function(valor,llave){
-					valor.indice=llave;
-				});
-				console.log($scope.listaUsuarios);
-			});
+			recargarUsuarios();
 		}
 		else
 		{
