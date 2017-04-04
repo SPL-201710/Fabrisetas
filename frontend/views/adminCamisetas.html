@@ -17,7 +17,10 @@
             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
             <input required ng-model="camisetaNueva.nombre" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
           </div>
-
+          <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
+            <input required ng-model="camisetaNueva.valor" type="text" class="form-control" placeholder="Precio" aria-describedby="sizing-addon1">
+          </div>
           <br>
           <div class="input-group">
             <textarea ng-model="camisetaNueva.descripcion" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
@@ -30,6 +33,8 @@
 
           <br>
           <div class="col-md-12">
+            <p ng-show="camisetaNuevaCargada">camiseta creada con éxito</p>
+            <p ng-show="camisetaActualizada">Camiseta actualizada con éxito</p>
             <input type="submit" value="{{accionRealizar}}" class="btn btn-success btn-block">
             <button type="button" name="button" class="btn btn-danger btn-block" ng-if="botonCancelar" ng-click="cancelar();">Cancelar</button>
           </div>
@@ -44,6 +49,7 @@
      				<thead>
      					<th>Imagen camiseta</th>
      					<th>Nombre</th>
+              <th>Valor</th>
               <th>Descripción</th>
               <th>Editar</th>
      				</thead>
@@ -53,6 +59,7 @@
                    <img src="{{camiseta.urlImagen}}" class="img-responsive" width="300" height="400">
                  </td>
                  <td>{{camiseta.nombre}}</td>
+                 <td>{{camiseta.valor}}</td>
                  <td>{{camiseta.descripcion}}</td>
                  <td>
                    <button type="button" class="btn btn-info zoom" ng-click="editarCamiseta(camiseta.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>

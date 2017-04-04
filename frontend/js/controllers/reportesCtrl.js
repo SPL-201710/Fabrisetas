@@ -1,11 +1,27 @@
 app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies","servicioAutores",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies,servicioAutores){
   init();
-
+  $scope.cambiarValor = function(){
+    console.log($scope.artistaSeleccionado);
+  }
   function init(){
     $scope.mostrarFechas = false;
     $scope.usuarioArtista=false;
     $scope.usuarioAdmin=false;
     $scope.fecha = {};
+    $scope.artistaSeleccionado={};
+    //traer temas
+    servicioCategoria.traerCategorias().query().$promise.then((datos)=>{
+      $scope.listaTemas = datos;
+    });
+    //traer artistas
+    servicioAutores.traerAutores().query().$promise.then((datos)=>{
+      $scope.listaArtistas = datos;
+      console.log(datos);
+    },
+    (err)=>{
+      console.log(err);
+    });
+    $scope.listaArtistas
     if(servicioCookies.validarSiEstaAutenticado())
     {
       $scope.usuario = servicioCookies.traerUsuarioAutenticado();
@@ -15,15 +31,14 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         servicioAutores.traerEstampasAutor($scope.usuario.userId).query().$promise.then((datos)=>{
           $scope.listaEstampas = datos;
         });
-        servicioCategoria.traerCategorias().query().$promise.then((datos)=>{
-          $scope.listaTemas = datos;
-        });
          $scope.usuarioArtista=true;
       }
       else
       {
          $scope.usuarioAdmin=true;
-         console.log("esta entreando");
+         servicioHome.traerEstampas().query().$promise.then((datos)=>{
+           $scope.listaEstampas = datos;
+         });
       }
     }
   }
@@ -75,6 +90,8 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
   $scope.generarReporte = function (tipoReporte){
     switch (tipoReporte) {
       case 'fecha':
+      if($scope.usuario.tipo=="Artista")
+      {
         console.log($scope.fecha.inicial);
         let inicial = $scope.fecha.inicial.toISOString().substring(0,10);
         let final = $scope.fecha.final.toISOString().substring(0,10);
@@ -92,6 +109,27 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
           });
           crearPDF();
         })
+      }
+      else
+      {
+        console.log($scope.fecha.inicial);
+        let inicial = $scope.fecha.inicial.toISOString().substring(0,10);
+        let final = $scope.fecha.final.toISOString().substring(0,10);
+
+        servicioReportes.reportePorFechas($scope.artistaSeleccionadoAdmin.userId,inicial,final).query().$promise.then((datos)=>{
+          $scope.tablaReportes = datos;
+          $scope.tablaBasica = true;
+          $scope.tablaArtista=false;
+          $scope.tablaCamiseta = false;
+          $scope.titulos = Object.keys($scope.tablaReportes[0]);
+          console.log($scope.titulos);
+          $scope.cuerpo = new Array();
+          angular.forEach($scope.tablaReportes,function(valor,llave){
+            $scope.cuerpo.push(Object.values(valor));
+          });
+          crearPDF();
+        })
+      }
         break;
       case 'tema':
         console.log($scope.temaSeleccionado);
@@ -110,26 +148,59 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         });
         break;
       case 'estampa':
-        $scope.tablaReportes = servicioReportes.reportePorEstampas(/*estampa*/)/*.get()*/; // estampas del autor que son de ese tema
-        var temp = new Array();
-        temp.push($scope.tablaReportes);
-        $scope.tablaReportes = temp;
-
-        $scope.tablaBasica = true;
-        $scope.tablaArtista=false;
-        $scope.tablaCamiseta = false;
+        servicioReportes.reportePorEstampas($scope.usuario.userId).query().$promise.then((datos)=>{
+          $scope.tablaReportes = datos;
+          $scope.tablaBasica = false;
+          $scope.tablaArtista=true;
+          $scope.tablaCamiseta = false;
+          $scope.titulos = Object.keys($scope.tablaReportes[0]);
+          console.log($scope.titulos);
+          $scope.cuerpo = new Array();
+          angular.forEach($scope.tablaReportes,function(valor,llave){
+            $scope.cuerpo.push(Object.values(valor));
+          });
+          crearPDF();
+        },
+        (err)=>{
+          console.log(err);
+        });
         break;
       case 'artista':
-        $scope.tablaReportes = servicioReportes.reportePorArtista(/*artista*/)/*.query()*/; // estampas del autor - admin
-        $scope.tablaArtista=true;
-        $scope.tablaBasica = false;
-        $scope.tablaCamiseta = false;
+        console.log($scope.artistaSeleccionado);
+        servicioReportes.reportePorEstampas($scope.artistaSeleccionado.userId).query().$promise.then((datos)=>{
+          $scope.tablaReportes = datos;
+          $scope.tablaBasica = false;
+          $scope.tablaArtista=true;
+          $scope.tablaCamiseta = false;
+          $scope.titulos = Object.keys($scope.tablaReportes[0]);
+          console.log($scope.titulos);
+          $scope.cuerpo = new Array();
+          angular.forEach($scope.tablaReportes,function(valor,llave){
+            $scope.cuerpo.push(Object.values(valor));
+          });
+          crearPDF();
+          },
+          (err)=>{
+            console.log(err);
+          });
         break;
       case 'camiseta':
-        $scope.tablaReportes = servicioReportes.reportePorCamiseta(/*camiseta*/)/*.query()*/; // camisetas vendidas - admin
-        $scope.tablaArtista=false;
-        $scope.tablaCamiseta = true;
-        $scope.tablaBasica = false;
+        servicioReportes.reportePorCamiseta().query().$promise.then((datos)=>{
+          $scope.tablaReportes = datos;
+          $scope.tablaArtista=false;
+          $scope.tablaCamiseta = true;
+          $scope.tablaBasica = false;
+          $scope.titulos = Object.keys($scope.tablaReportes[0]);
+          console.log($scope.titulos);
+          $scope.cuerpo = new Array();
+          angular.forEach($scope.tablaReportes,function(valor,llave){
+            $scope.cuerpo.push(Object.values(valor));
+          });
+          crearPDF();
+          },
+          (err)=>{
+            console.log(err);
+          });
         break;
       default:
     }
