@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fabricetas.config.View;
 import com.fabricetas.dao.CamisetaDao;
 import com.fabricetas.model.Camiseta;
+import com.fabricetas.model.Estampa;
+import com.fabricetas.model.Tema;
+import com.fabricetas.model.Texto;
+import com.fabricetas.model.User;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -60,30 +65,45 @@ public class CamisetaController {
 
 	// ------------------- Crear un usuario --------------------------------------------------------
 
-	@RequestMapping(value = "/camiseta", method = RequestMethod.POST)
-	public ResponseEntity<Void> createCamiseta(@RequestBody Camiseta camiseta,
+	@RequestMapping(value = "/camiseta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> createCamiseta(@RequestBody ModelMap camiseta,
 			UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating Camiseta " + camiseta.getNombre());
 
-		if (camisetaDao.get(camiseta.getCamisetaId()) != null) {
-			System.out.println("A Camiseta with name " + camiseta.getNombre()
-					+ " already exist");
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		try
+		{
+			Camiseta currentCamiseta = new Camiseta();
+			
+			Texto texto = new Texto();
+			texto.setTextoId(1);
+			User user = new User();
+			user.setUserId(1);
+			
+			currentCamiseta.setNombre(camiseta.get("nombre").toString());
+			currentCamiseta.setDescripcion(camiseta.get("descripcion").toString());
+			currentCamiseta.setUrlCamiseta(camiseta.get("urlImagen").toString());
+			currentCamiseta.setValor(camiseta.get("valor").toString());
+			currentCamiseta.setColor("Estandar");
+			currentCamiseta.setMaterial("Estandar");
+			currentCamiseta.setUser(user);
+			currentCamiseta.setTexto(texto);
+			
+			camisetaDao.saveOrUpdate(currentCamiseta);
+			
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		}
-
-		camisetaDao.saveOrUpdate(camiseta);
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/camiseta/{id}")
-				.buildAndExpand(camiseta.getCamisetaId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		catch(Exception e)
+		{
+			System.out.print(e.toString());
+			return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED);
+		}
+		
 	}
 
 	// ------------------- Actualizar un usuario --------------------------------------------------------
 
-	@RequestMapping(value = "/camiseta/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/camiseta/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Camiseta> updateCamiseta(@PathVariable("id") long id,
-			@RequestBody Camiseta camiseta) {
+			@RequestBody ModelMap camiseta) {
 		System.out.println("Updating Camiseta " + id);
 
 		Camiseta currentCamiseta = camisetaDao.get(Integer.parseInt(id + ""));
@@ -92,16 +112,23 @@ public class CamisetaController {
 			System.out.println("Camiseta with id " + id + " not found");
 			return new ResponseEntity<Camiseta>(HttpStatus.NOT_FOUND);
 		}
-
-		currentCamiseta.setColor(camiseta.getColor());
-		currentCamiseta.setDescripcion(camiseta.getDescripcion());
-		currentCamiseta.setMaterial(camiseta.getMaterial());
-		currentCamiseta.setNombre(camiseta.getNombre());
-		currentCamiseta.setUrlCamiseta(camiseta.getUrlCamiseta());
-		currentCamiseta.setValor(camiseta.getValor());
-
-		camisetaDao.saveOrUpdate(currentCamiseta);
-		return new ResponseEntity<Camiseta>(currentCamiseta, HttpStatus.OK);
+		
+		try
+		{
+			currentCamiseta.setNombre(camiseta.get("nombre").toString());
+			currentCamiseta.setDescripcion(camiseta.get("descripcion").toString());
+			currentCamiseta.setUrlCamiseta(camiseta.get("urlImagen").toString());
+			currentCamiseta.setValor(camiseta.get("valor").toString());
+			
+			camisetaDao.saveOrUpdate(currentCamiseta);
+			
+			return new ResponseEntity<Camiseta>(currentCamiseta, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Camiseta>(HttpStatus.NOT_MODIFIED);
+		}
+		
 	}
 
 	// ------------------- Borrar un Usuario --------------------------------------------------------
