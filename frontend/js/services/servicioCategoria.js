@@ -1,6 +1,7 @@
 app.service("servicioCategoria",["$http","$q","$resource",function($http,$q,$resource){
 	var vm= this;
-	var dirServ = "http://localhost:8080/fabricetas/";
+	//var dirServ = "http://localhost:8080/fabricetas/";
+	var dirServ = "http://52.88.20.109:8080/fabricetas/";
 
   vm.traerEstampasCategoria = function (tema){
 		return $resource(dirServ + "estampa/tema/:tema",{tema:tema});
