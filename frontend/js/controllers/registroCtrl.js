@@ -6,12 +6,13 @@ app.controller("registroCtrl",["$scope","servicioHome","servicioLogin",function(
     $scope.usuarioNuevo.direccion=[];
     $scope.usuarioNuevo.login = [];
     $scope.mensajeCreacion=false;
-    $scope.usuarioNuevo.direccion.push($scope.direccion);
-    $scope.usuarioNuevo.login.push($scope.login);
-    servicioLogin.crearUsuario().save($scope.usuarioNuevo).$promise.then(function(){
-      $scope.usuarioNuevo=[];
-      $scope.direccion=[];
-      $scope.login=[];
+    //$scope.usuarioNuevo.direccion.push($scope.direccion);
+    //$scope.usuarioNuevo.login.push($scope.login);
+    $scope.usuarioNuevo.userId=null;
+    $scope.usuarioNuevo.ssoId=null;
+    servicioLogin.crearUsuario().save($scope.usuarioNuevo).$promise.then(function(datos){
+      console.log(datos);
+      $scope.usuarioNuevo={};
       $scope.mensajeCreacion=true;
       $scope.mostrarMensajeCreacion = "animated fadeIn";
     });

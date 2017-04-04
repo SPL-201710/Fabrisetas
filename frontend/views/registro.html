@@ -9,21 +9,26 @@
             <label>Datos personales</label>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-              <input required ng-model="usuarioNuevo.nombre" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
+              <input required ng-model="usuarioNuevo.name" type="text" class="form-control" placeholder="Usuario" aria-describedby="sizing-addon1">
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
+              <input required ng-model="usuarioNuevo.pass" type="password" class="form-control" placeholder="Contraseña" aria-describedby="sizing-addon1">
             </div>
             <br>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-              <input required  ng-model="usuarioNuevo.identificacion" type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1">
+              <input required  ng-model="usuarioNuevo.identificationNumber" type="number" class="form-control" placeholder="identificacion" aria-describedby="sizing-addon1">
             </div>
             <br>
-            <select required  ng-model="direccion.pais" class="form-control">
-              <option value="">Pais</option>
-              <option value="Colombia">Colombia</option>
-              <option value="Argentina">Argentina</option>
+            <select required  ng-model="usuarioNuevo.identificationType" class="form-control">
+              <option value="">Tipo documento</option>
+              <option value="CC">Cédula de Ciudadania</option>
+              <option value="CE">Cédula extrajeria</option>
             </select>
             <br>
-            <select required  ng-model="direccion.departamento" class="form-control">
+          <!--   <select required  ng-model="direccion.departamento" class="form-control">
               <option value="">Departamento</option>
               <option value="Bogotá DC" selected>Bogotá DC</option>
               <option value="2">Otro</option>
@@ -35,27 +40,26 @@
               <option value="2">Otro</option>
             </select>
             <br>
-            <div class="input-group">
+           <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-street-view" aria-hidden="true"></i></span>
               <input required  ng-model="direccion.direccion" type="text" class="form-control" placeholder="Direccion" aria-describedby="sizing-addon1">
-            </div>
-<br>
-            <label>Datos de inicio de sesión</label>
+            </div> -->
+            <br>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-              <input required  ng-model="login.usuario" type="text" class="form-control" placeholder="Login" aria-describedby="sizing-addon1">
+              <input required  ng-model="usuarioNuevo.firstName" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
             </div>
             <br>
             <div class="input-group">
               <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-              <input required  ng-model="login.pass" type="password" class="form-control" placeholder="Contraseña" aria-describedby="sizing-addon1">
+              <input required  ng-model="usuarioNuevo.lastName" type="text" class="form-control" placeholder="Apelido" aria-describedby="sizing-addon1">
             </div>
             <br>
             <label>¿Qué tipo de usuario eres?</label>
             <select required  ng-model="usuarioNuevo.tipo" class="form-control">
               <option value="">Selecciona</option>
-              <option value="1" selected>Comprador</option>
-              <option value="2">Artista</option>
+              <option value="Cliente" selected>Cliente</option>
+              <option value="Artista">Cliente</option>
             </select>
 
             <div class="input-group col-md-12">

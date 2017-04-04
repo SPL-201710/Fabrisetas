@@ -13,6 +13,9 @@ app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resou
 	vm.traerAutores = function (autor){
 		return $resource(dirServ + "user/artistas");
 	}
+	vm.cargarEstampa = function (){
+		return $resource(dirServ + "estampa");
+	}
 	vm.cargarNuevaEstampa = function(file,name,detalle){
 			var deferred = $q.defer();
 			var formData = new FormData();

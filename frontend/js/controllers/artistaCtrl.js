@@ -33,7 +33,7 @@
    $scope.cancelar = function (){
      $scope.accionEstampa="Guardar estampa";
      $scope.botonCancelar = false;
-     $scope.estampaNueva =[];
+     $scope.estampaNueva ={};
    }
 
    $scope.fileReaderSupported = window.FileReader != null;
@@ -60,16 +60,16 @@
      if ($scope.accionEstampa=="Actualizar estampa")
      {
        //falta poner servicios
+
      }
      else
      {
-       var name = $scope.name;
-       var file = $scope.file;
-       console.log(file);
-       servicioAutores.cargarNuevaEstampa(file,name,$scope.estampaNueva).then(function(datos){
-         console.log(datos);
-       })
-       .catch(function(err){
+       $scope.estampaNueva.userId =  $scope.artista.userId;
+       $scope.estampaNueva.urlimagen = $scope.thumbnail.dataUrl;
+       console.log($scope.estampaNueva);
+       servicioAutores.cargarEstampa().save($scope.estampaNueva).$promise.then((datos)=>{
+          console.log(datos);
+       },(err)=>{
          console.log(err);
        });
      }

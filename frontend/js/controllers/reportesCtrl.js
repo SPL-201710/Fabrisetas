@@ -1,18 +1,18 @@
-app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies){
+app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies","servicioAutores",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies,servicioAutores){
   init();
 
   function init(){
     $scope.mostrarFechas = false;
     $scope.usuarioArtista=false;
-    $scope.usuarioAdmin=true;
+    $scope.usuarioAdmin=false;
 
     if(servicioCookies.validarSiEstaAutenticado())
     {
       $scope.usuario = servicioCookies.traerUsuarioAutenticado();
-      if($scope.usuario==2)
+      if($scope.usuario.tipo=="Artista")
       {
         // usuario artista
-        servicioAutores.traerEstampasAutor($scope.usuario.id).query().$promise.then((datos)=>{
+        servicioAutores.traerEstampasAutor($scope.usuario.userId).query().$promise.then((datos)=>{
           $scope.listaEstampas = datos;
         });
         servicioCategoria.traerCategorias().query().$promise.then((datos)=>{
@@ -23,6 +23,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
       else
       {
          $scope.usuarioAdmin=true;
+         console.log("esta entreando");
       }
     }
   }
@@ -90,7 +91,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         var temp = new Array();
         temp.push($scope.tablaReportes);
         $scope.tablaReportes = temp;
-        
+
         $scope.tablaBasica = true;
         $scope.tablaArtista=false;
         $scope.tablaCamiseta = false;

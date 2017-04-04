@@ -2,7 +2,9 @@ app.controller("verEstampaCtrl",["$scope","servicioHome","$routeParams","servici
   init();
   function init (){
     let id = $routeParams.id;
-    $scope.estampa = servicioHome.traerEstampasPorId(id).get();
+    servicioHome.traerEstampasPorId(id).get().$promise.then((datos)=>{
+        $scope.estampa = datos;
+    });
     $scope.temas = servicioCategoria.traerCategorias().query();
   }
   $scope.irSeleccionCamisa = function (){
