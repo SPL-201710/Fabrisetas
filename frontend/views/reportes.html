@@ -13,15 +13,16 @@
         <div class="col-md-12" ng-if="fechas">
           <h6>Seleccione un rango de fechas</h6>
           <label>Fecha inicial</label>
-          <input type="date" name="" value="" ng-model="fecha.inicial" class="form-control">
+          <input type="date" id="exampleInput" name="input" ng-model="fecha.inicial" placeholder="yyyy-MM-dd" min="2013-01-01" required />
           <label>Fecha final</label>
-          <input type="date" name="" value="" ng-model="fecha.final" class="form-control" >
+          <input type="date" id="exampleInput" name="input" ng-model="fecha.final" placeholder="yyyy-MM-dd" min="2013-01-01" required />
           <br>
           <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('fecha')">Generar reporte</button>
         </div>
-        <div class="col-md-12" ng-if="temas">
+        <div class="col-md-12" ng-show="temas">
           <h6>Seleccione tema</h6>
           <select ng-model="temaSeleccionado" ng-options="tema as tema.nombre for tema in listaTemas track by tema.temaId" class="form-control">
+            <option value="">Seleccione tema</option>
           </select>
           <br>
           <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('tema')">Generar reporte</button>
