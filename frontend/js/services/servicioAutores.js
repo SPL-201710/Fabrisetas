@@ -16,6 +16,13 @@ app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resou
 	vm.cargarEstampa = function (){
 		return $resource(dirServ + "estampa");
 	}
+
+	vm.actualizarEstampa = function (estampaId){
+		return $resource(dirServ + "estampa/:id",{id:estampaId}, {update : {method : "PUT"}});
+
+	}
+
+	/* metodo viejo no funciona*/
 	vm.cargarNuevaEstampa = function(file,name,detalle){
 			var deferred = $q.defer();
 			var formData = new FormData();

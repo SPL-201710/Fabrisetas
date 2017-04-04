@@ -6,6 +6,8 @@
      $scope.thumbnail = {};
      $scope.botonCancelar = false;
      $scope.accionEstampa="Guardar estampa";
+     $scope.estampaNuevaCargada = false;
+     $scope.estampaActualizada = false;
      if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
@@ -60,7 +62,14 @@
      if ($scope.accionEstampa=="Actualizar estampa")
      {
        //falta poner servicios
+       console.log($scope.estampaNueva);
+       $scope.estampaNueva.userId =  $scope.artista.userId;
+       typeof $scope.thumbnail.dataUrl ==='undefined' ? "":$scope.estampaNueva.urlimagen = $scope.thumbnail.dataUrl;
 
+       servicioAutores.actualizarEstampa($scope.estampaNueva.estampaId).update($scope.estampaNueva).$promise.then((datos)=>{
+         console.log(datos);
+         $scope.estampaActualizada = true;
+       });
      }
      else
      {
@@ -69,6 +78,7 @@
        console.log($scope.estampaNueva);
        servicioAutores.cargarEstampa().save($scope.estampaNueva).$promise.then((datos)=>{
           console.log(datos);
+          $scope.estampaNuevaCargada = true;
        },(err)=>{
          console.log(err);
        });
