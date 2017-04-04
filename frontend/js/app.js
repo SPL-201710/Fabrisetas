@@ -65,6 +65,10 @@ app.config(function($routeProvider){
         controller:"adminCamisetasCtrl",
         templateUrl:"views/adminCamisetas.html"
     })
+    .when("/adminUsuarios",{
+        controller:"adminUsuariosCtrl",
+        templateUrl:"views/adminUsuarios.html"
+    })
     .otherwise({
       redirectTo: '/'
     });

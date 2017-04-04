@@ -78,6 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/controllers/reportesCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/adminTemasCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/adminCamisetasCtrl.js" charset="utf-8"></script>
+		<script src="js/controllers/adminUsuariosCtrl.js" charset="utf-8"></script>
 
 		<script type="text/javascript" src="js/services/servicioHome.js"></script>
 		<script type="text/javascript" src="js/services/servicioAutores.js"></script>
@@ -86,6 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/services/servicioLogin.js" charset="utf-8"></script>
 		<script src="js/services/servicioReportes.js" charset="utf-8"></script>
 		<script src="js/services/servicioCamiseta.js" charset="utf-8"></script>
+		<script src="js/services/servicioAdminUsuarios.js" charset="utf-8"></script>
 
 		<script src="js/directives/cargarImagenes.js" charset="utf-8"></script>
 
@@ -141,7 +143,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul> -->
 					</li>
 					<li class="dropdown1"><a href="#!/navegar"><i class="fa fa-bookmark" aria-hidden="true"></i> Estampas</a>
-						<ul class="dropdown2">
+						<ul class="dropdown2" style="z-index:3;">
 							<li><a href="#!/navegar/rating">Rating</a></li>
 							<li><a href="#!/categoria-estampas">Temas</a></li>
 							<li><a href="#!/navegar/popularidad">Las mas populares</a></li>
@@ -156,20 +158,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="women.html">Beauty & Wellness</a></li>
 						</ul>
 					</li>
+					<li><a href="#!/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a></li>
 					<li ng-if="tipoUsuario=='Administrador'"><i class="fa fa-bookmark" aria-hidden="true"></i> Administrar
 						<ul class="dropdown2">
 							<li><a href="#!/adminTemas">Temas</a></li>
 							<li><a href="women.html">Recategorizar Estampa</a></li>
-							<li><a href="women.html">Usuario</a></li>
+							<li><a href="#/adminUsuarios">Usuario</a></li>
 							<li><a href="#!/adminCamisetas">Camisetas</a></li>
 						</ul>
 					</li>
 
 					<!--<li><a href="about.html"><i class="fa fa-users" aria-hidden="true"></i> Nosotros</a></li>
 					<li><a href="404.html"><i class="fa fa-commenting-o" aria-hidden="true"></i> Contactenos</a></li> -->
-					<li><a href="#!/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a></li>
 					<li ng-if="tipoUsuario=='Artista'"><a href="#!/artista"  style="color:blue;"><i class="fa fa-bookmark" aria-hidden="true"></i> Mis estampas</a></li>
-					<li ng-if="tipoUsuario=='Artista'"><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
+					<li ng-if="tipoUsuario=='Artista' || tipoUsuario=='Administrador' "><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
