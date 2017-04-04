@@ -123,3 +123,57 @@
     "total":22000
   }
 ]
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++ JSON DEL CARRITO PARA LA FACTURA ++++++++++++++++++++++++++++++++++++++//
+// ++++++++++++++++++++++++++++++++++++++++ JSON DEL CARRITO PARA LA FACTURA ++++++++++++++++++++++++++++++++++++++//
+// ++++++++++++++++++++++++++++++++++++++++ JSON DEL CARRITO PARA LA FACTURA ++++++++++++++++++++++++++++++++++++++//
+ 
+// para el ejemplo el carrito lleva dos camisas y dos esttampas
+[
+	[
+		{
+			"camisetaId": 1,
+			"nombre": "Ligera",
+			"descripcion": "Camiseta Ligera",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce//uploaded/products/camiseta-cuello-v/camiseta_cuello_v_blanco_frente.png",
+			"material": "Algodon",
+			"color": "Azul",
+			"valor": "50000",
+			"urlCamiseta": "https://jollyjoker.co/tshirtecommerce//uploaded/products/camiseta-cuello-v/camiseta_cuello_v_blanco_frente.png"
+		},
+		{
+			"estampaId": 1,
+			"nombre": "Estampa 1",
+			"descripcion": "Descripcion Estampa 1",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-5c6287be147892351658358183410311937.svg",
+			"rating": "5",
+			"valor": "2000",
+			"precio": "2000",
+			"urlEstampa": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-5c6287be147892351658358183410311937.svg"
+		}
+	],
+	[
+		{
+			"camisetaId": 5,
+			"nombre": "Ligera4",
+			"descripcion": "Camiseta Ligera",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce//uploaded/products/camiseta-cuello-v/camiseta_cuello_v_azul_turqui_frente.png",
+			"material": "Algodon",
+			"color": "Azul",
+			"valor": "50000",
+			"urlCamiseta": "https://jollyjoker.co/tshirtecommerce//uploaded/products/camiseta-cuello-v/camiseta_cuello_v_azul_turqui_frente.png"
+		},
+		{
+			"estampaId": 6,
+			"nombre": "Estampa 5",
+			"descripcion": "Descripcion Estampa 5",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-1a77befc147892338329297399510133442.svg",
+			"rating": "5",
+			"valor": "25000",
+			"precio": "25000",
+			"urlEstampa": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-1a77befc147892338329297399510133442.svg"
+		}
+	]
+]
