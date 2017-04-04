@@ -59,7 +59,7 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 		}
 	}
 	function init(){
-		if(!servicioCookies.validarSiEstaAutenticado())
+		if(servicioCookies.validarSiEstaAutenticado())
 		{
 			$scope.listaUsuarios = servicioAdminUsuarios.traerUsuarios().query().$promise.then((datos)=>{
 				$scope.listaUsuarios = datos;
@@ -72,7 +72,7 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 		else
 		{
 				// si no está logeado lo retorna a la pagina inicial
-				//$location.path("/");
+				$location.path("/");
 		}
 	}
 }]);
