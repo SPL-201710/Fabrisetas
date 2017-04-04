@@ -1,4 +1,4 @@
- app.controller('appCtrl',["$scope","servicioCookies","$rootScope","$location",function($scope,servicioCookies,$rootScope,$location){
+ app.controller('appCtrl',["$scope","servicioCookies","$rootScope","$location","$window",function($scope,servicioCookies,$rootScope,$location,$window){
    $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
      $scope.usuarioLogueado={};
      $scope.usuarioLogueado = servicioCookies.traerUsuarioAutenticado();
@@ -26,6 +26,7 @@
    });
    $scope.cerrarSesion= function (){
      servicioCookies.eliminarUsuarioAutenticado();
+     $window.location.reload();
      $location.path("/");
    }
  }]);

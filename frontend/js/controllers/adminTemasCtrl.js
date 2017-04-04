@@ -6,6 +6,9 @@
      $scope.thumbnail = {};
      $scope.botonCancelar = false;
      $scope.accionRealizar = "Guardar Tema";
+     $scope.temaNuevoCargado = false;
+     $scope.temaActualizado = false;
+
      if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
@@ -29,13 +32,15 @@
      $scope.botonCancelar = true;
      $scope.temaNuevo = $scope.temas[indice];
      $scope.thumbnail.dataUrl = $scope.temas[indice].urlTema;
+     $scope.temaNuevoCargado = false;
+     $scope.temaActualizado = false;
    }
 
    $scope.cancelar = function (){
      $scope.accionRealizar = "Guardar tema";
      $scope.botonCancelar = false;
      $scope.temaNuevo ={};
-     $scope.thumbnail.dataUrl = {};
+     $scope.thumbnail ={};
    }
 
    $scope.fileReaderSupported = window.FileReader != null;
@@ -51,6 +56,8 @@
                    $timeout(function(){
                      // base64 para usar en el hmtl
                       $scope.thumbnail.dataUrl = e.target.result;
+                      $scope.temaNuevoCargado = false;
+                      $scope.temaActualizado = false;
                    });
                }
            });
@@ -64,6 +71,7 @@
         $scope.temaNuevo.urlTema = $scope.thumbnail.dataUrl;
         console.log($scope.temaNuevo);
         servicioCategoria.actualizarCategoria($scope.temaNuevo.temaId).update($scope.temaNuevo).$promise.then(function(){
+          $scope.temaActualizado = true;
           $scope.cancelar();
        });
      }
@@ -76,6 +84,7 @@
        console.log($scope.temaNuevo);
        servicioCategoria.crearCategoria().save($scope.temaNuevo).$promise.then(function(datos){
          console.log(datos);
+         $scope.temaNuevoCargado = true;
          recargarTemas();
          $scope.cancelar();
        })

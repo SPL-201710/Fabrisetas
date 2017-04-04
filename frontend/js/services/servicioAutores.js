@@ -1,6 +1,8 @@
 app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resource){
 	var vm= this;
-  var dirServ = "http://localhost:8080/fabricetas/";
+  //var dirServ = "http://52.88.20.109:8080/fabricetas/";
+	var dirServ = "http://localhost:8080/fabricetas/";
+
 	vm.traerEstampasAutor = function (autor){
 		return $resource(dirServ + "estampa/autor/:id",{id:autor});
 	}
@@ -13,6 +15,16 @@ app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resou
 	vm.traerAutores = function (autor){
 		return $resource(dirServ + "user/artistas");
 	}
+	vm.cargarEstampa = function (){
+		return $resource(dirServ + "estampa");
+	}
+
+	vm.actualizarEstampa = function (estampaId){
+		return $resource(dirServ + "estampa/:id",{id:estampaId}, {update : {method : "PUT"}});
+
+	}
+
+	/* metodo viejo no funciona*/
 	vm.cargarNuevaEstampa = function(file,name,detalle){
 			var deferred = $q.defer();
 			var formData = new FormData();
