@@ -13,4 +13,8 @@ app.service("servicioAdminUsuarios",["$http","$q","$resource",function($http,$q,
   vm.crearUsuario = function (){
     return $resource(dirServ+"user");
   }
+
+  vm.eliminarUsuario = function (userId){
+    return $resource(dirServ+"user/:id",{id:userId})
+  }
 }]);

@@ -14,10 +14,23 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 		$scope.titulo="Creación de usuario";
 		$scope.nuevoOActualizar = true;
 		$scope.accion="crear";
-		$scope.usuarioSeleccionado=[];
+		$scope.usuarioSeleccionado={};
 		$scope.usuarioSeleccionado.userId=null;
 		$scope.usuarioSeleccionado.ssoId=null;
 		console.log($scope.usuarioSeleccionado);
+	}
+
+	$scope.eliminarUsuario = function (userId){
+		servicioAdminUsuarios.eliminarUsuario(userId).delete().$promise.then((datos)=>{
+			$scope.listaUsuarios.filter(function(usuario){
+						// si retorna falso la funcion filter elimina el objeto
+						return usuario.userId!==userId;
+			});
+		},
+		(err)=>{
+			alert("err");
+			console.log(err);
+		});
 	}
 
 	$scope.crearOActualizarUsuario = function (){
@@ -34,7 +47,15 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 		else if ($scope.accion=="crear")
 		{
 			console.log($scope.usuarioSeleccionado);
-			servicioAdminUsuarios.crearUsuario().save($scope.usuarioSeleccionado);
+			servicioAdminUsuarios.crearUsuario().save($scope.usuarioSeleccionado).$promise.then((datos)=>{
+				$scope.nuevoOActualizar=false;
+				 $scope.listaUsuarios.push(datos)
+				console.log(datos);
+			},
+			(err)=>{
+				alert("error");
+				console.log(err);
+			});
 		}
 	}
 	function init(){

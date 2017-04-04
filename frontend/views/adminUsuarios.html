@@ -21,7 +21,7 @@
                 <td>{{usuario.tipo}}</td>
                 <td>{{usuario.email==null ? 'No registrado':usuario.email }}</td>
                 <td>
-                  <button type="button" name="button" class="btn btn-danger"> <i class="fa fa-times" aria-hidden="true"></i> </button>
+                  <button type="button" name="button" class="btn btn-danger"> <i class="fa fa-times" aria-hidden="true" ng-click="eliminarUsuario(usuario.userId);"></i> </button>
                 </td>
                 <td>
                   <button type="button" name="button" class="btn btn-warning" ng-click="editarUsuario(usuario.indice);"> <i class="fa fa-pencil" aria-hidden="true"></i> </button>
