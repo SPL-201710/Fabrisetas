@@ -101,7 +101,7 @@ public class UserController {
 
 	// ------------------- Borrar un Usuario --------------------------------------------------------
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
 		System.out.println("Fetching & Deleting User with id " + id);
 
@@ -113,7 +113,7 @@ public class UserController {
 		}
 
 		userDao.delete(Integer.parseInt(id + ""));
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<User>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/artistas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

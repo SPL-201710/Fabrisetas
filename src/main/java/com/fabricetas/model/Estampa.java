@@ -18,41 +18,49 @@ public class Estampa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@JsonView(View.Summary.class)
-    @Id @GeneratedValue	
+    @Id @GeneratedValue
     @Column(name = "ESTAMPA_ID")
 	private Integer estampaId;
 
 	@JsonView(View.Summary.class)
-    @Column(name = "NOMBRE")  
+    @Column(name = "NOMBRE")
 	private String nombre;
 
 	@JsonView(View.Summary.class)
-    @Column(name = "DESCRIPCION")  
+    @Column(name = "DESCRIPCION")
 	private String descripcion;
 
 	@JsonView(View.Summary.class)
-    @Column(name = "URL_ESTAMPA")  
+    @Column(name = "URL_ESTAMPA")
 	private String urlImagen;
 
 	@JsonView(View.Summary.class)
-    @Column(name = "RATING")  
+    @Column(name = "RATING")
 	private String rating;
 
 	@JsonView(View.Summary.class)
-    @Column(name = "PRECIO")  
+    @Column(name = "PRECIO")
 	private String valor;
-	
+
 	@JsonView(View.Summary.class)
 	@JsonBackReference
     @ManyToOne
 	@JoinColumn(name="USER_ID", nullable = false)
     private User user;
-	
+
 	@JsonView(View.Summary.class)
 	@JsonBackReference
-    @ManyToOne
+    @ManyToOne//(fetch = FetchType.EAGER)
 	@JoinColumn(name="TEMA_ID", nullable = false)
     private Tema tema ;
+
+	@JsonView(View.Summary.class)
+	@Transient
+	private Integer temaId;
+
+	@JsonView(View.Summary.class)
+	@Transient
+	private String temaNombre;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "estampa", cascade = CascadeType.ALL)
@@ -113,13 +121,29 @@ public class Estampa implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public Tema getTema() {
 		return tema;
 	}
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Integer getTemaId() {
+		return temaId;
+	}
+
+	public void setTemaId(Integer temaId) {
+		this.temaId = temaId;
+	}
+
+	public String getTemaNombre() {
+		return temaNombre;
+	}
+
+	public void setTemaNombre(String temaNombre) {
+		this.temaNombre = temaNombre;
 	}
 
 	public String getUrlImagen() {

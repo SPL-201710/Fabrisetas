@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fabricetas.config.View;
 import com.fabricetas.dao.EstampaDao;
 import com.fabricetas.model.Estampa;
+import com.fabricetas.model.Tema;
+import com.fabricetas.model.User;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -31,7 +34,7 @@ public class EstampaController {
 //	@Autowired
 //	private EstampaService estampaService;
 
-	// ------------------- Obtener todos los usuarios --------------------------------------------------------
+	// ------------------- Obtener todas las estampas --------------------------------------------------------
 
 	@JsonView(View.Summary.class)
 	@RequestMapping(value = "/estampa", method = RequestMethod.GET)
@@ -42,10 +45,14 @@ public class EstampaController {
 		if (estampas.isEmpty()) {
 			return new ResponseEntity<List<Estampa>>(HttpStatus.NO_CONTENT);
 		}
+		for(Estampa estampa: estampas){
+			estampa.setTemaId(estampa.getTema().getTemaId());
+			estampa.setTemaNombre(estampa.getTema().getNombre());
+		}
 		return new ResponseEntity<List<Estampa>>(estampas, HttpStatus.OK);
 	}
 
-	// ------------------- Obtener un usuario --------------------------------------------------------
+	// ------------------- Obtener una estmpa --------------------------------------------------------
 
 	@RequestMapping(value = "/estampa/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Estampa> getEstampa(@PathVariable("id") long id) {
@@ -55,35 +62,48 @@ public class EstampaController {
 			System.out.println("Estampa with id " + id + " not found");
 			return new ResponseEntity<Estampa>(HttpStatus.NOT_FOUND);
 		}
+		estampa.setTemaId(estampa.getTema().getTemaId());
+		estampa.setTemaNombre(estampa.getTema().getNombre());
 		return new ResponseEntity<Estampa>(estampa, HttpStatus.OK);
 	}
 
-	// ------------------- Crear un usuario --------------------------------------------------------
+	// ------------------- Crear una estampa --------------------------------------------------------
 
-	@RequestMapping(value = "/estampa", method = RequestMethod.POST)
-	public ResponseEntity<Void> createEstampa(@RequestBody Estampa estampa,
-			UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating Estampa " + estampa.getNombre());
-
-		if (estampaDao.get(estampa.getEstampaId()) != null) {
-			System.out.println("A Estampa with name " + estampa.getNombre()
-					+ " already exist");
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+	@RequestMapping(value = "/estampa", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> createEstampa(@RequestBody ModelMap estampa,
+	  UriComponentsBuilder ucBuilder) {
+		
+		try{
+			Estampa currentEstampa = new Estampa();
+	
+			Tema tema = new Tema();
+			tema.setTemaId(Integer.valueOf(estampa.get("temaId").toString()));
+			User user = new User();
+			user.setUserId(Integer.valueOf(estampa.get("userId").toString()));
+			
+			currentEstampa.setDescripcion(estampa.get("descripcion").toString());
+			currentEstampa.setNombre(estampa.get("nombre").toString());
+			currentEstampa.setPrecio(estampa.get("valor").toString());
+			currentEstampa.setUrlEstampa(estampa.get("urlImagen").toString());
+			currentEstampa.setTema(tema);
+			currentEstampa.setUser(user);
+	
+			estampaDao.saveOrUpdate(currentEstampa);
+	
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		}
-
-		estampaDao.saveOrUpdate(estampa);
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/estampa/{id}")
-				.buildAndExpand(estampa.getEstampaId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		catch(Exception e)
+		{
+			return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED);
+		}
+		
 	}
 
-	// ------------------- Actualizar un usuario --------------------------------------------------------
+	// ------------------- Actualizar una estampa --------------------------------------------------------
 
-	@RequestMapping(value = "/estampa/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/estampa/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Estampa> updateEstampa(@PathVariable("id") long id,
-			@RequestBody Estampa estampa) {
+			@RequestBody ModelMap estampa) {
 		System.out.println("Updating Estampa " + id);
 
 		Estampa currentEstampa = estampaDao.get(Integer.parseInt(id + ""));
@@ -92,18 +112,31 @@ public class EstampaController {
 			System.out.println("Estampa with id " + id + " not found");
 			return new ResponseEntity<Estampa>(HttpStatus.NOT_FOUND);
 		}
-
-		currentEstampa.setDescripcion(estampa.getDescripcion());
-		currentEstampa.setNombre(estampa.getNombre());
-		currentEstampa.setPrecio(estampa.getPrecio());
-		currentEstampa.setRating(estampa.getRating());
-		currentEstampa.setUrlEstampa(estampa.getUrlEstampa());
-
-		estampaDao.saveOrUpdate(currentEstampa);
-		return new ResponseEntity<Estampa>(currentEstampa, HttpStatus.OK);
+		
+		try
+		{
+			Tema tema = new Tema();
+			tema.setTemaId(Integer.valueOf(estampa.get("temaId").toString()));
+			User user = new User();
+			user.setUserId(Integer.valueOf(estampa.get("userId").toString()));
+			
+			currentEstampa.setDescripcion(estampa.get("descripcion").toString());
+			currentEstampa.setNombre(estampa.get("nombre").toString());
+			currentEstampa.setPrecio(estampa.get("valor").toString());
+			currentEstampa.setUrlEstampa(estampa.get("urlImagen").toString());
+			currentEstampa.setTema(tema);
+			currentEstampa.setUser(user);
+	
+			estampaDao.saveOrUpdate(currentEstampa);
+			return new ResponseEntity<Estampa>(currentEstampa, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Estampa>(HttpStatus.NOT_MODIFIED);
+		}
 	}
 
-	// ------------------- Borrar un Usuario --------------------------------------------------------
+	// ------------------- Borrar una estampa --------------------------------------------------------
 
 	@RequestMapping(value = "/estampa/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Estampa> deleteEstampa(@PathVariable("id") long id) {
@@ -115,9 +148,15 @@ public class EstampaController {
 					+ " not found");
 			return new ResponseEntity<Estampa>(HttpStatus.NOT_FOUND);
 		}
-
-		estampaDao.delete(Integer.parseInt(id + ""));
-		return new ResponseEntity<Estampa>(HttpStatus.NO_CONTENT);
+		try
+		{
+			estampaDao.delete(Integer.parseInt(id + ""));
+			return new ResponseEntity<Estampa>(HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Estampa>(HttpStatus.NOT_MODIFIED);
+		}
 	}
 	// -- Filtros adicionales estampas
 	
@@ -126,8 +165,12 @@ public class EstampaController {
 	public ResponseEntity<List<Estampa>> listAllEstampasAutor(@PathVariable("id") long id) {
 		List<Estampa> estampas = estampaDao.listXAutor(Integer.parseInt(id + ""));
 		
-		if (estampas.isEmpty()) {
+		if ((estampas == null) || estampas.isEmpty()) {
 			return new ResponseEntity<List<Estampa>>(HttpStatus.NO_CONTENT);
+		}
+		for(Estampa estampa: estampas){
+			estampa.setTemaId(estampa.getTema().getTemaId());
+			estampa.setTemaNombre(estampa.getTema().getNombre());
 		}
 		return new ResponseEntity<List<Estampa>>(estampas, HttpStatus.OK);
 	}
@@ -137,20 +180,13 @@ public class EstampaController {
 	public ResponseEntity<List<Estampa>> listAllEstampasTema(@PathVariable("id") long id) {
 		List<Estampa> estampas = estampaDao.listXTema(Integer.parseInt(id + ""));
 		
-		if (estampas.isEmpty()) {
+		if ((estampas == null) || estampas.isEmpty()) {
 			return new ResponseEntity<List<Estampa>>(HttpStatus.NO_CONTENT);
+		}
+		for(Estampa estampa: estampas){
+			estampa.setTemaId(estampa.getTema().getTemaId());
+			estampa.setTemaNombre(estampa.getTema().getNombre());
 		}
 		return new ResponseEntity<List<Estampa>>(estampas, HttpStatus.OK);
 	}
-	
-	// ------------------- Borrar todos los usuarios --------------------------------------------------------
-
-//	@RequestMapping(value = "/estampa", method = RequestMethod.DELETE)
-//	public ResponseEntity<Estampa> deleteAllEstampas() {
-//		System.out.println("Deleting All Estampas");
-//
-//		estampaService.deleteAllEstampas();
-//		return new ResponseEntity<Estampa>(HttpStatus.NO_CONTENT);
-//	}
-
 }
