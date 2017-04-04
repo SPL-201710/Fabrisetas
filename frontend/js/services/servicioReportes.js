@@ -6,83 +6,21 @@ app.service("servicioReportes",["$http","$q","$resource",function($http,$q,$reso
   vm.reportePorFechas = function (artistaId,fechaInicial,fechaFinal){
 		var url = artistaId+"_"+fechaInicial+"_"+fechaFinal;
     return $resource(dirServ+"reporte_artista_fecha/"+url);
-    /*let objeto =[
-      {
-        "nombre":"Devil may Cry",
-        "tema":"Videojuegos",
-        "valor":20000,
-        "cantidad":4,
-        "total":80000
-      },
-      {
-        "nombre":"Estampa de luz",
-        "tema":"Musica",
-        "valor":22000,
-        "cantidad":1,
-        "total":22000
-      },
-      {
-        "nombre":"Harry potter",
-        "tema":"Peliculas",
-        "valor":10000,
-        "cantidad":4,
-        "total":40000
-      },
-      {
-        "nombre":"Angular",
-        "tema":"Tecnología",
-        "valor":15000,
-        "cantidad":4,
-        "total":60000
-      }
-    ]*/
   }
 
 	vm.reportePorTemas = function (artistaId,temaId){
 		var url= "/reporte_artista_tema/"+artistaId+"_"+temaId;
 		return $resource(dirServ+url);
-    /*let objeto =[
-      {
-        "nombre":"Devil may Cry",
-        "tema":"Videojuegos",
-        "valor":20000,
-        "cantidad":4,
-        "total":80000
-      },
-      {
-        "nombre":"League of Legends",
-        "tema":"Videojuegos",
-        "valor":22000,
-        "cantidad":1,
-        "total":22000
-      },
-      {
-        "nombre":"Assasins creed",
-        "tema":"Videojuegos",
-        "valor":10000,
-        "cantidad":4,
-        "total":40000
-      },
-      {
-        "nombre":"Super Mario Bros",
-        "tema":"Videojuegos",
-        "valor":15000,
-        "cantidad":4,
-        "total":60000
-      }
-    ]*/
 	}
 
-	vm.reportePorEstampas = function (estampaId){
-		// return $resource("http://52.88.20.109:8080/fabricetas/estampa"); deberia ser un get
-    let objeto ={
-        "nombre":"Devil may Cry",
-        "tema":"Videojuegos",
-        "valor":20000,
-        "cantidad":4,
-        "total":80000
-      };
-    return objeto;
+	vm.reportePorEstampas = function (userId){
+		var url ="reporte_estampas_"+userId;
+		return $resource(dirServ+url);
+	}
+
+	vm.reportePorEstampasAdmin =function (){
+		var url ="reporte_estampas";
+		return $resource(dirServ+url);
 	}
 
 	vm.reportePorArtista = function (artistaId){
@@ -124,43 +62,8 @@ app.service("servicioReportes",["$http","$q","$resource",function($http,$q,$reso
     return objeto;
 	}
 
-	vm.reportePorCamiseta = function (camisetaId){
-		// return $resource("http://52.88.20.109:8080/fabricetas/estampa"); deberia ser un post
-    let objeto =[
-      {
-        "nombre":"Camiseta ligera",
-        "color":"rojo",
-				"talla":"S",
-        "valor":20000,
-        "cantidad":4,
-        "total":80000
-      },
-      {
-        "nombre":"Camiseta esqueleto",
-				"color":"azul",
-				"talla":"L",
-        "valor":22000,
-        "cantidad":1,
-        "total":22000
-      },
-      {
-				"nombre":"Camiseta cuello v",
-				"color":"Gris",
-				"talla":"M",
-        "valor":10000,
-        "cantidad":4,
-        "total":40000
-      },
-      {
-				"nombre":"Camiseta comun",
-				"color":"verde",
-				"talla":"M",
-        "valor":15000,
-        "cantidad":4,
-        "total":60000
-      }
-    ]
-    return objeto;
+	vm.reportePorCamiseta = function (){
+		return $resource(dirServ+"reporte_camisetas");
 	}
 
 }]);
