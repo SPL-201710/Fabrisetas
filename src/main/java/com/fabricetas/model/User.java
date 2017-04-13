@@ -1,7 +1,9 @@
 package com.fabricetas.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fabricetas.config.View;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="USER")
@@ -30,6 +35,10 @@ public class User implements Serializable {
 	@JsonView(View.Summary.class)
     @Column(name = "NAME")
     private String name;
+        
+	@JsonView(View.Summary.class)
+    @Column(name = "PASSWORD")
+    private String password;        
 	
 	@JsonView(View.Summary.class)
     @Column(name = "IDENTIFICATION_TYPE")
@@ -38,14 +47,38 @@ public class User implements Serializable {
 	@JsonView(View.Summary.class)
     @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
-	
+
 	@JsonView(View.Summary.class)
     @Column(name = "TIPO")
     private String tipo;
 
 	@JsonView(View.Summary.class)
-	@JsonManagedReference
-	@OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @Column(name="SSO_ID")
+    private String ssoId;
+
+	@JsonView(View.Summary.class)
+	@Column(name="FIRST_NAME")
+	private String firstName;
+
+	@JsonView(View.Summary.class)
+	@Column(name="LAST_NAME")
+	private String lastName;
+
+	@JsonView(View.Summary.class)
+	@Column(name="EMAIL")
+	private String email;
+
+	@JsonIgnore
+	//@JsonView(View.Summary.class)
+	//@JsonManagedReference
+	//@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<PersistentFile> persistentFiles = new HashSet<>();
+
+	@JsonIgnore
+	//@JsonView(View.Summary.class)
+	//@JsonManagedReference
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL )
     private List<Address> address;
 
 //	@JsonView(View.Summary.class)
@@ -75,10 +108,18 @@ public class User implements Serializable {
 	public String getName() {
 		return name;
 	}
-
+        
 	public void setName(String name) {
 		this.name = name;
 	}
+        
+	public String getPassword() {
+		return password;
+	}        
+        
+	public void setPassword(String password) {
+		this.password = password;
+	}        
 
 	public String getIdentificationType() {
 		return identificationType;
@@ -127,5 +168,45 @@ public class User implements Serializable {
 //	public void setEstampas(List<Estampa> estampas) {
 //		this.estampas = estampas;
 //	}
-     
+
+
+    public String getSsoId() {
+        return ssoId;
+    }
+
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<PersistentFile> getPersistentFiles() {
+        return persistentFiles;
+    }
+
+    public void setPersistentFiles(Set<PersistentFile> persistentFiles) {
+        this.persistentFiles = persistentFiles;
+    }
 }

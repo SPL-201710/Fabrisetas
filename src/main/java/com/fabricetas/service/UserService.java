@@ -1,21 +1,25 @@
 package com.fabricetas.service;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-
 import com.fabricetas.model.User;
 
+import java.util.List;
+
 public interface UserService {
+	
+	User findById(Integer id);
+	
+	User findBySSO(String sso);
+	
+	void saveUser(User user);
+	
+	void updateUser(User user);
 
-    ResponseEntity<List<User>> listAllUsers();
-     
-    ResponseEntity<User> getUser(Integer id);
+	void deleteUserBySSO(String sso);
 
-    ResponseEntity<Void> createUser(User user);
-    
-    ResponseEntity<User> updateUser(User user);
-     
-    ResponseEntity<User> deleteUser(Integer id);
+	void deleteUserById(Integer id);
+
+	List<User> findAllUsers(); 
+	
+	boolean isUserSSOUnique(Integer id, String sso);
 
 }

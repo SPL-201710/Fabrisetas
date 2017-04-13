@@ -1,17 +1,16 @@
 package com.fabricetas.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fabricetas.config.View;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
@@ -60,6 +59,10 @@ public class Camiseta implements Serializable {
     @ManyToOne
 	@JoinColumn(name="TEXTO_ID", nullable = false)
     private Texto texto;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "camiseta", cascade = CascadeType.ALL)
+	private List<Factura> facturas = new ArrayList<>();
 
 	public Integer getCamisetaId() {
 		return camisetaId;
@@ -132,5 +135,13 @@ public class Camiseta implements Serializable {
 	public void setTexto(Texto texto) {
 		this.texto = texto;
 	}
-	
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+
 }
