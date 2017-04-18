@@ -32,7 +32,7 @@
      },2500);
    }
    $scope.volverInicio = function (){
-     servicioCookies.descartarCarrito();
+     servicioCookies.inicializarCarrito();
      $location.path("/");
    }
  }]);
