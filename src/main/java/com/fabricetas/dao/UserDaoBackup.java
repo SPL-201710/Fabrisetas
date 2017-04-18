@@ -16,6 +16,6 @@ public interface UserDaoBackup {
     
     public List<User> listArtistas();
     
-    public User get(String usuario);
+    public User getLogin(String usuario, String pass );
 
 }

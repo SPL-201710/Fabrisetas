@@ -35,6 +35,10 @@ public class User implements Serializable {
 	@JsonView(View.Summary.class)
     @Column(name = "NAME")
     private String name;
+        
+	@JsonView(View.Summary.class)
+    @Column(name = "PASSWORD")
+    private String password;        
 	
 	@JsonView(View.Summary.class)
     @Column(name = "IDENTIFICATION_TYPE")
@@ -104,10 +108,18 @@ public class User implements Serializable {
 	public String getName() {
 		return name;
 	}
-
+        
 	public void setName(String name) {
 		this.name = name;
 	}
+        
+	public String getPassword() {
+		return password;
+	}        
+        
+	public void setPassword(String password) {
+		this.password = password;
+	}        
 
 	public String getIdentificationType() {
 		return identificationType;

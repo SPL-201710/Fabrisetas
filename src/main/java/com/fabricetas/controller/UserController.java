@@ -129,9 +129,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> loginUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating User " + user.getName());
+		System.out.println("Validando usuario " + user.getName() + "Password" + user.getPassword());
 
-		User usuario = userDao.get(user.getName());
+		User usuario = userDao.getLogin(user.getName(),user.getPassword());
 		if (usuario != null) {
 			
 			return new ResponseEntity<>(usuario, HttpStatus.OK);

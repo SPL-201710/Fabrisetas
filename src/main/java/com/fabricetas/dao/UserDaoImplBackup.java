@@ -83,9 +83,9 @@ public class UserDaoImplBackup implements UserDaoBackup {
     
     @Override
     @Transactional
-    public User get(String usuario)
+    public User getLogin(String usuario, String pass)
     {
-    	String hql = "from User where name='" + usuario+"'";
+    	String hql = "from User where name='" + usuario+"' and password='"+pass+"'";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
          
         @SuppressWarnings("unchecked")
