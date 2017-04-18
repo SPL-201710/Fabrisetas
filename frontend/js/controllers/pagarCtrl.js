@@ -35,4 +35,7 @@
      servicioCookies.inicializarCarrito();
      $location.path("/");
    }
+   $scope.seguirComprando = function (){     
+     $location.path("/");
+   }
  }]);

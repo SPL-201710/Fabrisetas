@@ -103,9 +103,11 @@
             <br>
             <button ng-hide="!compraRealizada" type="button" name="button" class="btn btn-warning btn-block" ng-click="volverInicio()">Volver a inicio</button>
             <br>
+            <button ng-hide="compraRealizada" type="button" name="button" class="btn btn-warning btn-block" ng-click="seguirComprando()">Seguir comprando</button>
+            <br>
             <button ng-hide="compraRealizada" type="button" name="button" class="btn btn-success btn-block" ng-click="registrarFactura()" data-toggle="modal" data-target="#myModal" >Realizar pago</button>
             <br>
-            <button ng-hide="compraRealizada" type="button" name="button" class="btn btn-success btn-danger btn-block" ng-click="descartarCarrito();">Descartar</button>
+            <button ng-hide="compraRealizada" type="button" name="button" class="btn btn-danger btn-block" ng-click="descartarCarrito();">Descartar</button>
           </div>
         </fieldset>
       </div>
