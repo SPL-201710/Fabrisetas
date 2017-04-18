@@ -100,9 +100,12 @@
             </div>
           </div>
           <div class="col-md-12">
-            <button type="button" name="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal" >Realizar pago</button>
             <br>
-            <button type="button" name="button" class="btn btn-success btn-danger btn-block" ng-click="descartarCarrito();">Descartar</button>
+            <button ng-hide="!compraRealizada" type="button" name="button" class="btn btn-warning btn-block" ng-click="volverInicio()">Volver a inicio</button>
+            <br>
+            <button ng-hide="compraRealizada" type="button" name="button" class="btn btn-success btn-block" ng-click="registrarFactura()" data-toggle="modal" data-target="#myModal" >Realizar pago</button>
+            <br>
+            <button ng-hide="compraRealizada" type="button" name="button" class="btn btn-success btn-danger btn-block" ng-click="descartarCarrito();">Descartar</button>
           </div>
         </fieldset>
       </div>
@@ -114,7 +117,7 @@
       <br><br>
     </div>
 
-    <!-- Confirmacion de pago -->
+    <!-- cargando  pago -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
@@ -122,10 +125,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+            <h4 class="modal-title" >Estamos procesando tu pedido</h4>
           </div>
-          <div class="modal-body">
-            <p>Some text in the modal.</p>
+          <div class="modal-body" style="text-align:center;">
+            <h2>Gracias por tu compra.</h2>
+            <a href="#!/">Volver al inicio.</a>
+            <br>
+            <img src="images/preparandoEntrega.gif" alt="preparando tu pedido" width="400" height="400">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -134,7 +140,8 @@
 
       </div>
     </div>
-    <!-- Confirmacion de pago -->
+    <!-- cargando pago -->
+
 
   </div>
 </div>
