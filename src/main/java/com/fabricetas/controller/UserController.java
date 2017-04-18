@@ -1,6 +1,9 @@
 package com.fabricetas.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javassist.expr.NewArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,10 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabricetas.config.View;
 import com.fabricetas.dao.UserDao;
+import com.fabricetas.model.Articulo;
 import com.fabricetas.model.User;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -57,6 +62,21 @@ public class UserController {
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+
+	// ------------------- Obtener un usuario --------------------------------------------------------
+
+		@RequestMapping(value = "/user/{usuario}/{pass}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<User> getUserByUserPass(@PathVariable("usuario") String usuario, @PathVariable("pass") String pass) {
+			System.out.println("Fetching User with usuario " + usuario);
+			User user = userDao.getByUserPass(usuario, pass);
+					
+			//User user = userDao.get(Integer.parseInt(id + ""));
+			if (user == null) {
+				System.out.println("User : " + usuario + ", with pass not found");
+				return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		}
 
 	// ------------------- Crear un usuario --------------------------------------------------------
 
@@ -121,7 +141,7 @@ public class UserController {
 	}
 
 	// ------------------- Borrar todos los usuarios --------------------------------------------------------
-
+	
 //	@RequestMapping(value = "/user", method = RequestMethod.DELETE)
 //	public ResponseEntity<User> deleteAllUsers() {
 //		System.out.println("Deleting All Users");

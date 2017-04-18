@@ -51,6 +51,12 @@ public class Estampa implements Serializable {
 	@JoinColumn(name="USER_ID", nullable = false)
     private User user;
 
+	@JsonView(View.Summary.class)
+	@JsonBackReference
+    @ManyToOne
+	@JoinColumn(name="TEMA_ID", nullable = true)
+    private Tema tema;
+	
 	public Integer getEstampaId() {
 		return estampaId;
 	}
@@ -105,5 +111,13 @@ public class Estampa implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 }

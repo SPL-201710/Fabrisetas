@@ -63,4 +63,20 @@ public class UserDaoImpl implements UserDao {
          
         return null;
     }
+    
+    @Override
+    @Transactional
+    public User getByUserPass(String usuario, String pass) {
+        String hql = "from User where name='" + usuario + "' and sso_id='" + pass + "'";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+         
+        @SuppressWarnings("unchecked")
+        List<User> listUser = (List<User>) query.list();
+         
+        if (listUser != null && !listUser.isEmpty()) {
+            return listUser.get(0);
+        }
+         
+        return null;
+    }
 }

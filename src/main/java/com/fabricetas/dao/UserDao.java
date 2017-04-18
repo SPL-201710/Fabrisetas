@@ -13,5 +13,7 @@ public interface UserDao {
     public void saveOrUpdate(User user);
      
     public void delete(Integer id);
+    
+    public User getByUserPass(String usuario, String pass);
 
 }

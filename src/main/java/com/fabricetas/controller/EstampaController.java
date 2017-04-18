@@ -51,6 +51,7 @@ public class EstampaController {
 	public ResponseEntity<Estampa> getEstampa(@PathVariable("id") long id) {
 		System.out.println("Fetching Estampa with id " + id);
 		Estampa estampa = estampaDao.get(Integer.parseInt(id + ""));
+
 		if (estampa == null) {
 			System.out.println("Estampa with id " + id + " not found");
 			return new ResponseEntity<Estampa>(HttpStatus.NOT_FOUND);
