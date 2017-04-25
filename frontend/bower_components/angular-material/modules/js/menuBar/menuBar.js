@@ -322,7 +322,7 @@ MenuBarController.prototype.handleParentClick = function(event) {
  *
  * You may place `md-menu-items` that function as controls within menu bars.
  * There are two modes that are exposed via the `type` attribute of the `md-menu-item`.
- * `type="checkbox"` will function as a boolean control for the `ng-model` attribute of the
+ * `type="checkbox"` will function as a boolean control for the `ng-domain` attribute of the
  * `md-menu-item`. `type="radio"` will function like a radio button, setting the `ngModel`
  * to the `string` value of the `value` attribute. If you need non-string values, you can use
  * `ng-value` to provide an expression (this is similar to how angular's native `input[type=radio]` works.
@@ -334,11 +334,11 @@ MenuBarController.prototype.handleParentClick = function(event) {
  *      Sample Menu
  *    </button>
  *    <md-menu-content>
- *      <md-menu-item type="checkbox" ng-model="settings.allowChanges">Allow changes</md-menu-item>
+ *      <md-menu-item type="checkbox" ng-domain="settings.allowChanges">Allow changes</md-menu-item>
  *      <md-menu-divider></md-menu-divider>
- *      <md-menu-item type="radio" ng-model="settings.mode" ng-value="1">Mode 1</md-menu-item>
- *      <md-menu-item type="radio" ng-model="settings.mode" ng-value="1">Mode 2</md-menu-item>
- *      <md-menu-item type="radio" ng-model="settings.mode" ng-value="1">Mode 3</md-menu-item>
+ *      <md-menu-item type="radio" ng-domain="settings.mode" ng-value="1">Mode 1</md-menu-item>
+ *      <md-menu-item type="radio" ng-domain="settings.mode" ng-value="1">Mode 2</md-menu-item>
+ *      <md-menu-item type="radio" ng-domain="settings.mode" ng-value="1">Mode 3</md-menu-item>
  *    </md-menu-content>
  *  </md-menu>
  * </md-menu-bar>

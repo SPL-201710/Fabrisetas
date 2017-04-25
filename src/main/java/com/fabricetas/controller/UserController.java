@@ -1,144 +1,96 @@
 package com.fabricetas.controller;
 
-import java.util.List;
-
+import com.fabricetas.domain.User;
+import com.fabricetas.domain.dto.UserDto;
+import com.fabricetas.service.UserService;
+import com.fabricetas.util.UtilNumber;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fabricetas.config.View;
-import com.fabricetas.dao.UserDaoBackup;
-import com.fabricetas.model.User;
-import com.fasterxml.jackson.annotation.JsonView;
+import java.util.List;
 
 /**
- * Handles requests for the application home page.
+ * Controller that responds to http requests related to a user
+ * Created on 08/04/2017.
+ * @author belman
+ * @see org.springframework.stereotype.Controller
  */
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	private UserDaoBackup userDao;
+    @Autowired
+    private UserService userService;
 
-	// ------------------- Obtener todos los usuarios --------------------------------------------------------
+    /**
+     * To create a user
+     * @param user for create
+     * @return user created
+     * @return ucBuilder to response htt status
+     */
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> create(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+        if (!UtilNumber.isNullOrZero(user.getUserId()))
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+    }
 
-	@JsonView(View.Summary.class)
-	@RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<User>> listAllUsers() {
-		List<User> users = userDao.list();
-		
-		if (users.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(users, HttpStatus.OK);
-	}
+    /**
+     * Read all users
+     * @return user list
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> findAll() {
+        List<User> users = userService.findAll();
+        if (users.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
-	// ------------------- Obtener un usuario --------------------------------------------------------
+    /**
+     * Read a user by id
+     * @param id of the user to find
+     * @return found user
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> findOne(
+		@PathVariable("id") Integer id, 
+		@RequestParam(value="fetch", required= false) String fetch) {
+    	UserDto userDto = userService.findOneDto(id, fetch);
+        if (userDto == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> getUser(@PathVariable("id") long id) {
-		System.out.println("Fetching User with id " + id);
-		User user = userDao.get(Integer.parseInt(id + ""));
-		if (user == null) {
-			System.out.println("User with id " + id + " not found");
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(user, HttpStatus.OK);
-	}
+    /**
+     * To edit a user
+     * @param user to edit
+     * @return edited user
+     */
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        if (UtilNumber.isNullOrZero(user.getUserId()))
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        else if(!userService.exist(user.getUserId()))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+    }
 
-	// ------------------- Crear un usuario --------------------------------------------------------
+    /**
+     * To remove a user
+     * @param id of the user to remove
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+        if ( !userService.exist(id) )
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-	@RequestMapping(value = "/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating User " + user.getName());
-
-		if (userDao.get(user.getUserId()) != null) {
-			System.out.println("A User with name " + user.getName()
-					+ " already exist");
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
-		userDao.saveOrUpdate(user);
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/user/{id}")
-				.buildAndExpand(user.getUserId()).toUri());
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
-	}
-
-	// ------------------- Actualizar un usuario --------------------------------------------------------
-
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> updateUser(@PathVariable("id") long id,
-			@RequestBody User user) {
-		System.out.println("Updating User " + id);
-
-		User currentUser = userDao.get(Integer.parseInt(id + ""));
-
-		if (currentUser == null) {
-			System.out.println("User with id " + id + " not found");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		currentUser.setName(user.getName());
-		currentUser.setIdentificationNumber(user.getIdentificationNumber());
-		currentUser.setTipo(user.getTipo());
-//		currentUser.setAddress(user.getAddress());
-		currentUser.setIdentificationType(user.getIdentificationType());
-
-		userDao.saveOrUpdate(currentUser);
-		return new ResponseEntity<>(currentUser, HttpStatus.OK);
-	}
-
-	// ------------------- Borrar un Usuario --------------------------------------------------------
-
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-		System.out.println("Fetching & Deleting User with id " + id);
-
-		User user = userDao.get(Integer.parseInt(id + ""));
-		if (user == null) {
-			System.out.println("Unable to delete. User with id " + id
-					+ " not found");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		userDao.delete(Integer.parseInt(id + ""));
-		return new ResponseEntity<User>(HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/user/artistas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<User>> listAllArtistas() {
-
-		List<User> users = userDao.listArtistas();
-
-		if (users.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(users, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/user/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> loginUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating User " + user.getName());
-
-		User usuario = userDao.get(user.getName());
-		if (usuario != null) {
-			
-			return new ResponseEntity<>(usuario, HttpStatus.OK);
-		}
-		else
-		{
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-	}
 }

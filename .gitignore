@@ -6,3 +6,4 @@
  
 # Maven: Archivos compilados
 target/
+/target/

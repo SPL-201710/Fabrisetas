@@ -45,7 +45,7 @@ var jqLite;
  * <form name="myForm">
  *   <label>
  *     Enter text:
- *     <input type="email" ng-model="field" name="myField" required maxlength="15" />
+ *     <input type="email" ng-domain="field" name="myField" required maxlength="15" />
  *   </label>
  *   <div ng-messages="myForm.myField.$error" role="alert">
  *     <div ng-message="required">Please enter a value for this field.</div>
@@ -128,7 +128,7 @@ var jqLite;
  *     <input type="email"
  *            id="email"
  *            name="myEmail"
- *            ng-model="email"
+ *            ng-domain="email"
  *            minlength="5"
  *            required />
  *   </label>
@@ -163,7 +163,7 @@ var jqLite;
  *     Email address
  *     <input type="email"
  *            name="myEmail"
- *            ng-model="email"
+ *            ng-domain="email"
  *            minlength="5"
  *            required />
  *   </label>
@@ -184,7 +184,7 @@ var jqLite;
  *   <label>
  *     Email address
  *     <input type="email"
- *            ng-model="data.email"
+ *            ng-domain="data.email"
  *            name="myEmail"
  *            ng-minlength="5"
  *            ng-maxlength="100"

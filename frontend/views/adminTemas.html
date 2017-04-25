@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <form ng-submit="cargarImagen();">
         <fieldset style="margin-bottom:6%;">
-          <legend>Cargar un tema</legend>
+          <legend>Cargar un theme</legend>
 
           <br>
           <div class="">
@@ -50,14 +50,14 @@
               <th>Editar</th>
      				</thead>
      				<tbody>
-               <tr ng-repeat="tema in temas">
+               <tr ng-repeat="theme in temas">
                  <td>
-                   <img src="{{tema.urlTema}}" class="img-responsive" width="300" height="400">
+                   <img src="{{theme.urlTema}}" class="img-responsive" width="300" height="400">
                  </td>
-                 <td>{{tema.nombre}}</td>
-                 <td>{{tema.descripcion}}</td>
+                 <td>{{theme.nombre}}</td>
+                 <td>{{theme.descripcion}}</td>
                  <td>
-                   <button type="button" class="btn btn-info zoom" ng-click="editarTema(tema.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                   <button type="button" class="btn btn-info zoom" ng-click="editarTema(theme.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
      						 </td>
      					</tr>
      				</tbody>
