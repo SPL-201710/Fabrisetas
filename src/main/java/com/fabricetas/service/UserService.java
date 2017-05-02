@@ -2,9 +2,11 @@ package com.fabricetas.service;
 
 import com.fabricetas.domain.User;
 import com.fabricetas.domain.dto.UserDto;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,6 +39,18 @@ public interface UserService {
 	Boolean exist(Integer id);
 
 	/**
+	 * Read all users
+	 * @return user list
+	 */
+	List<User> findAll();
+	
+	/*
+	 * find all user with role artist
+	 * @return Collection with all artist
+	 */
+	Collection<User> findAllUserWithRoleArtist();
+
+	/**
 	 * Read a user by id
 	 * @param id of the user to find
 	 * @return found user
@@ -50,12 +64,6 @@ public interface UserService {
 	 * @return found user
 	 */
 	UserDto findOneDto(Integer id, String fetch);
-
-	/**
-	 * Read all users
-	 * @return user list
-	 */
-	List<User> findAll();
 
 	/**
 	 * To edit a user

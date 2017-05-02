@@ -56,6 +56,18 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    
+	/*
+	 * find all user with role artist
+	 * @return Collection with all artist
+	 */
+    @RequestMapping(value = "/role/artist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<User>> findAllUserWithRoleArtist() {
+        List<User> artists = (List<User>) userService.findAllUserWithRoleArtist();
+        if (artists.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(artists, HttpStatus.OK);
+	}
 
     /**
      * Read a user by id

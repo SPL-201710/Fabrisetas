@@ -6,10 +6,12 @@ import com.fabricetas.repos.UserRepository;
 import com.fabricetas.service.UserService;
 import com.fabricetas.util.FetchService;
 import com.google.common.collect.Lists;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -54,6 +56,22 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Read all users
+     * @return user list
+     */
+    public List<User> findAll(){
+        return Lists.newArrayList(userRepository.findAll());
+    }
+    
+	/*
+	 * find all user with role artist
+	 * @return Collection with all artist
+	 */
+	public Collection<User> findAllUserWithRoleArtist() {
+		return userRepository.findAllUserWithRoleArtist();
+	}
+
+    /**
      * Read a user by id
       * @param id of the user to find
      * @return found user
@@ -71,14 +89,6 @@ public class UserServiceImpl implements UserService {
 	public UserDto findOneDto(Integer id, String fetch) {
 		return fetchService.doFetch(findOne(id), fetch);
 	}
-
-    /**
-     * Read all users
-     * @return user list
-     */
-    public List<User> findAll(){
-        return Lists.newArrayList(userRepository.findAll());
-    }
 
     /**
      * To edit a user
