@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <form ng-submit="cargarImagen();">
         <fieldset style="margin-bottom:6%;">
-          <legend>Cargar una stamp</legend>
+          <legend>Cargar una estampa</legend>
           <br>
           <div class="">
             <label>Vista previa</label>
@@ -31,7 +31,7 @@
           <br>
             <select class="form-control" ng-model="estampaNueva.temaId">
               <option value="" selected>Tema</option>
-              <option ng-repeat="theme in temas" value="{{theme.temaId}}">{{theme.nombre}}</option>
+              <option ng-repeat="tema in temas" value="{{tema.temaId}}">{{tema.nombre}}</option>
             </select>
             <br>
             <div class="input-group">
@@ -63,17 +63,17 @@
               <th>Editar</th>
      				</thead>
      				<tbody>
-               <tr ng-repeat="stamp in estampasArtista">
+               <tr ng-repeat="estampa in estampasArtista">
                  <td>
-                   <img src="{{stamp.urlImagen}}" class="img-responsive">
+                   <img src="{{estampa.urlImagen}}" class="img-responsive">
                  </td>
-                 <td>{{stamp.nombre}}</td>
-                 <td>{{stamp.valor}}</td>
-                 <td>{{stamp.descripcion}}</td>
-                 <td>{{stamp.temaNombre}}</td>
-                 <td>{{stamp.rating}}</td>
+                 <td>{{estampa.nombre}}</td>
+                 <td>{{estampa.valor}}</td>
+                 <td>{{estampa.descripcion}}</td>
+                 <td>{{estampa.temaNombre}}</td>
+                 <td>{{estampa.rating}}</td>
                  <td>
-                   <button type="button" class="btn btn-info zoom" ng-click="editarEstampa(stamp.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                   <button type="button" class="btn btn-info zoom" ng-click="editarEstampa(estampa.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
      						 </td>
      					</tr>
      				</tbody>

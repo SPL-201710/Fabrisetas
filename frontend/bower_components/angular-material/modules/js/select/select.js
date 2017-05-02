@@ -45,7 +45,7 @@ angular.module('material.components.select', [
  * @restrict E
  * @module material.components.select
  *
- * @description Displays a select box, bound to an ng-domain.
+ * @description Displays a select box, bound to an ng-model.
  *
  * When the select is required and uses a floating label, then the label will automatically contain
  * an asterisk (`*`). This behavior can be disabled by using the `md-no-asterisk` attribute.
@@ -82,8 +82,8 @@ angular.module('material.components.select', [
  * **Note:** Using the `value` attribute (as opposed to `ng-value`) always evaluates to a string, so
  * `value="null"` will require the test `ng-if="myValue != 'null'"` rather than `ng-if="!myValue"`.
  *
- * @param {expression} ng-domain The domain!
- * @param {boolean=} multiple When set to true, allows for more than one option to be selected. The domain is an array with the selected choices.
+ * @param {expression} ng-model The model!
+ * @param {boolean=} multiple When set to true, allows for more than one option to be selected. The model is an array with the selected choices.
  * @param {expression=} md-on-close Expression to be evaluated when the select is closed.
  * @param {expression=} md-on-open Expression to be evaluated when opening the select.
  * Will hide the select options and show a spinner until the evaluated promise resolves.
@@ -107,7 +107,7 @@ angular.module('material.components.select', [
  * <hljs lang="html">
  *   <md-input-container>
  *     <md-select
- *       ng-domain="someModel"
+ *       ng-model="someModel"
  *       placeholder="Select a state">
  *       <md-option ng-value="opt" ng-repeat="opt in neighborhoods2">{{ opt }}</md-option>
  *     </md-select>
@@ -119,7 +119,7 @@ angular.module('material.components.select', [
  *   <md-input-container>
  *     <label>State</label>
  *     <md-select
- *       ng-domain="someModel">
+ *       ng-model="someModel">
  *       <md-option ng-value="opt" ng-repeat="opt in neighborhoods2">{{ opt }}</md-option>
  *     </md-select>
  *   </md-input-container>
@@ -137,7 +137,7 @@ angular.module('material.components.select', [
  *
  * <hljs lang="html">
  *   <md-input-container>
- *     <md-select ng-domain="someModel">
+ *     <md-select ng-model="someModel">
  *       <md-select-header>
  *         <span> Neighborhoods - </span>
  *       </md-select-header>
@@ -161,7 +161,7 @@ angular.module('material.components.select', [
  * </hljs>
  * <hljs lang="html">
  * <div ng-controller="MyCtrl">
- *   <md-select ng-domain="selectedUser">
+ *   <md-select ng-model="selectedUser">
  *     <md-option ng-value="user" ng-repeat="user in users">{{ user.name }}</md-option>
  *   </md-select>
  * </div>
@@ -178,7 +178,7 @@ angular.module('material.components.select', [
  *
  * To get around this, `ngModelController` provides a `track by` option that allows us to specify a different
  * expression which will be used for the equality operator. As such, we can update our `html` to
- * make use of this by specifying the `ng-domain-options="{trackBy: '$value.id'}"` on the `md-select`
+ * make use of this by specifying the `ng-model-options="{trackBy: '$value.id'}"` on the `md-select`
  * element. This converts our equality expression to be
  * `$scope.selectedUser.id == (any id in $scope.users.map(function(u) { return u.id; }));`
  * which results in Bob being selected as desired.
@@ -186,7 +186,7 @@ angular.module('material.components.select', [
  * Working HTML:
  * <hljs lang="html">
  * <div ng-controller="MyCtrl">
- *   <md-select ng-domain="selectedUser" ng-domain-options="{trackBy: '$value.id'}">
+ *   <md-select ng-model="selectedUser" ng-model-options="{trackBy: '$value.id'}">
  *     <md-option ng-value="user" ng-repeat="user in users">{{ user.name }}</md-option>
  *   </md-select>
  * </div>
@@ -255,7 +255,7 @@ function SelectDirective($mdSelect, $mdUtil, $mdConstant, $mdTheming, $mdAria, $
       });
 
       // Adds an extra option that will hold the selected value for the
-      // cases where the select is a part of a non-angular form. This can be done with a ng-domain,
+      // cases where the select is a part of a non-angular form. This can be done with a ng-model,
       // however if the `md-option` is being `ng-repeat`-ed, Angular seems to insert a similar
       // `option` node, but with a value of `? string: <value> ?` which would then get submitted.
       // This also goes around having to prepend a dot to the name attribute.
@@ -709,7 +709,7 @@ function SelectMenuDirective($parse, $mdUtil, $mdConstant, $mdTheming) {
         ngModel.$validators['md-multiple'] = validateArray;
         ngModel.$render = renderMultiple;
 
-        // watchCollection on the domain because by default ngModel only watches the domain's
+        // watchCollection on the model because by default ngModel only watches the model's
         // reference. This allowed the developer to also push and pop from their array.
         $scope.$watchCollection(self.modelBinding, function(value) {
           if (validateArray(value)) renderMultiple(value);
@@ -774,8 +774,8 @@ function SelectMenuDirective($parse, $mdUtil, $mdConstant, $mdTheming) {
         return !self.options[self.hashGetter($viewValue)];
       };
 
-      // Allow users to provide `ng-domain="foo" ng-domain-options="{trackBy: 'foo.id'}"` so
-      // that we can properly compare objects set on the domain to the available options
+      // Allow users to provide `ng-model="foo" ng-model-options="{trackBy: 'foo.id'}"` so
+      // that we can properly compare objects set on the model to the available options
       var trackByOption = $mdUtil.getModelOption(ngModel, 'trackBy');
 
       if (trackByOption) {
@@ -886,14 +886,14 @@ function SelectMenuDirective($parse, $mdUtil, $mdConstant, $mdTheming) {
       var values = [];
       var option;
       for (var hashKey in self.selected) {
-        // If this hashKey has an associated option, push that option's value to the domain.
+        // If this hashKey has an associated option, push that option's value to the model.
         if ((option = self.options[hashKey])) {
           values.push(option.value);
         } else {
           // Otherwise, the given hashKey has no associated option, and we got it
           // from an ngModel value at an earlier time. Push the unhashed value of
-          // this hashKey to the domain.
-          // This allows the developer to put a value in the domain that doesn't yet have
+          // this hashKey to the model.
+          // This allows the developer to put a value in the model that doesn't yet have
           // an associated option.
           values.push(self.selected[hashKey]);
         }

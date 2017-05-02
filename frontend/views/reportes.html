@@ -5,9 +5,9 @@
         <h3>Tus reportes disponibles</h3>
         <button ng-show="usuarioArtista || usuarioAdmin" ng-click="mostrarCampos('fechas')" type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-bar-chart" aria-hidden="true"></i> Estampas vendidas por fecha</button><br>
         <button ng-show="usuarioArtista || usuarioAdmin" ng-click="mostrarCampos('temas')" type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-line-chart" aria-hidden="true"></i>Estampas vendidas por Tema</button><br>
-        <button ng-show="usuarioArtista || usuarioAdmin" ng-click="mostrarCampos('stamp')" type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-pie-chart" aria-hidden="true"></i> Todas las estampas</button><br>
+        <button ng-show="usuarioArtista || usuarioAdmin" ng-click="mostrarCampos('estampa')" type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-pie-chart" aria-hidden="true"></i> Todas las estampas</button><br>
         <button ng-show="usuarioAdmin" ng-click="mostrarCampos('artista')"  type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-area-chart" aria-hidden="true"></i>Estampas vendidas por artista</button><br>
-        <button ng-show="usuarioAdmin"  ng-click="mostrarCampos('tshirt')"  type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-signal" aria-hidden="true"></i> Camisetas vendidas</button><br>
+        <button ng-show="usuarioAdmin"  ng-click="mostrarCampos('camiseta')"  type="button" name="button" class="btn btn-custom btn-block"><i class="fa fa-signal" aria-hidden="true"></i> Camisetas vendidas</button><br>
       </div>
       <div class="col-md-12">
         <div class="col-md-12" ng-show="fechas">
@@ -24,17 +24,17 @@
           <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('fecha')">Generar reporte</button>
         </div>
         <div class="col-md-12" ng-show="temas">
-          <h6>Seleccione theme</h6>
-          <select ng-model="temaSeleccionado" ng-options="theme as theme.nombre for theme in listaTemas track by theme.temaId" class="form-control">
-            <option value="">Seleccione theme</option>
+          <h6>Seleccione tema</h6>
+          <select ng-model="temaSeleccionado" ng-options="tema as tema.nombre for tema in listaTemas track by tema.temaId" class="form-control">
+            <option value="">Seleccione tema</option>
           </select>
           <br>
-          <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('theme')">Generar reporte</button>
+          <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('tema')">Generar reporte</button>
         </div>
-        <div class="col-md-12" ng-if="stamp">
+        <div class="col-md-12" ng-if="estampa">
           <h6>Estampas del autor</h6>
           <br>
-          <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('stamp')">Generar reporte</button>
+          <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('estampa')">Generar reporte</button>
         </div>
 
         <!-- admin --> <!-- admin --> <!-- admin --> <!-- admin --> <!-- admin -->
@@ -47,10 +47,10 @@
           <br>
           <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('artista')">Generar reporte</button>
         </div>
-        <div class="col-md-12" ng-if="tshirt">
+        <div class="col-md-12" ng-if="camiseta">
           <h6>Camisetas</h6>
           <br>
-          <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('tshirt')">Generar reporte</button>
+          <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('camiseta')">Generar reporte</button>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
           <tbody>
             <tr ng-repeat="dato in tablaReportes" ng-show="tablaBasica">
               <td>{{dato.nombre}}</td>
-              <td>{{dato.theme}}</td>
+              <td>{{dato.tema}}</td>
               <td>{{dato.valor}}</td>
               <td>{{dato.cantidad}}</td>
               <td>{{dato.total}}</td>
@@ -73,7 +73,7 @@
             <tr ng-repeat="dato in tablaReportes" ng-show="tablaArtista">
               <td>{{dato.artista}}</td>
               <td>{{dato.nombre}}</td>
-              <td>{{dato.theme}}</td>
+              <td>{{dato.tema}}</td>
               <td>{{dato.valor}}</td>
               <td>{{dato.cantidad}}</td>
               <td>{{dato.total}}</td>

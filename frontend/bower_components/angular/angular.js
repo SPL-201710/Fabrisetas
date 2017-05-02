@@ -23702,7 +23702,7 @@ var inputType = {
           browser.executeScript(scr);
         }
 
-        it(domain, function() {
+        it('should initialize to model', function() {
           expect(value.getText()).toContain('2013-10-22');
           expect(valid.getText()).toContain('myForm.input.$valid = true');
         });
@@ -24430,7 +24430,7 @@ var inputType = {
           var valid = element(by.binding('myForm.input.$valid'));
           var input = element(by.model('email.text'));
 
-          it(domain, function() {
+          it('should initialize to model', function() {
             expect(text.getText()).toContain('me@example.com');
             expect(valid.getText()).toContain('true');
           });

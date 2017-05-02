@@ -30,7 +30,7 @@ angular
  * the checkbox is in the accent color by default. The primary color palette may be used with
  * the `md-primary` class.
  *
- * @param {string} ng-domain Assignable angular expression to data-bind to.
+ * @param {string} ng-model Assignable angular expression to data-bind to.
  * @param {string=} name Property name of the form under which the control is published.
  * @param {expression=} ng-true-value The value to which the expression should be set when selected.
  * @param {expression=} ng-false-value The value to which the expression should be set when not selected.
@@ -43,21 +43,21 @@ angular
  *     If falsy expression is passed in it just looks like a normal unchecked checkbox.
  *     The indeterminate, checked, and unchecked states are mutually exclusive. A box cannot be in any two states at the same time.
  *     Adding the 'md-indeterminate' attribute overrides any checked/unchecked rendering logic.
- *     When using the 'md-indeterminate' attribute use 'ng-checked' to define rendering logic instead of using 'ng-domain'.
+ *     When using the 'md-indeterminate' attribute use 'ng-checked' to define rendering logic instead of using 'ng-model'.
  * @param {expression=} ng-checked If this expression evaluates as truthy, the 'md-checked' css class is added to the checkbox and it
  *     will appear checked.
  *
  * @usage
  * <hljs lang="html">
- * <md-checkbox ng-domain="isChecked" aria-label="Finished?">
+ * <md-checkbox ng-model="isChecked" aria-label="Finished?">
  *   Finished ?
  * </md-checkbox>
  *
- * <md-checkbox md-no-ink ng-domain="hasInk" aria-label="No Ink Effects">
+ * <md-checkbox md-no-ink ng-model="hasInk" aria-label="No Ink Effects">
  *   No Ink Effects
  * </md-checkbox>
  *
- * <md-checkbox ng-disabled="true" ng-domain="isDisabled" aria-label="Disabled">
+ * <md-checkbox ng-disabled="true" ng-model="isDisabled" aria-label="Disabled">
  *   Disabled
  * </md-checkbox>
  *
