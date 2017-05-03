@@ -2,12 +2,14 @@ package com.fabricetas.domain;
 
 import com.fabricetas.domain.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -48,6 +50,10 @@ public class User implements Serializable {
 	@Getter @Setter
 	@Column(name="LAST_NAME")
 	private String lastName;
+	
+	@Transient
+	@Getter  @Setter	
+	private String name;
 	
 	@Getter @Setter
 	@Column(name="SSO_ID")
