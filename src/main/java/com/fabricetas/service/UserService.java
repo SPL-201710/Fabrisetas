@@ -58,6 +58,13 @@ public interface UserService {
 	User findOne(Integer id);
 	
 	/**
+	 * Read a user by name
+	 * @param name of the user to find
+	 * @return found user
+	 */
+	User findOneByName(String name);
+	
+	/**
 	 * Read a UserDto by id
 	 * @param id of the user to find
 	 * @param fetch String of entities for fetch

@@ -51,13 +51,18 @@ public class User implements Serializable {
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
-	@Transient
-	@Getter  @Setter	
+	//@Transient
+	@Getter  @Setter
+	@Column(name="USUARIO")
 	private String name;
 	
 	@Getter @Setter
 	@Column(name="SSO_ID")
 	private String ssoId;
+	
+	@Getter @Setter
+	@Column(name="PASSWORD")
+	private String password;
 	
 	@JsonIgnore
 	@Getter @Setter
@@ -125,7 +130,7 @@ public class User implements Serializable {
 	public UserDto getDto(){
 		return new UserDto(
 			userId, email, firstName, identificationNumber,
-			identificationType, lastName, ssoId);
+			identificationType, lastName, ssoId, password);
 	}
 	
 }

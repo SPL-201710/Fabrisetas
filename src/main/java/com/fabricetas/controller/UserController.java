@@ -1,5 +1,7 @@
 package com.fabricetas.controller;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fabricetas.domain.Role;
+import com.fabricetas.domain.Tshirt;
 import com.fabricetas.domain.User;
+import com.fabricetas.domain.dto.AutenticacionDto;
 import com.fabricetas.domain.dto.UserDto;
+import com.fabricetas.service.RoleService;
 import com.fabricetas.service.UserService;
 import com.fabricetas.util.UtilNumber;
 
@@ -31,6 +37,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private RoleService roleService;
+    
 
     /**
      * To create a user
@@ -110,4 +120,58 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * To authenticate an user
+     * @param autenticacionDto for authenticate
+     * @return autenticacionDto to user authenticated
+     */
+    @RequestMapping(value = "/usuario/autenticar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AutenticacionDto> autenticar(@RequestBody AutenticacionDto autenticacionDto) {
+        boolean isError = true;
+    	if(autenticacionDto.getPassword() == null){
+			autenticacionDto.setMensajeRespuesta( "El password no debe ser null." );
+		}else if("l".equals( autenticacionDto.getTipoLogin() ) ){				//Validacion local
+    		if(autenticacionDto.getName() == null){
+    			autenticacionDto.setMensajeRespuesta( "El nombre no debe ser null en una autenticación local." );
+    		}else{
+	        	User user = userService.findOneByName( autenticacionDto.getName() );
+	        	if( user == null){
+	        		autenticacionDto.setMensajeRespuesta( "El usuario [" + autenticacionDto.getName() + "] no existe." );
+	        	}else if(autenticacionDto.getPassword().equals( user.getPassword() )){
+	        		autenticacionDto.setMensajeRespuesta( "Autenticación exitosa." );
+	        		autenticacionDto.setEmail( user.getEmail() );
+	        		autenticacionDto.setFirstName( user.getFirstName() );
+	        		autenticacionDto.setIdentificationNumber( user.getIdentificationNumber() );
+	        		autenticacionDto.setIdentificationType( user.getIdentificationType() );
+	        		autenticacionDto.setLastName( user.getLastName() );
+	        		autenticacionDto.setSsoId( user.getSsoId() );
+	        		
+	        		Collection<Role> roles = user.getRole();
+	        		for (Iterator iterator = roles.iterator(); iterator.hasNext();) {
+						Role role = (Role) iterator.next();
+						autenticacionDto.setTipo( role.getRoleId().toString() );	
+					}
+	        		
+	        		autenticacionDto.setUserId( user.getUserId().toString() );
+	        		isError = false;
+	        	}else{
+	        		autenticacionDto.setMensajeRespuesta( "El password no coincide." );
+	        	}
+    		}        	
+        }else if("f".equals( autenticacionDto.getTipoLogin() ) ){		//Validacion facebook
+        	
+        }else if("t".equals( autenticacionDto.getTipoLogin() ) ){		//Validacion tweeter
+        	
+        }else{															//Error no existe tipo de validacion
+        	autenticacionDto.setMensajeRespuesta( "Tipo de autenticación no existe" );
+        }
+    	
+    	//if (!UtilNumber.isNullOrZero(tshirt.getTshirtId()))
+        //    return new ResponseEntity<>(HttpStatus.CONFLICT);
+    	
+    	//return new ResponseEntity<>(tshirtService.create(tshirt), HttpStatus.CREATED);
+        if(isError)
+        	return new ResponseEntity<>(autenticacionDto, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(autenticacionDto, HttpStatus.CREATED);
+    }
 }

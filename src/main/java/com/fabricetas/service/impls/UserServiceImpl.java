@@ -108,4 +108,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /**
+	 * Read a user by name
+	 * @param name of the user to find
+	 * @return found user
+	 */
+	public User findOneByName(String name) {
+		return userRepository.findOneByName( name );
+	}
+
 }
