@@ -9,7 +9,8 @@
 	"ssoId": "",
 	"firstName": "",
 	"lastName": "",
-	"email": ""
+	"email": "",
+	"tipoLogin":"" //l,f,t
 }
 
 
