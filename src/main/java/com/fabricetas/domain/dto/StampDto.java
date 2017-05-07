@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import com.fabricetas.domain.Color;
 import com.fabricetas.domain.Invoice;
 import com.fabricetas.domain.PersistentFile;
 import com.fabricetas.domain.Rating;
+import com.fabricetas.domain.Stamp;
 import com.fabricetas.domain.Text;
 import com.fabricetas.domain.Theme;
 import com.fabricetas.domain.Tshirt;
@@ -22,6 +24,7 @@ import com.fabricetas.domain.User;
  * @author belman
  */
 @ToString
+@NoArgsConstructor
 @EqualsAndHashCode(exclude={"stampId"})
 public class StampDto {
 
@@ -63,6 +66,44 @@ public class StampDto {
 
     @Getter @Setter
     private User user;
+    
+    /*For Create*/
+    public Stamp entity(){
+      Stamp stampForCreate = new Stamp();
+      stampForCreate.setStampId(stampId);
+      stampForCreate.setDescription(description);
+      stampForCreate.setName(name);
+      stampForCreate.setPath(path);
+      stampForCreate.setPrice(price);
+      stampForCreate.setColor(color);
+      stampForCreate.setInvoice(invoice);
+      stampForCreate.setPersistentFile(persistentFile);
+      stampForCreate.setRating(rating);
+      stampForCreate.setText(text);
+      stampForCreate.setTheme(theme);
+      stampForCreate.setTshirt(tshirt);
+      stampForCreate.setUser(user);
+      return stampForCreate;
+    }
+    
+    /*For Update*/
+    public Stamp entity(Stamp stamp){
+    	Stamp stampUpdated = new Stamp();
+    	stampUpdated.setStampId(stampId);
+    	stampUpdated.setDescription(description == null ? stamp.getDescription() : description);
+    	stampUpdated.setName(name == null ? stamp.getName() : name);
+    	stampUpdated.setPath(path == null ? stamp.getPath() : path);
+    	stampUpdated.setPrice(price == null ? stamp.getPrice() : price);
+    	stampUpdated.setColor(color == null ? stamp.getColor() : color);
+    	stampUpdated.setInvoice(invoice == null ? stamp.getInvoice() : invoice);
+    	stampUpdated.setPersistentFile(persistentFile == null ? stamp.getPersistentFile() : persistentFile);
+    	stampUpdated.setRating(rating == null ? stamp.getRating() : rating);
+    	stampUpdated.setText(text == null ? stamp.getText() : text);
+    	stampUpdated.setTheme(theme == null ? stamp.getTheme() : theme);
+    	stampUpdated.setTshirt(tshirt == null ? stamp.getTshirt() : tshirt);
+    	stampUpdated.setUser(user == null ? stamp.getUser() : user);
+    	return stampUpdated;
+    }
 
     public StampDto(String description, String name, String path, String price, Integer stampId) {
         this.description = description; this.name = name;

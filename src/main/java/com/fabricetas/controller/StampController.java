@@ -40,10 +40,10 @@ public class StampController {
      * @return ucBuilder to response htt status
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Stamp> create(@RequestBody Stamp stamp, UriComponentsBuilder ucBuilder) {
-        if (!UtilNumber.isNullOrZero(stamp.getStampId()))
+    public ResponseEntity<Stamp> create(@RequestBody StampDto stampDto, UriComponentsBuilder ucBuilder) {
+        if (!UtilNumber.isNullOrZero(stampDto.getStampId()))
             return new ResponseEntity<>(HttpStatus.CONFLICT);
-        return new ResponseEntity<>(stampService.create(stamp), HttpStatus.CREATED);
+        return new ResponseEntity<>(stampService.create(stampDto.entity()), HttpStatus.CREATED);
     }
 
     /**
@@ -91,12 +91,12 @@ public class StampController {
      * @return edited stamp
      */
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Stamp> updateStamp(@RequestBody Stamp stamp) {
-        if (UtilNumber.isNullOrZero(stamp.getStampId()))
+    public ResponseEntity<Stamp> updateStamp(@RequestBody StampDto stampDto) {
+        if (UtilNumber.isNullOrZero(stampDto.getStampId()))
             return new ResponseEntity<>(HttpStatus.CONFLICT);
-        else if(!stampService.exist(stamp.getStampId()))
+        else if(!stampService.exist(stampDto.getStampId()))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(stampService.update(stamp), HttpStatus.OK);
+        return new ResponseEntity<>(stampService.update(stampDto.entity(stampService.findOne(stampDto.getStampId()))), HttpStatus.OK);
     }
 
     /**

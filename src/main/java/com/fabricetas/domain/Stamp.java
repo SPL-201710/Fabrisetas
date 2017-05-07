@@ -2,12 +2,15 @@ package com.fabricetas.domain;
 
 import com.fabricetas.domain.dto.StampDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -18,6 +21,7 @@ import java.util.Collection;
  */
 @Entity
 @ToString
+@NoArgsConstructor
 @Table(name="STAMP")
 @EqualsAndHashCode(exclude = {"stampId"})
 public class Stamp implements Serializable {
