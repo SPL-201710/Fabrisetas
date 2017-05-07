@@ -1,0 +1,31 @@
+// objeto que va desde el front
+{
+	"name": "julian",
+	"password": "julian",
+	"userId": 0,
+	"identificationType": "CC",
+	"identificationNumber": "171321632",
+	"tipo": "",
+	"ssoId": "",
+	"firstName": "",
+	"lastName": "",
+	"email": ""
+}
+
+
+/objeto que espera de respuesta
+{
+	"userId": 16,
+	"name": "julian",
+	"password": "julian",
+	"identificationType": "CC",
+	"identificationNumber": "10000850",
+	"tipo": "Cliente",
+	"ssoId": null,
+	"firstName": "Julian",
+	"lastName": "Borray",
+	"email": null
+}
+
+
+​
