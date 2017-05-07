@@ -63,12 +63,23 @@ public class StampController {
      * @return stamp list
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<StampForHomeDto>> findAllForHome() {
-        List<StampForHomeDto> stamps = (List<StampForHomeDto>) stampService.findAllByHome();
+    public ResponseEntity<List<StampForHomeDto>> findAllForHome(
+    		@RequestParam(value="artistId", required= false) Integer userId,
+    		@RequestParam(value="themeId", required= false) Integer themeId) {
+    	
+    	List<StampForHomeDto> stamps = (List<StampForHomeDto>) stampService.findAllByHome(userId,themeId);
         if (stamps.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(stamps, HttpStatus.OK);
     }
+    /*@RequestMapping(value = "/home/{artist}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StampForHomeDto>> findAllForHome(@PathVariable("artist") Integer userId) {
+    	
+    	List<StampForHomeDto> stamps = (List<StampForHomeDto>) stampService.findAllByHome(userId);
+        if (stamps.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(stamps, HttpStatus.OK);
+    }*/
 
     /**
      * Read a stamp by id

@@ -72,14 +72,18 @@ public class StampServiceImpl implements StampService {
 	 * Read all stamps 
 	 * @return stamp list by home
 	 */
-	public Collection<StampForHomeDto> findAllByHome() {
+	public Collection<StampForHomeDto> findAllByHome(Integer userId, Integer themeId) {
+		if (userId == null)
+			userId = 0;
+		if (themeId == null)
+			themeId = 0;
 		return callService.callProcedure(
                 new StampForHomeDto(),
                 "STAMPS_FOR_HOME",
-                Lists.newArrayList(),
+                Lists.newArrayList(userId, themeId),
                 Lists.newArrayList(
-            		"estampaId","nombre","descripcion","urlImagen","rating",
-            		"valor","temaId","temaNombre","autorId","autorNombre")
+            		"stampId","name","description","path","totalRating",
+            		"price","themeId","themeName","artistId","artistName")
         		);
 	}
 

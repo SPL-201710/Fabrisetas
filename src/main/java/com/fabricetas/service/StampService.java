@@ -50,7 +50,7 @@ public interface StampService {
 	 * Read all stamps 
 	 * @return stamp list by home
 	 */
-	Collection<StampForHomeDto> findAllByHome();
+	Collection<StampForHomeDto> findAllByHome(Integer userId, Integer themeId);
 
 	/**
 	 * Read a stamp by id

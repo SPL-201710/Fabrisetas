@@ -16,34 +16,34 @@ import lombok.ToString;
 @NoArgsConstructor
 public class StampForHomeDto {
 
-    @Getter @Setter
-    private String estampaId;
+	@Getter @Setter
+    private String stampId;
 
     @Getter @Setter
-    private String nombre;
+    private String description;
 
     @Getter @Setter
-    private String descripcion;
+    private String name;
 
     @Getter @Setter
-    private String urlImagen;
+    private String path;
 
     @Getter @Setter
-    private String rating;
+    private String price;
+    
+    @Getter @Setter
+    private String totalRating;
 
     @Getter @Setter
-    private String valor;
+    private String themeId;
 
     @Getter @Setter
-    private String temaId;
+    private String themeName;
 
     @Getter @Setter
-    private String temaNombre;
+    private String artistId;
 
     @Getter @Setter
-    private String autorId;
-
-    @Getter @Setter
-    private String autorNombre;
+    private String artistName;
     
 }
