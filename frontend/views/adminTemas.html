@@ -15,12 +15,12 @@
           <br>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-            <input required ng-model="temaNuevo.nombre" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
+            <input required ng-model="temaNuevo.name" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
           </div>
 
           <br>
           <div class="input-group">
-            <textarea ng-model="temaNuevo.descripcion" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
+            <textarea ng-model="temaNuevo.description" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
           </div>
 
           <br>
@@ -52,10 +52,10 @@
      				<tbody>
                <tr ng-repeat="tema in temas">
                  <td>
-                   <img src="{{tema.urlTema}}" class="img-responsive" width="300" height="400">
+                   <img src="{{tema.path}}" class="img-responsive" width="300" height="400">
                  </td>
-                 <td>{{tema.nombre}}</td>
-                 <td>{{tema.descripcion}}</td>
+                 <td>{{tema.name}}</td>
+                 <td>{{tema.description}}</td>
                  <td>
                    <button type="button" class="btn btn-info zoom" ng-click="editarTema(tema.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
      						 </td>

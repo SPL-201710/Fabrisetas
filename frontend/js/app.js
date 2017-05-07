@@ -1,4 +1,8 @@
 var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
+app.value('fabConstans', {
+    URL_BASE_SERVICIOS:"http://52.88.20.109:8080/fabricetas/"
+});
+
 /*
 { 'get':    {method:'GET'},
   'save':   {method:'POST'},

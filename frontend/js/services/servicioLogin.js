@@ -1,7 +1,6 @@
-app.service("servicioLogin",["$http","$q","$resource",function($http,$q,$resource){
+app.service("servicioLogin",["fabConstans","$http","$q","$resource",function(fabConstans,$http,$q,$resource){
 	var vm= this;
-	var dirServ = "http://52.88.20.109:8080/fabricetas/";
-	//var dirServ = "http://localhost:8080/fabricetas/";
+	var dirServ = fabConstans.URL_BASE_SERVICIOS;
 
 	vm.crearUsuario = function (){
     return $resource(dirServ+"user");
@@ -9,7 +8,6 @@ app.service("servicioLogin",["$http","$q","$resource",function($http,$q,$resourc
 
 	vm.validarUsuario = function (){
 		console.log("por aca paso");
-		return $resource(dirServ + "user/login");
-		//return $resource("http://52.88.20.109:3000/api/usuarios/login");
+		return $resource(dirServ + "user/usuario/autenticar");
 	}
 }]);

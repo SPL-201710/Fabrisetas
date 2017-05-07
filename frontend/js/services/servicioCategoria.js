@@ -1,20 +1,19 @@
-app.service("servicioCategoria",["$http","$q","$resource",function($http,$q,$resource){
+app.service("servicioCategoria",["fabConstans","$http","$q","$resource",function(fabConstans,$http,$q,$resource){
 	var vm= this;
-	//var dirServ = "http://localhost:8080/fabricetas/";
-	var dirServ = "http://52.88.20.109:8080/fabricetas/";
+	var dirServ = fabConstans.URL_BASE_SERVICIOS;
 
   vm.traerEstampasCategoria = function (tema){
-		return $resource(dirServ + "estampa/tema/:tema",{tema:tema});
+		return $resource(dirServ + "stamp/home/?themeId=:tema",{tema:tema});
 	}
 
 	vm.traerCategorias = function (){
-		return $resource(dirServ + "tema");
+		return $resource(dirServ + "theme");
 	}
 
 	vm.actualizarCategoria = function (temaId){
-		return $resource(dirServ + "tema/:tema",{tema:temaId}, {update : {method : "PUT"}});
+		return $resource(dirServ + "theme",null, {update : {method : "PUT"}});
 	}
 	vm.crearCategoria = function (){
-		return $resource(dirServ + "tema/");
+		return $resource(dirServ + "theme");
 	}
 }]);

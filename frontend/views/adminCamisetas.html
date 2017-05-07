@@ -15,15 +15,15 @@
           <br>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-            <input required ng-model="camisetaNueva.nombre" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
+            <input required ng-model="camisetaNueva.name" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
           </div>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-            <input required ng-model="camisetaNueva.valor" type="text" class="form-control" placeholder="Precio" aria-describedby="sizing-addon1">
+            <input required ng-model="camisetaNueva.price" type="text" class="form-control" placeholder="Precio" aria-describedby="sizing-addon1">
           </div>
           <br>
           <div class="input-group">
-            <textarea ng-model="camisetaNueva.descripcion" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
+            <textarea ng-model="camisetaNueva.description" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
           </div>
 
           <br>
@@ -56,11 +56,11 @@
      				<tbody>
                <tr ng-repeat="camiseta in camisetas">
                  <td>
-                   <img src="{{camiseta.urlImagen}}" class="img-responsive" width="300" height="400">
+                   <img src="{{camiseta.path}}" class="img-responsive" width="300" height="400">
                  </td>
-                 <td>{{camiseta.nombre}}</td>
-                 <td>{{camiseta.valor}}</td>
-                 <td>{{camiseta.descripcion}}</td>
+                 <td>{{camiseta.name}}</td>
+                 <td>{{camiseta.price}}</td>
+                 <td>{{camiseta.description}}</td>
                  <td>
                    <button type="button" class="btn btn-info zoom" ng-click="editarCamiseta(camiseta.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
      						 </td>

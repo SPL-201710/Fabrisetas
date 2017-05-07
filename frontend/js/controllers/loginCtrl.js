@@ -14,6 +14,8 @@ app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location",
       $scope.login.firstName = "";
       $scope.login.lastName = "";
       $scope.login.email = "";
+      $scope.login.tipoLogin = "l";
+      console.log($scope.login);
       servicioLogin.validarUsuario().save($scope.login).$promise.then((datos)=>{
           if(typeof $routeParams.id=='undefined')
           {

@@ -1,13 +1,13 @@
-app.service("servicioHome",["$http","$q","$resource",function($http,$q,$resource){
+app.service("servicioHome",["fabConstans","$http","$q","$resource",function(fabConstans,$http,$q,$resource){
 	var vm= this;
-	//var dirServ = "http://localhost:8080/fabricetas/";
-	var dirServ = "http://52.88.20.109:8080/fabricetas/";
+	var dirServ = fabConstans.URL_BASE_SERVICIOS;
 
 	vm.traerEstampas = function (){
-		return $resource(dirServ + "estampa");
+		return $resource(dirServ + "stamp/home");
 	}
 	vm.traerEstampasPorId = function (id){
-		return $resource(dirServ + "estampa/:id",{id:id});
+		console.log("por aca paso2");
+		return $resource(dirServ + "stamp/:id",{id:id});
 	}
 	vm.traerCamisas = function (){
 		return $resource(dirServ + "camiseta");

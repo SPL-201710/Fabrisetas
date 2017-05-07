@@ -31,7 +31,7 @@
      $scope.accionRealizar = "Actualizar camiseta";
      $scope.botonCancelar = true;
      $scope.camisetaNueva = $scope.camisetas[indice];
-     $scope.thumbnail.dataUrl = $scope.camisetas[indice].urlImagen;
+     $scope.thumbnail.dataUrl = $scope.camisetas[indice].path;
      $scope.camisetaNuevaCargada = false;
      $scope.camisetaActualizada= false;
    }
@@ -68,7 +68,7 @@
    $scope.cargarImagen = function (){
      if ($scope.accionRealizar == "Actualizar camiseta")
      {
-        $scope.camisetaNueva.urlImagen = $scope.thumbnail.dataUrl;
+        $scope.camisetaNueva.path = $scope.thumbnail.dataUrl;
         console.log($scope.camisetaNueva);
         servicioCamiseta.actualizarCamiseta($scope.camisetaNueva.camisetaId).update($scope.camisetaNueva).$promise.then(function(){
           $scope.camisetaActualizada= true;
@@ -79,7 +79,7 @@
      {
        var name = $scope.name;
        var file = $scope.file;
-       $scope.camisetaNueva.urlImagen = $scope.thumbnail.dataUrl;
+       $scope.camisetaNueva.path = $scope.thumbnail.dataUrl;
        //$scope.temaNuevo.temaId = 0;
        console.log($scope.camisetaNueva);
        servicioCamiseta.crearCamiseta().save($scope.camisetaNueva).$promise.then(function(datos){

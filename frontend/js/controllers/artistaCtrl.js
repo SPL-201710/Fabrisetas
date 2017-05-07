@@ -1,14 +1,14 @@
  app.controller('artistaCtrl',["$scope","servicioAutores","servicioCookies","$timeout","servicioCategoria",function($scope,servicioAutores,servicioCookies,$timeout, servicioCategoria){
    init();
 
-
    function init(){
      $scope.thumbnail = {};
      $scope.botonCancelar = false;
      $scope.accionEstampa="Guardar estampa";
      $scope.estampaNuevaCargada = false;
      $scope.estampaActualizada = false;
-     if(servicioCookies.validarSiEstaAutenticado()){
+     var stampToSend = {};
+     //if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
        recargarEstampas();
@@ -16,12 +16,13 @@
         {
             $scope.autor = servicioCookies.traerUsuarioAutenticado();
         }
-     }
+     //}
      $scope.temas = servicioCategoria.traerCategorias().query();
-   }
+  }
 
    function recargarEstampas(){
-     servicioAutores.traerEstampasAutor($scope.artista.userId).query().$promise.then((datos)=>{
+     //servicioAutores.traerEstampasAutor($scope.artista.userId).query().$promise.then((datos)=>{
+     servicioAutores.traerEstampasAutor(1).query().$promise.then((datos)=>{
        console.log(datos);
        $scope.estampasArtista = datos;
        angular.forEach($scope.estampasArtista,function(valor,llave){
@@ -30,11 +31,25 @@
      });
    }
 
+   function armarInfoEnviar(isActualizar){
+      stampToSend ={};
+      if(isActualizar)
+       stampToSend.stampId = $scope.estampaNueva.stampId;
+     stampToSend.name = $scope.estampaNueva.name;
+     stampToSend.description = $scope.estampaNueva.description;
+     stampToSend.path = $scope.estampaNueva.path;
+     stampToSend.price = $scope.estampaNueva.price;
+     stampToSend.user = {};
+     stampToSend.user.userId = $scope.artista.userId;;
+     stampToSend.theme = {};
+     stampToSend.theme.themeId = $scope.estampaNueva.themeId;
+   }
+
    $scope.editarEstampa = function (indice){
      $scope.accionEstampa ="Actualizar estampa";
      $scope.botonCancelar = true;
      $scope.estampaNueva = $scope.estampasArtista[indice];
-     $scope.thumbnail.dataUrl = $scope.estampasArtista[indice].urlImagen;
+     $scope.thumbnail.dataUrl = $scope.estampasArtista[indice].path;
      $scope.estampaNuevaCargada = false;
      $scope.estampaActualizada = false;
    }
@@ -71,12 +86,11 @@
    $scope.cargarImagen = function (){
      if ($scope.accionEstampa=="Actualizar estampa")
      {
-       //falta poner servicios
-       console.log($scope.estampaNueva);
-       $scope.estampaNueva.userId =  $scope.artista.userId;
-       typeof $scope.thumbnail.dataUrl ==='undefined' ? "":$scope.estampaNueva.urlImagen = $scope.thumbnail.dataUrl;
+       typeof $scope.thumbnail.dataUrl ==='undefined' ? "":$scope.estampaNueva.path = $scope.thumbnail.dataUrl;
 
-       servicioAutores.actualizarEstampa($scope.estampaNueva.estampaId).update($scope.estampaNueva).$promise.then((datos)=>{
+       armarInfoEnviar(true);
+
+       servicioAutores.actualizarEstampa().update(stampToSend).$promise.then((datos)=>{
          console.log(datos);
          $scope.estampaActualizada = true;
          $scope.cancelar();
@@ -86,10 +100,11 @@
      }
      else
      {
-       $scope.estampaNueva.userId =  $scope.artista.userId;
-       $scope.estampaNueva.urlImagen = $scope.thumbnail.dataUrl;
+       $scope.estampaNueva.path = $scope.thumbnail.dataUrl;
+       armarInfoEnviar(false);
+       console.log("Crea Estampa");
        console.log($scope.estampaNueva);
-       servicioAutores.cargarEstampa().save($scope.estampaNueva).$promise.then((datos)=>{
+       servicioAutores.cargarEstampa().save(stampToSend).$promise.then((datos)=>{
           console.log(datos);
           $scope.estampaNuevaCargada = true;
           $scope.cancelar();

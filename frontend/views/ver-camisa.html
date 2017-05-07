@@ -12,17 +12,17 @@
       <div class="col-md-12">
         <div class="col-md-4 animated bounceInLeft" >
           <h3>Estampa seleccionada</h3>
-          <img id = "estampaSeleccionada" src="{{estampaSeleccionada.urlImagen}}"  width="300" height="350" class="img-responsive">
-          <p>{{estampaSeleccionada.nombre}}</p>
-          <p>{{estampaSeleccionada.valor | currency}}</p>
-          <p>{{estampaSeleccionada.descripcion}}</p>
+          <img id = "estampaSeleccionada" src="{{estampaSeleccionada.path}}"  width="300" height="350" class="img-responsive">
+          <p>{{estampaSeleccionada.name}}</p>
+          <p>{{estampaSeleccionada.price | currency}}</p>
+          <p>{{estampaSeleccionada.description}}</p>
         </div>
         <div class="col-md-4 animated bounceInLeft">
           <h3>Camisa seleccionada</h3>
-          <img id = "camisaSeleccionada" width="300" height="350" src="{{camisetaSeleccionada.urlImagen}}" class="img-responsive">
-          <p>{{camisetaSeleccionada.nombre}}</p>
-          <p>{{camisetaSeleccionada.valor | currency}}</p>
-          <p>{{camisetaSeleccionada.descripcion}}</p>
+          <img id = "camisaSeleccionada" width="300" height="350" src="{{camisetaSeleccionada.path}}" class="img-responsive">
+          <p>{{camisetaSeleccionada.name}}</p>
+          <p>{{camisetaSeleccionada.price | currency}}</p>
+          <p>{{camisetaSeleccionada.description}}</p>
           <div class="col-md-12">
             <br>
             <label>Seleccione color</label>
@@ -56,14 +56,14 @@
             <label>Items:</label>
           </div>
           <div class="col-md-6">
-            <p>{{camisetaSeleccionada.nombre}}</p>
-            <p>{{estampaSeleccionada.nombre}}</p>
+            <p>{{camisetaSeleccionada.name}}</p>
+            <p>{{estampaSeleccionada.name}}</p>
             <hr>
             <p><strong>Total: </strong></p>
           </div>
           <div class="col-md-6">
-            <p>{{camisetaSeleccionada.valor | currency }}</p>
-            <p>{{estampaSeleccionada.valor | currency }}</p>
+            <p>{{camisetaSeleccionada.price | currency }}</p>
+            <p>{{estampaSeleccionada.price | currency }}</p>
             <hr>
             <p>{{total | currency }}</p>
           </div>

@@ -6,7 +6,9 @@ app.controller("categoriaCtrl", ["$scope", "$routeParams", "servicioCategoria", 
 
 				$scope.titulo=$routeParams.id;
 	      let id =$routeParams.id
-				$scope.estampasTema = servicioCategoria.traerEstampasCategoria(id).query();
+				servicioCategoria.traerEstampasCategoria(id).query().$promise.then((datos)=>{
+					$scope.estampasTema = datos;
+				});
 	    }
 	    else{
 
