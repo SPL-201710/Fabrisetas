@@ -1,0 +1,15 @@
+
+// get para cargar las estampas del HOME
+//objeto que espera de respuesta
+{
+	"estampaId": 1,
+	"nombre": "Estampa 1",
+	"descripcion": "Descripcion Estampa 1",
+	"urlImagen": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-5c6287be147892351658358183410311937.svg",
+	"rating": "5",
+	"valor": "2000",
+	"temaId": 1,
+	"temaNombre": "Religion",
+	"autorId":"1",
+	"autorNombre":"Pachicho"
+}
