@@ -1,5 +1,9 @@
 package com.fabricetas.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabricetas.domain.Invoice;
+import com.fabricetas.domain.Stamp;
+import com.fabricetas.domain.Tshirt;
 import com.fabricetas.domain.dto.InvoiceDto;
+import com.fabricetas.domain.dto.view.InvoiceForViewDto;
+import com.fabricetas.domain.dto.view.ItemInvoiceDto;
+import com.fabricetas.domain.dto.view.StampForInvoiceDto;
 import com.fabricetas.service.InvoiceService;
+import com.fabricetas.service.StampService;
+import com.fabricetas.service.TshirtService;
+import com.fabricetas.service.UserService;
 import com.fabricetas.util.UtilNumber;
+import com.google.common.collect.Lists;
 
 /**
  * Controller that responds to http requests related to a Invoice
@@ -31,6 +44,15 @@ public class InvoiceController {
 
     @Autowired
     private InvoiceService invoiceService;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private TshirtService tshirtService;
+    
+    @Autowired
+    private StampService stampService;
 
     /**
      * To create a invoice
@@ -39,9 +61,36 @@ public class InvoiceController {
      * @return ucBuilder to response htt status
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Invoice> create(@RequestBody Invoice invoice, UriComponentsBuilder ucBuilder) {
-        if (!UtilNumber.isNullOrZero(invoice.getInvoiceId()))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+    public ResponseEntity<Invoice> create(@RequestBody InvoiceForViewDto invoiceDto, UriComponentsBuilder ucBuilder) {
+    	Invoice invoice = new Invoice();
+
+    	String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    	String numberInvoice = new SimpleDateFormat("yyyy:MM:dd:HH:mm:ss").format(new Date()).replace(":", "");
+    	SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	invoice.setNumber(numberInvoice);
+    	try {
+			invoice.setDate(simpleFormat.parse(currentDate));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+    	Collection<Tshirt> tshirts = Lists.newArrayList();
+    	Collection<Stamp> stamps = Lists.newArrayList();
+    	Integer totalPrice = 0;
+    	
+    	for(ItemInvoiceDto item : invoiceDto.getItemInvoiceDto()){
+    		Tshirt tshirtTmp = tshirtService.findOne(Integer.parseInt(item.getTshirtForInvoiceDto().getCamisetaId()));
+    		totalPrice += Integer.parseInt(tshirtTmp.getPrice());
+    		tshirts.add(tshirtTmp);
+    		for(StampForInvoiceDto stamp : item.getStampForInvoiceDto()) 
+    			stamps.add(stampService.findOne(Integer.parseInt(stamp.getEstampaId())));
+    	}
+    	
+    	invoice.setTotalPrice(totalPrice+"");
+    	invoice.setTshirt(tshirts);
+    	invoice.setStamp(stamps);
+    	invoice.setUser(userService.findOne(Integer.parseInt(invoiceDto.getUserId())));
+    	
         return new ResponseEntity<>(invoiceService.create(invoice), HttpStatus.CREATED);
     }
 
