@@ -1,0 +1,53 @@
+//json que envía el servicio para la creación de la factura
+// en este caso tiene dos camisas y cada una con su respectiva estampa
+
+[
+	[
+		{
+			"camisetaId": 4,
+			"nombre": "Ligera3",
+			"descripcion": "Camiseta Ligera",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce//uploaded/products/camiseta-cuello-v/camiseta_cuello_v_azul_rey_frente.png",
+			"material": "Algodon",
+			"color": "Azul",
+			"valor": "50000",
+			"urlCamiseta": "https://jollyjoker.co/tshirtecommerce//uploaded/products/camiseta-cuello-v/camiseta_cuello_v_azul_rey_frente.png"
+		},
+		{
+			"estampaId": 1,
+			"nombre": "Estampa 1",
+			"descripcion": "Descripcion Estampa 1",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-5c6287be147892351658358183410311937.svg",
+			"rating": "5",
+			"valor": "2000",
+			"temaId": 1,
+			"temaNombre": "Religion",
+			"precio": "2000",
+			"urlEstampa": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/514/print/dg-designer-5c6287be147892351658358183410311937.svg"
+		}
+	],
+	[
+		{
+			"camisetaId": 10,
+			"nombre": "esqueleto2",
+			"descripcion": "Camiseta Ligera",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce//uploaded/products/blusa-esqueleto/blusa_esqueleto_verde_jade_frente.png",
+			"material": "Algodon",
+			"color": "Azul",
+			"valor": "50000",
+			"urlCamiseta": "https://jollyjoker.co/tshirtecommerce//uploaded/products/blusa-esqueleto/blusa_esqueleto_verde_jade_frente.png"
+		},
+		{
+			"estampaId": 9,
+			"nombre": "Estampa 8",
+			"descripcion": "Descripcion Estampa 8",
+			"urlImagen": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/519/print/dg-designer-f655e8f9147892580999569643910123859.svg",
+			"rating": "5",
+			"valor": "2200",
+			"temaId": 2,
+			"temaNombre": "Musica",
+			"precio": "2200",
+			"urlEstampa": "https://jollyjoker.co/tshirtecommerce/uploaded/cliparts/519/print/dg-designer-f655e8f9147892580999569643910123859.svg"
+		}
+	]
+]
