@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabricetas.domain.Stamp;
 import com.fabricetas.domain.dto.StampDto;
+import com.fabricetas.domain.dto.view.StampForHomeDto;
 import com.fabricetas.service.StampService;
 import com.fabricetas.util.UtilNumber;
 
@@ -52,6 +53,18 @@ public class StampController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Stamp>> findAll() {
         List<Stamp> stamps = stampService.findAll();
+        if (stamps.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(stamps, HttpStatus.OK);
+    }
+
+    /**
+     * Read all stamps
+     * @return stamp list
+     */
+    @RequestMapping(value = "/home", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StampForHomeDto>> findAllForHome() {
+        List<StampForHomeDto> stamps = (List<StampForHomeDto>) stampService.findAllByHome();
         if (stamps.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(stamps, HttpStatus.OK);

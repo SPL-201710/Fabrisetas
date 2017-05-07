@@ -1,8 +1,11 @@
 package com.fabricetas.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.fabricetas.domain.dto.StampDto;
+import com.fabricetas.domain.dto.view.StampForHomeDto;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,18 @@ public interface StampService {
 	Boolean exist(Integer id);
 
 	/**
+	 * Read all stamps
+	 * @return stamp list
+	 */
+	List<Stamp> findAll();
+
+	/**
+	 * Read all stamps 
+	 * @return stamp list by home
+	 */
+	Collection<StampForHomeDto> findAllByHome();
+
+	/**
 	 * Read a stamp by id
 	 * @param id of the stamp to find
 	 * @return found stamp
@@ -51,12 +66,6 @@ public interface StampService {
 	 * @return found stamp
 	 */
 	StampDto findOneDto(Integer id, String fetch);
-
-	/**
-	 * Read all stamps
-	 * @return stamp list
-	 */
-	List<Stamp> findAll();
 
 	/**
 	 * To edit a stamp

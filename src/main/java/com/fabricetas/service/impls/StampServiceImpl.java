@@ -1,5 +1,6 @@
 package com.fabricetas.service.impls;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fabricetas.domain.Stamp;
 import com.fabricetas.domain.dto.StampDto;
+import com.fabricetas.domain.dto.view.StampForHomeDto;
 import com.fabricetas.repos.StampRepository;
 import com.fabricetas.service.StampService;
+import com.fabricetas.util.CallService;
 import com.fabricetas.util.FetchService;
 import com.google.common.collect.Lists;
 
@@ -27,6 +30,9 @@ public class StampServiceImpl implements StampService {
 
     @Autowired
     private FetchService<Stamp, StampDto> fetchService;
+    
+    @Autowired
+    private CallService<StampForHomeDto> callService;
 
     /**
      * To create a stamp
@@ -55,6 +61,29 @@ public class StampServiceImpl implements StampService {
     }
 
     /**
+     * Read all stamps
+     * @return stamp list
+     */
+    public List<Stamp> findAll(){
+        return Lists.newArrayList(stampRepository.findAll());
+    }
+
+	/**
+	 * Read all stamps 
+	 * @return stamp list by home
+	 */
+	public Collection<StampForHomeDto> findAllByHome() {
+		return callService.callProcedure(
+                new StampForHomeDto(),
+                "STAMPS_FOR_HOME",
+                Lists.newArrayList(),
+                Lists.newArrayList(
+            		"estampaId","nombre","descripcion","urlImagen","rating",
+            		"valor","temaId","temaNombre","autorId","autorNombre")
+        		);
+	}
+
+    /**
      * Read a stamp by id
       * @param id of the stamp to find
      * @return found stamp
@@ -71,14 +100,6 @@ public class StampServiceImpl implements StampService {
      */
     public StampDto findOneDto(Integer id, String fetch) {
         return fetchService.doFetch(findOne(id), fetch);
-    }
-
-    /**
-     * Read all stamps
-     * @return stamp list
-     */
-    public List<Stamp> findAll(){
-        return Lists.newArrayList(stampRepository.findAll());
     }
 
     /**
