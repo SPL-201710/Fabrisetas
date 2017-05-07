@@ -18,4 +18,6 @@ public interface UserRepository  extends CrudRepository<User, Integer> {
 	@Query("SELECT u FROM User u INNER JOIN u.role r WHERE r.name = 'Artista'")
 	Collection<User> findAllUserWithRoleArtist();
 	
+	@Query("SELECT u FROM User u WHERE UPPER(u.name) = UPPER(?1)")
+	User findOneByName( String name );
 }

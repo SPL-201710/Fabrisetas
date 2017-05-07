@@ -48,6 +48,9 @@ public class UserDto {
 	@Setter
 	private String name;
 
+	@Setter
+	private String password;
+	
 	@Getter @Setter
 	private String ssoId;
 
@@ -86,11 +89,12 @@ public class UserDto {
 	}
 
 	public UserDto(Integer userId, String email, String firstName, String identificationNumber,
-				   String identificationType, String lastName, String ssoId) {
+				   String identificationType, String lastName, String ssoId, String password) {
 		this.userId = userId; this.email = email; this.firstName = firstName;
 		this.identificationNumber = identificationNumber;
 		this.identificationType = identificationType;
 		this.lastName = lastName; this.ssoId = ssoId;
+		this.password = password;
 	}
 
 }
