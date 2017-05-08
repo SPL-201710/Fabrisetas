@@ -92,6 +92,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		<script src="js/directives/cargarImagenes.js" charset="utf-8"></script>
 
+		<!-- módulo de generarCamisa camisaAleatoria -->
+		<script src="js/camisaAleatoria/camisaAleatoriaCtrl.js" charset="utf-8"></script>
+		<link rel="stylesheet" href="js/camisaAleatoria/estilosComponente.css">
+
 
 </head>
 <body ng-controller="appCtrl">
@@ -149,7 +153,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="#!/navegar-autor">Autores</a></li>
 						</ul>
 					</li>
-					<li ng-if="(tipoUsuario!='1' && tipoUsuario!='3')" class="dropdown1"><a href="#!"><i class="fa fa-star" aria-hidden="true"></i> Genera tu Camiseta</a>
+					<li ng-if="(tipoUsuario!='1' && tipoUsuario!='3')" class="dropdown1"><a href="#!/generar-camisa"><i class="fa fa-star" aria-hidden="true"></i> Genera tu Camiseta</a>
 						<ul class="dropdown2">
 							<!--<li><a href="women.html">Ethnic Wear</a></li>
 							<li><a href="women.html">Western Wear</a></li>

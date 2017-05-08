@@ -1,6 +1,7 @@
-var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
+var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial','camisaAleatoria']);
 app.value('fabConstans', {
-    URL_BASE_SERVICIOS:"http://52.88.20.109:8080/fabricetas/"
+    //URL_BASE_SERVICIOS:"http://52.88.20.109:8080/fabricetas/"
+    URL_BASE_SERVICIOS:"http://localhost:8080/fabricetas/"
 });
 
 /*
@@ -10,6 +11,87 @@ app.value('fabConstans', {
   'remove': {method:'DELETE'},
   'delete': {method:'DELETE'} };
 */
+
+
+app.run(['$rootScope', '$window','servicioCookies',"$location",
+  function($rootScope, $window,servicioCookies,$location) {
+
+    $rootScope.user = {};
+
+     $window.fbAsyncInit = function() {
+       // Executed when the SDK is loaded
+
+       FB.init({
+         appId: '254087478393895',
+         channelUrl: 'views/channel.html',
+         status: true,
+         cookie: true,
+         xfbml: true
+       });
+
+       watchLoginChange();
+
+     };
+
+     (function(d){
+       // load the Facebook javascript SDK
+
+       var js,
+       id = 'facebook-jssdk',
+       ref = d.getElementsByTagName('script')[0];
+
+       if (d.getElementById(id)) {
+         return;
+       }
+
+       js = d.createElement('script');
+       js.id = id;
+       js.async = true;
+       js.src = "//connect.facebook.net/en_US/all.js";
+
+       ref.parentNode.insertBefore(js, ref);
+
+     }(document));
+
+
+     function watchLoginChange() {
+
+       var _self = this;
+
+       FB.Event.subscribe('auth.authResponseChange', function(res) {
+
+         if (res.status === 'connected')
+         {
+           getUserInfo();
+           if(typeof $rootScope.user.name!='undefined')
+           {
+             servicioCookies.crearCookieUsuarioAutenticado($rootScope.user);
+             $location.path("/");
+           }
+         }
+         else
+         {
+         }
+
+       });
+
+     }
+
+      function getUserInfo () {
+
+       var _self = this;
+
+       FB.api('/me', function(res) {
+         $rootScope.$apply(function() {
+           $rootScope.user = _self.user = res;
+           console.log(res);
+         });
+       });
+
+     }
+
+
+}]);
 
 app.config(function($routeProvider){
 
@@ -74,6 +156,6 @@ app.config(function($routeProvider){
         templateUrl:"views/adminUsuarios.html"
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/login'
     });
 });
