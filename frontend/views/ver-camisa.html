@@ -23,32 +23,6 @@
           <p>{{camisetaSeleccionada.name}}</p>
           <p>{{camisetaSeleccionada.price | currency}}</p>
           <p>{{camisetaSeleccionada.description}}</p>
-          <div class="col-md-12">
-            <br>
-            <label>Seleccione color</label>
-            <br>
-            <span class="cuadradosRojo col-md-4 espacioColores" ng-click="seleccionColor('Rojo');"></span>
-            <span class="cuadradosAzul col-md-4 espacioColores" ng-click="seleccionColor('Azul');"></span>
-            <span class="cuadradosVerde col-md-4 espacioColores" ng-click="seleccionColor('Verde');"></span>
-
-            <span class="cuadradosGrises col-md-4 espacioColores" ng-click="seleccionColor('Gris');"></span>
-            <span class="cuadradosNegro col-md-4 espacioColores" ng-click="seleccionColor('Negro');"></span>
-            <span class="cuadradosColor col-md-4 espacioColores" ng-click="seleccionColor('Color 0');"></span>
-
-            <span class="cuadradosColorUno col-md-4 espacioColores" ng-click="seleccionColor('Color 1');"></span>
-            <span class="cuadradosColorDos col-md-4 espacioColores" ng-click="seleccionColor('Color 2');"></span>
-          </div>
-          <div class="col-md-12" style="padding-top:5px;">
-            <br>
-            <label>Seleccione talla</label>
-            <br>
-            <span class="cuadradosTalla" ng-click="seleccionTalla('XS');">XS</span>
-            <span class="cuadradosTalla" ng-click="seleccionTalla('S');">S</span>
-            <span class="cuadradosTalla" ng-click="seleccionTalla('M');">M</span>
-            <span class="cuadradosTalla" ng-click="seleccionTalla('L');">L</span>
-            <span class="cuadradosTalla" ng-click="seleccionTalla('XL');">XL</span>
-            <span class="cuadradosTalla" ng-click="seleccionTalla('XXL');">XXL</span>
-          </div>
         </div>
         <div class="col-md-4 animated bounceInLeft">
           <div class="col-md-12">
@@ -72,11 +46,56 @@
           </div>
         </div>
       </div>
-      <div class="col-md-5 col-md-offset-4 animated bounceInLeft">
-          <h3>Resultado</h3>
-          <h4>*** Talla:{{talla}} ***</h4>
-          <h4>*** Color:{{color}} ***</h4>
-        <canvas id="canvas"></canvas>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <label>Seleccione color camiseta</label>
+          <br>
+          <span class="cuadradosRojo col-md-4 espacioColores" ng-click="seleccionColor('red', false);"></span>
+          <span class="cuadradosAzul col-md-4 espacioColores" ng-click="seleccionColor('blue',false);"></span>
+          <span class="cuadradosVerde col-md-4 espacioColores" ng-click="seleccionColor('green', false);"></span>
+
+          <span class="cuadradosGrises col-md-4 espacioColores" ng-click="seleccionColor('gray', false);"></span>
+          <span class="cuadradosNegro col-md-4 espacioColores" ng-click="seleccionColor('black', false);"></span>
+          <span class="cuadradosColor col-md-4 espacioColores" ng-click="seleccionColor('orange', false);"></span>
+
+          <span class="cuadradosColorUno col-md-4 espacioColores" ng-click="seleccionColor('purple', false);"></span>
+          <span class="cuadradosColorDos col-md-4 espacioColores" ng-click="seleccionColor('white', false);"></span>
+          <br>
+          <label>Seleccione talla</label>
+          <br>
+          <span class="cuadradosTalla" ng-click="seleccionTalla('XS');">XS</span>
+          <span class="cuadradosTalla" ng-click="seleccionTalla('S');">S</span>
+          <span class="cuadradosTalla" ng-click="seleccionTalla('M');">M</span>
+          <span class="cuadradosTalla" ng-click="seleccionTalla('L');">L</span>
+          <span class="cuadradosTalla" ng-click="seleccionTalla('XL');">XL</span>
+          <span class="cuadradosTalla" ng-click="seleccionTalla('XXL');">XXL</span>
+          <br>
+          <label>Seleccione color texto</label>
+          <br>
+          <span class="cuadradosRojo col-md-4 espacioColores" ng-click="seleccionColor('red', true);"></span>
+          <span class="cuadradosAzul col-md-4 espacioColores" ng-click="seleccionColor('blue', true);"></span>
+          <span class="cuadradosVerde col-md-4 espacioColores" ng-click="seleccionColor('green',true);"></span>
+
+          <span class="cuadradosGrises col-md-4 espacioColores" ng-click="seleccionColor('gray', true);"></span>
+          <span class="cuadradosNegro col-md-4 espacioColores" ng-click="seleccionColor('black', true);"></span>
+          <span class="cuadradosColor col-md-4 espacioColores" ng-click="seleccionColor('orange',true);"></span>
+
+          <span class="cuadradosColorUno col-md-4 espacioColores" ng-click="seleccionColor('purple', true);"></span>
+          <span class="cuadradosColorDos col-md-4 espacioColores" ng-click="seleccionColor('white', true);"></span>
+          <br>
+          <label>Texto camiseta:
+          <br>
+           <input type="text" name="input" ng-model="textTshirt"
+                  ng-change="cambioTexto();">
+         </label>
+
+        </div>
+        <div class="col-md-4"  animated bounceInLeft">
+            <h3>Resultado</h3>
+            <h4>*** Talla:{{talla}} ***</h4>
+            <h4>*** Color:{{color}} ***</h4>
+          <canvas id="canvas"></canvas>
+        </div>
       </div>
       <div class="col-md-12 animated bounceInDown">
         <button type="button" name="button" class="btn btn-warning btn-block" ng-click="descartar();"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Descartar prenda </button>
