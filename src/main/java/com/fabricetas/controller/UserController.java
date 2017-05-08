@@ -1,5 +1,6 @@
 package com.fabricetas.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabricetas.domain.Role;
-import com.fabricetas.domain.Tshirt;
 import com.fabricetas.domain.User;
 import com.fabricetas.domain.dto.AutenticacionDto;
 import com.fabricetas.domain.dto.UserDto;
@@ -52,19 +52,52 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         if (!UtilNumber.isNullOrZero(user.getUserId()))
             return new ResponseEntity<>(HttpStatus.CONFLICT);
-        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+        
+        User usuarioCreado = userService.create(user);
+        /*
+        roleService.findOne( )
+        
+        usuarioCreado.setRole();
+        */
+        return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);
+        
     }
 
     /**
      * Read all users
      * @return user list
      */
+    /*
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll() {
         List<User> users = userService.findAll();
         if (users.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    */
+    /**
+     * Read all users
+     * @return user list
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserDto>> findAll( @RequestParam(value="fetch", required= false) String fetch ) {
+        List<User> users = userService.findAll();
+        
+        List<UserDto> usersDto = new ArrayList<UserDto>(); 
+        
+        for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+			User user = (User) iterator.next();
+			UserDto userDto = userService.findOneDto( user.getUserId(), fetch);
+	        
+	        User usuario = userService.findOne( user.getUserId() );
+	        userDto.setRole( usuario.getRole() );
+			usersDto.add( userDto );
+		}
+                
+        if (users.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(usersDto, HttpStatus.OK);
     }
     
 	/*
@@ -91,6 +124,10 @@ public class UserController {
     	UserDto userDto = userService.findOneDto(id, fetch);
         if (userDto == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+        User usuario = userService.findOne( id );
+        userDto.setRole( usuario.getRole() );
+        
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
