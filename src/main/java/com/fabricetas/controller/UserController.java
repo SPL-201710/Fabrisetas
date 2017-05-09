@@ -50,17 +50,21 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-        if (!UtilNumber.isNullOrZero(user.getUserId()))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+//        if (!UtilNumber.isNullOrZero(user.getUserId()))
+//            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        
+        Integer idRole = user.getUserId();
+        Role role = roleService.findOne( idRole );
+        List<Role> roles = new ArrayList<Role>(); 
+        roles.add( role );
+        
+        user.setUserId( 0 );
+        user.setRole( roles );
+        user.setEstado( "A" );
         
         User usuarioCreado = userService.create(user);
-        /*
-        roleService.findOne( )
-        
-        usuarioCreado.setRole();
-        */
-        return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);
-        
+
+        return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);        
     }
 
     /**
@@ -153,7 +157,11 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         if ( !userService.exist(id) )
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        userService.delete(id);
+        
+        User usuario = userService.findOne(id);
+        usuario.setEstado( "D" );
+        
+        userService.update(usuario);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -174,7 +182,7 @@ public class UserController {
 	        	User user = userService.findOneByName( autenticacionDto.getName() );
 	        	if( user == null){
 	        		autenticacionDto.setMensajeRespuesta( "El usuario [" + autenticacionDto.getName() + "] no existe." );
-	        	}else if(autenticacionDto.getPassword().equals( user.getPassword() )){
+	        	}else if( ("A".equals(user.getEstado())) && autenticacionDto.getPassword().equals( user.getPassword() ) ){
 	        		autenticacionDto.setMensajeRespuesta( "Autenticación exitosa." );
 	        		autenticacionDto.setEmail( user.getEmail() );
 	        		autenticacionDto.setFirstName( user.getFirstName() );

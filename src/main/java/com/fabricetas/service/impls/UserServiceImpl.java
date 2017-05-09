@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
      * @return user list
      */
     public List<User> findAll(){
-        return Lists.newArrayList(userRepository.findAll());
+        return Lists.newArrayList(userRepository.findAllActivo());
     }
     
 	/*
