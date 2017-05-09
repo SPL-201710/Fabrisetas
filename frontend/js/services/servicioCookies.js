@@ -69,4 +69,5 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
     delete $cookies["carrito"];
   }
 
+
 }]);

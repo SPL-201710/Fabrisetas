@@ -1,4 +1,4 @@
- app.controller('appCtrl',["$scope","servicioCookies","$rootScope","$location","$window",function($scope,servicioCookies,$rootScope,$location,$window){
+ app.controller('appCtrl',["$scope","servicioCookies","servicioFacebook","$rootScope","$location","$window",function($scope,servicioCookies,servicioFacebook,$rootScope,$location,$window){
    $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
      $scope.usuarioLogueado={};
      $scope.usuarioLogueado = servicioCookies.traerUsuarioAutenticado();
@@ -25,6 +25,7 @@
 
    });
    $scope.cerrarSesion= function (){
+     servicioFacebook.cerrarSesionFacebook();
      servicioCookies.eliminarUsuarioAutenticado();
      $window.location.reload();
      $location.path("/");

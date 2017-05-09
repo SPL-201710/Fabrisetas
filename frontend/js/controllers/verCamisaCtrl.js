@@ -19,7 +19,7 @@ app.controller("verCamisaCtrl",["$scope","servicioCamiseta","$location","$routeP
 
   $scope.agregarCarrito = function (){
     if(servicioCookies.validarSiEstaAutenticado()){
-      servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);
+      servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);      
       $location.path("/pagar");
     }
     else

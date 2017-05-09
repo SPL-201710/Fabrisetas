@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive" style="margin-top:6%;">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <th>Camiseta</th>
+            <th>Estampa</th>
+            <th>Resultado</th>
+            <th>Precio</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="configuracion in resumenCompra">
+              <td ng-repeat="item in configuracion" style="text-align:center;">
+                <img src="{{item.path}}" alt="" class="img-responsive" width="250" height="250">
+              </td>
+              <td ng-repeat="imagen in imagenes">
+                <canvas id="canvas"></canvas>
+              </td>
+              <span ng-repeat="item in configuracion">
+                <td>
+                  {{item.price}}
+                </td>
+              </span>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

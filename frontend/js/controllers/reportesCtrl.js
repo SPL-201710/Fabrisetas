@@ -1,4 +1,4 @@
-app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies","servicioAutores",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies,servicioAutores){
+app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies","servicioAutores","servicioFacebook",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies,servicioAutores,servicioFacebook){
   init();
   $scope.cambiarValor = function(){
     console.log($scope.artistaSeleccionado);
@@ -206,6 +206,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         break;
       default:
     }
+  
 
 
     function crearPDF (){
@@ -217,5 +218,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
     }
 
   }
+
+
 
 }]);
