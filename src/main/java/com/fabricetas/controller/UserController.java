@@ -1,5 +1,6 @@
 package com.fabricetas.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabricetas.domain.Role;
-import com.fabricetas.domain.Tshirt;
 import com.fabricetas.domain.User;
 import com.fabricetas.domain.dto.AutenticacionDto;
 import com.fabricetas.domain.dto.UserDto;
@@ -50,21 +50,58 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-        if (!UtilNumber.isNullOrZero(user.getUserId()))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+//        if (!UtilNumber.isNullOrZero(user.getUserId()))
+//            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        
+        Integer idRole = user.getUserId();
+        Role role = roleService.findOne( idRole );
+        List<Role> roles = new ArrayList<Role>(); 
+        roles.add( role );
+        
+        user.setUserId( 0 );
+        user.setRole( roles );
+        user.setEstado( "A" );
+        
+        User usuarioCreado = userService.create(user);
+
+        return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);        
     }
 
     /**
      * Read all users
      * @return user list
      */
+    /*
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> findAll() {
         List<User> users = userService.findAll();
         if (users.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+    */
+    /**
+     * Read all users
+     * @return user list
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<UserDto>> findAll( @RequestParam(value="fetch", required= false) String fetch ) {
+        List<User> users = userService.findAll();
+        
+        List<UserDto> usersDto = new ArrayList<UserDto>(); 
+        
+        for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+			User user = (User) iterator.next();
+			UserDto userDto = userService.findOneDto( user.getUserId(), fetch);
+	        
+	        User usuario = userService.findOne( user.getUserId() );
+	        userDto.setRole( usuario.getRole() );
+			usersDto.add( userDto );
+		}
+                
+        if (users.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(usersDto, HttpStatus.OK);
     }
     
 	/*
@@ -91,6 +128,10 @@ public class UserController {
     	UserDto userDto = userService.findOneDto(id, fetch);
         if (userDto == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+        User usuario = userService.findOne( id );
+        userDto.setRole( usuario.getRole() );
+        
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
@@ -105,6 +146,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         else if(!userService.exist(user.getUserId()))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        user.setEstado( "A" );
         return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
     }
 
@@ -116,7 +158,11 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         if ( !userService.exist(id) )
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        userService.delete(id);
+        
+        User usuario = userService.findOne(id);
+        usuario.setEstado( "D" );
+        
+        userService.update(usuario);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -127,7 +173,8 @@ public class UserController {
      */
     @RequestMapping(value = "/usuario/autenticar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AutenticacionDto> autenticar(@RequestBody AutenticacionDto autenticacionDto) {
-        boolean isError = true;
+        
+    	boolean isError = true;
     	if(autenticacionDto.getPassword() == null){
 			autenticacionDto.setMensajeRespuesta( "El password no debe ser null." );
 		}else if("l".equals( autenticacionDto.getTipoLogin() ) ){				//Validacion local
@@ -137,7 +184,7 @@ public class UserController {
 	        	User user = userService.findOneByName( autenticacionDto.getName() );
 	        	if( user == null){
 	        		autenticacionDto.setMensajeRespuesta( "El usuario [" + autenticacionDto.getName() + "] no existe." );
-	        	}else if(autenticacionDto.getPassword().equals( user.getPassword() )){
+	        	}else if( ("A".equals(user.getEstado())) && autenticacionDto.getPassword().equals( user.getPassword() ) ){
 	        		autenticacionDto.setMensajeRespuesta( "Autenticación exitosa." );
 	        		autenticacionDto.setEmail( user.getEmail() );
 	        		autenticacionDto.setFirstName( user.getFirstName() );
@@ -145,7 +192,7 @@ public class UserController {
 	        		autenticacionDto.setIdentificationType( user.getIdentificationType() );
 	        		autenticacionDto.setLastName( user.getLastName() );
 	        		autenticacionDto.setSsoId( user.getSsoId() );
-	        		
+
 	        		Collection<Role> roles = user.getRole();
 	        		for (Iterator iterator = roles.iterator(); iterator.hasNext();) {
 						Role role = (Role) iterator.next();
@@ -170,8 +217,8 @@ public class UserController {
         //    return new ResponseEntity<>(HttpStatus.CONFLICT);
     	
     	//return new ResponseEntity<>(tshirtService.create(tshirt), HttpStatus.CREATED);
-        if(isError)
-        	return new ResponseEntity<>(autenticacionDto, HttpStatus.UNAUTHORIZED);
+    	if(isError)
+    		return new ResponseEntity<>(autenticacionDto, HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(autenticacionDto, HttpStatus.CREATED);
     }
 }

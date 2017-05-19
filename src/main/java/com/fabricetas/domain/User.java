@@ -64,6 +64,10 @@ public class User implements Serializable {
 	@Column(name="PASSWORD")
 	private String password;
 	
+	@Getter @Setter
+	@Column(name="ESTADO")
+	private String estado;
+	
 	@JsonIgnore
 	@Getter @Setter
 	@OneToMany(mappedBy="user")

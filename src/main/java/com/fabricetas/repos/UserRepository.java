@@ -15,9 +15,12 @@ import com.fabricetas.domain.User;
  */
 public interface UserRepository  extends CrudRepository<User, Integer> {
 	
-	@Query("SELECT u FROM User u INNER JOIN u.role r WHERE r.name = 'Artista'")
+	@Query("SELECT u FROM User u INNER JOIN u.role r WHERE r.name = 'Artista' AND UPPER(u.estado) = 'A'")
 	Collection<User> findAllUserWithRoleArtist();
 	
-	@Query("SELECT u FROM User u WHERE UPPER(u.name) = UPPER(?1)")
+	@Query("SELECT u FROM User u WHERE UPPER(u.name) = UPPER(?1) AND UPPER(u.estado) = 'A'")
 	User findOneByName( String name );
+		
+	@Query("SELECT u FROM User u WHERE UPPER(u.estado) = 'A'")
+	Collection<User> findAllActivo();
 }
