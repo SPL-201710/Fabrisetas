@@ -2,6 +2,26 @@ var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial','cam
 app.value('fabConstans', {
     //URL_BASE_SERVICIOS:"http://52.88.20.109:8080/fabricetas/"
     URL_BASE_SERVICIOS:"http://localhost:8080/fabricetas/"
+    ,twitter:false
+    ,facebook:false
+    ,socialNetwork:false
+    ,byArtist:false
+    ,desingsByArtists:false
+    ,rating:true
+    ,reports:true
+    ,changeAdress:false
+    ,changePassword:true
+    ,shareOnSocialNetwork:false
+    ,SC_RamdonTShirt:false
+    ,color:false
+    ,text:true
+    ,authFacebook:false
+    ,authTwitter:false
+    ,BD:true
+    ,list:false
+    ,gallery:true
+    ,rateProducts:true
+    ,advanceShearch:true
 });
 
 /*

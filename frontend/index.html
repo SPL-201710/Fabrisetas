@@ -98,7 +98,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/camisaAleatoria/camisaAleatoriaCtrl.js" charset="utf-8"></script>
 		<link rel="stylesheet" href="js/camisaAleatoria/estilosComponente.css">
 
-
 		<!-- scripts de inicio de sesión con redes sociales -->
 		<script src="js/services/servicioFacebook.js" charset="utf-8"></script>
 
@@ -158,7 +157,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="#!/navegar-autor">Autores</a></li>
 						</ul>
 					</li>
-					<li ng-if="(tipoUsuario!='1' && tipoUsuario!='3')" class="dropdown1"><a href="#!/generar-camisa"><i class="fa fa-star" aria-hidden="true"></i> Genera tu Camiseta</a>
+					<li ng-if="(tipoUsuario!='1' && tipoUsuario!='3' && configFab.SC_RamdonTShirt)" class="dropdown1"><a href="#!/generar-camisa"><i class="fa fa-star" aria-hidden="true"></i> Genera tu Camiseta</a>
 						<ul class="dropdown2">
 							<!--<li><a href="women.html">Ethnic Wear</a></li>
 							<li><a href="women.html">Western Wear</a></li>
@@ -179,7 +178,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="404.html"><i class="fa fa-commenting-o" aria-hidden="true"></i> Contactenos</a></li> -->
 					<li><a href="#!/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a></li>
 					<li ng-if="tipoUsuario=='3'"><a href="#!/artista"  style="color:blue;"><i class="fa fa-bookmark" aria-hidden="true"></i> Mis estampas</a></li>
-					<li ng-if="tipoUsuario=='3' || tipoUsuario=='1' "><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
+					<li ng-if="(tipoUsuario=='3' || tipoUsuario=='1') && configFab.reports "><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
 				</ul>
 			</div>
 

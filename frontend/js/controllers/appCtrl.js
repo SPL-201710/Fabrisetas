@@ -1,7 +1,8 @@
- app.controller('appCtrl',["$scope","servicioCookies","servicioFacebook","$rootScope","$location","$window",function($scope,servicioCookies,servicioFacebook,$rootScope,$location,$window){
+ app.controller('appCtrl',["$scope","servicioCookies","servicioFacebook","fabConstans","$rootScope","$location","$window",function($scope,servicioCookies,servicioFacebook,fabConstans,$rootScope,$location,$window){
    $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
      $scope.usuarioLogueado={};
      $scope.usuarioLogueado = servicioCookies.traerUsuarioAutenticado();
+     $scope.configFab = fabConstans;
      if(servicioCookies.validarSiEstaAutenticado())
      {
        $scope.valorCarrito = servicioCookies.valorCarrito();
