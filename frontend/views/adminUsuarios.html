@@ -18,7 +18,7 @@
                 <td>{{usuario.userId}}</td>
                 <td>{{usuario.name}}</td>
                 <td>{{usuario.identificationType}} {{usuario.identificationNumber}}</td>
-                <td>{{usuario.tipo}}</td>
+                <td>{{usuario.role[0].name}}</td>
                 <td>{{usuario.email==null ? 'No registrado':usuario.email }}</td>
                 <td>
                   <button type="button" name="button" class="btn btn-danger" ng-click="eliminarUsuario(usuario.userId);"> <i class="fa fa-times" aria-hidden="true" ></i> </button>
@@ -66,9 +66,9 @@
             <br>
             <div class="input-group col-md-12">
               <select ng-model="usuarioSeleccionado.tipo" name="selectbasic" class="form-control">
-                <option value="Cliente" selected="">Cliente</option>
-                <option value="Administrador">Administrador</option>
-                <option value="Artista">Artista</option>
+                <option value="2" selected="">Cliente</option>
+                <option value="1">Administrador</option>
+                <option value="3">Artista</option>
               </select>
             </div>
           </div>

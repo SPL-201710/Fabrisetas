@@ -7,7 +7,7 @@ app.service("servicioAdminUsuarios",["fabConstans","$http","$q","$resource",func
   }
 
   vm.actualizarUsuario = function (userId){
-    return $resource(dirServ+"user/:id",{id:userId}, {update : {method : "PUT"}});
+    return $resource(dirServ+"user", null, {update : {method : "PUT"}});
   }
 
   vm.crearUsuario = function (){
