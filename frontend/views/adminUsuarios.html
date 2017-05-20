@@ -18,10 +18,10 @@
                 <td>{{usuario.userId}}</td>
                 <td>{{usuario.name}}</td>
                 <td>{{usuario.identificationType}} {{usuario.identificationNumber}}</td>
-                <td>{{usuario.tipo}}</td>
+                <td>{{usuario.role[0].name}}</td>
                 <td>{{usuario.email==null ? 'No registrado':usuario.email }}</td>
                 <td>
-                  <button type="button" name="button" class="btn btn-danger"> <i class="fa fa-times" aria-hidden="true" ng-click="eliminarUsuario(usuario.userId);"></i> </button>
+                  <button type="button" name="button" class="btn btn-danger" ng-click="eliminarUsuario(usuario.userId);"> <i class="fa fa-times" aria-hidden="true" ></i> </button>
                 </td>
                 <td>
                   <button type="button" name="button" class="btn btn-warning" ng-click="editarUsuario(usuario.indice);"> <i class="fa fa-pencil" aria-hidden="true"></i> </button>
@@ -48,6 +48,11 @@
             </div>
             <br>
             <div class="input-group col-md-12">
+              <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+              <input required  ng-model="usuarioSeleccionado.password" type="password" class="form-control" placeholder="Contraseña" aria-describedby="sizing-addon1">
+            </div>
+            <br>
+            <div class="input-group col-md-12">
               <select ng-model="usuarioSeleccionado.identificationType" name="selectbasic" class="form-control">
                 <option value="CC" selected="">Cédula de ciudadania</option>
                 <option value="CE">Cédula extrajería</option>
@@ -61,9 +66,9 @@
             <br>
             <div class="input-group col-md-12">
               <select ng-model="usuarioSeleccionado.tipo" name="selectbasic" class="form-control">
-                <option value="Cliente" selected="">Cliente</option>
-                <option value="Administrador">Administrador</option>
-                <option value="Artista">Artista</option>
+                <option value="2" selected="">Cliente</option>
+                <option value="1">Administrador</option>
+                <option value="3">Artista</option>
               </select>
             </div>
           </div>

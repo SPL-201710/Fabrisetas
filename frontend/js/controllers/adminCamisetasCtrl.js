@@ -6,6 +6,9 @@
      $scope.thumbnail = {};
      $scope.botonCancelar = false;
      $scope.accionRealizar = "Guardar camiseta";
+     $scope.camisetaNuevaCargada = false;
+     $scope.camisetaActualizada = false;
+
      if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
@@ -28,14 +31,16 @@
      $scope.accionRealizar = "Actualizar camiseta";
      $scope.botonCancelar = true;
      $scope.camisetaNueva = $scope.camisetas[indice];
-     $scope.thumbnail.dataUrl = $scope.camisetas[indice].urlImagen;
+     $scope.thumbnail.dataUrl = $scope.camisetas[indice].path;
+     $scope.camisetaNuevaCargada = false;
+     $scope.camisetaActualizada= false;
    }
 
    $scope.cancelar = function (){
      $scope.accionRealizar = "Guardar camiseta";
      $scope.botonCancelar = false;
      $scope.camisetaNueva ={};
-     $scope.thumbnail.dataUrl = {};
+     $scope.thumbnail={};
    }
 
    $scope.fileReaderSupported = window.FileReader != null;
@@ -51,6 +56,8 @@
                    $timeout(function(){
                      // base64 para usar en el hmtl
                       $scope.thumbnail.dataUrl = e.target.result;
+                      $scope.camisetaNuevaCargada = false;
+                      $scope.camisetaActualizada= false;
                    });
                }
            });
@@ -61,8 +68,10 @@
    $scope.cargarImagen = function (){
      if ($scope.accionRealizar == "Actualizar camiseta")
      {
-       console.log($scope.camisetaNueva);
-        servicioCamiseta.actualizarCamiseta($scope.camisetaNueva.temaId).update($scope.camisetaNueva).$promise.then(function(){
+        $scope.camisetaNueva.path = $scope.thumbnail.dataUrl;
+        console.log($scope.camisetaNueva);
+        servicioCamiseta.actualizarCamiseta($scope.camisetaNueva.camisetaId).update($scope.camisetaNueva).$promise.then(function(){
+          $scope.camisetaActualizada= true;
           $scope.cancelar();
        });
      }
@@ -70,12 +79,13 @@
      {
        var name = $scope.name;
        var file = $scope.file;
-       $scope.camisetaNueva.urlImagen = "esta/url";
+       $scope.camisetaNueva.path = $scope.thumbnail.dataUrl;
        //$scope.temaNuevo.temaId = 0;
        console.log($scope.camisetaNueva);
        servicioCamiseta.crearCamiseta().save($scope.camisetaNueva).$promise.then(function(datos){
-         console.log(datos);
-         recargarCamisetas();
+        $scope.thumbnail.dataUrl;
+        recargarCamisetas();
+        $scope.cancelar();
        })
        .catch(function(err){
          console.log(err);

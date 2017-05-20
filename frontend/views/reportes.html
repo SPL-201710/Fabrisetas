@@ -24,8 +24,13 @@
           <button type="button" name="button" class="btn btn-success btn-block" ng-click="generarReporte('fecha')">Generar reporte</button>
         </div>
         <div class="col-md-12" ng-show="temas">
+          <h6>Seleccione artista</h6>
+          <select ng-show="usuarioAdmin" ng-model="artistaSeleccionadoAdmin" ng-options="artista as artista.name for artista in listaArtistas track by artista.userId" class="form-control">
+            <option value="" selected="selected">Seleccione artista</option>
+          </select>
+          <br>
           <h6>Seleccione tema</h6>
-          <select ng-model="temaSeleccionado" ng-options="tema as tema.nombre for tema in listaTemas track by tema.temaId" class="form-control">
+          <select ng-model="temaSeleccionado" ng-options="tema as tema.name for tema in listaTemas track by tema.themeId" class="form-control">
             <option value="">Seleccione tema</option>
           </select>
           <br>

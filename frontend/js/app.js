@@ -1,4 +1,29 @@
-var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
+var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial','camisaAleatoria']);
+app.value('fabConstans', {
+    //URL_BASE_SERVICIOS:"http://52.88.20.109:8080/fabricetas/"
+    URL_BASE_SERVICIOS:"http://localhost:8080/fabricetas/"
+    ,twitter:false
+    ,facebook:false
+    ,socialNetwork:false
+    ,byArtist:false
+    ,desingsByArtists:false
+    ,rating:true
+    ,reports:true
+    ,changeAdress:false
+    ,changePassword:true
+    ,shareOnSocialNetwork:false
+    ,SC_RamdonTShirt:false
+    ,color:false
+    ,text:true
+    ,authFacebook:false
+    ,authTwitter:false
+    ,BD:true
+    ,list:false
+    ,gallery:true
+    ,rateProducts:true
+    ,advanceShearch:true
+});
+
 /*
 { 'get':    {method:'GET'},
   'save':   {method:'POST'},
@@ -6,6 +31,37 @@ var app = angular.module('fabrisetas', ['ngRoute','ngResource','ngMaterial']);
   'remove': {method:'DELETE'},
   'delete': {method:'DELETE'} };
 */
+
+
+app.run(['$rootScope', '$window','servicioCookies',"$location",
+  function($rootScope, $window,servicioCookies,$location) {
+
+
+
+     function watchLoginChange() {
+
+       var _self = this;
+
+       FB.Event.subscribe('auth.authResponseChange', function(res) {
+
+         if (res.status === 'connected')
+         {
+           getUserInfo();
+           if(typeof $rootScope.user.name!='undefined')
+           {
+             servicioCookies.crearCookieUsuarioAutenticado($rootScope.user);
+             $location.path("/");
+           }
+         }
+         else
+         {
+         }
+
+       });
+
+     }
+
+}]);
 
 app.config(function($routeProvider){
 
@@ -69,7 +125,11 @@ app.config(function($routeProvider){
         controller:"adminUsuariosCtrl",
         templateUrl:"views/adminUsuarios.html"
     })
+    .when("/resumenCompra",{
+        controller:"resumenCompraCtrl",
+        templateUrl:"views/resumenCompra.html"
+    })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/login'
     });
 });

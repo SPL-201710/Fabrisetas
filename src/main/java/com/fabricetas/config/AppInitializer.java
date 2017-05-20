@@ -1,10 +1,11 @@
 package com.fabricetas.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
+
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
  
@@ -25,7 +26,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Filter[] getServletFilters() {
-        Filter [] singleton = { new CorsFilter()};
+        Filter [] singleton = { new CorsFilter(), new OpenEntityManagerInViewFilter()};
         return singleton;
     }
 

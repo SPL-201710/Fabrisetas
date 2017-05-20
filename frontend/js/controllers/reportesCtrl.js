@@ -1,4 +1,4 @@
-app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies","servicioAutores",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies,servicioAutores){
+app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioCategoria","servicioReportes","servicioCookies","servicioAutores","servicioFacebook",function($scope,$routeParams,servicioHome,servicioCategoria,servicioReportes,servicioCookies,servicioAutores,servicioFacebook){
   init();
   $scope.cambiarValor = function(){
     console.log($scope.artistaSeleccionado);
@@ -133,7 +133,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         break;
       case 'tema':
         console.log($scope.temaSeleccionado);
-        servicioReportes.reportePorTemas($scope.usuario.userId,$scope.temaSeleccionado.temaId).query().$promise.then((datos)=>{
+        servicioReportes.reportePorTemas($scope.artistaSeleccionadoAdmin.userId,$scope.temaSeleccionado.themeId).query().$promise.then((datos)=>{
           $scope.tablaReportes = datos;
           $scope.tablaBasica = true;
           $scope.tablaArtista=false;
@@ -148,10 +148,12 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         });
         break;
       case 'estampa':
+      //todas las estampas vendidas
+      // del artista que consulta
         servicioReportes.reportePorEstampas($scope.usuario.userId).query().$promise.then((datos)=>{
           $scope.tablaReportes = datos;
-          $scope.tablaBasica = false;
-          $scope.tablaArtista=true;
+          $scope.tablaBasica = true;
+          $scope.tablaArtista=false;
           $scope.tablaCamiseta = false;
           $scope.titulos = Object.keys($scope.tablaReportes[0]);
           console.log($scope.titulos);
@@ -169,8 +171,8 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         console.log($scope.artistaSeleccionado);
         servicioReportes.reportePorEstampas($scope.artistaSeleccionado.userId).query().$promise.then((datos)=>{
           $scope.tablaReportes = datos;
-          $scope.tablaBasica = false;
-          $scope.tablaArtista=true;
+          $scope.tablaBasica = true;
+          $scope.tablaArtista=false;
           $scope.tablaCamiseta = false;
           $scope.titulos = Object.keys($scope.tablaReportes[0]);
           console.log($scope.titulos);
@@ -204,6 +206,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
         break;
       default:
     }
+  
 
 
     function crearPDF (){
@@ -215,5 +218,7 @@ app.controller("reportesCtrl",["$scope","$routeParams","servicioHome","servicioC
     }
 
   }
+
+
 
 }]);

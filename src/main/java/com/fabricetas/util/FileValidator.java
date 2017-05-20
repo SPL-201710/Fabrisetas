@@ -1,6 +1,6 @@
 package com.fabricetas.util;
 
-import com.fabricetas.model.TransientFile;
+import com.fabricetas.domain.TransientFile;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

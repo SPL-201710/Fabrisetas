@@ -6,7 +6,9 @@ app.controller("autorCtrl",["$scope","$routeParams","servicioAutores","servicioH
     {
       $scope.autor=$routeParams.autor;
       let autor =$routeParams.autor;
-      $scope.estampasAutor = servicioAutores.traerEstampasAutor(autor).query();
+      servicioAutores.traerEstampasAutor(autor).query().$promise.then((datos)=>{
+          $scope.estampasAutor = datos;
+      })
     }
     else
     {

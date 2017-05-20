@@ -1,10 +1,10 @@
-app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resource){
+app.service("servicioAutores",["fabConstans","$http","$q","$resource",function(fabConstans,$http,$q,$resource){
 	var vm= this;
-  var dirServ = "http://52.88.20.109:8080/fabricetas/";
-	//var dirServ = "http://localhost:8080/fabricetas/";
+  //var dirServ = "http://52.88.20.109:8080/fabricetas/";
+	var dirServ = fabConstans.URL_BASE_SERVICIOS;
 
 	vm.traerEstampasAutor = function (autor){
-		return $resource(dirServ + "estampa/autor/:id",{id:autor});
+		return $resource(dirServ + "stamp/home/?artistId=:id",{id:autor});
 	}
 
 	vm.traerEstampasAutorNode = function (autor){
@@ -13,15 +13,14 @@ app.service("servicioAutores",["$http","$q","$resource",function($http,$q,$resou
 	}
 
 	vm.traerAutores = function (autor){
-		return $resource(dirServ + "user/artistas");
+		return $resource(dirServ + "user/role/artist");
 	}
 	vm.cargarEstampa = function (){
-		return $resource(dirServ + "estampa");
+		return $resource(dirServ + "stamp");
 	}
 
-	vm.actualizarEstampa = function (estampaId){
-		return $resource(dirServ + "estampa/:id",{id:estampaId}, {update : {method : "PUT"}});
-
+	vm.actualizarEstampa = function (){
+		return $resource(dirServ + "stamp",null,{update : {method : "PUT"}});
 	}
 
 	/* metodo viejo no funciona*/

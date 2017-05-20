@@ -13,25 +13,25 @@
           <br>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-            <input required ng-model="estampaNueva.nombre" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
+            <input required ng-model="estampaNueva.name" type="text" class="form-control" placeholder="Nombre" aria-describedby="sizing-addon1">
           </div>
           <br>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-            <input required ng-model="estampaNueva.valor" type="text" class="form-control" placeholder="Precio" aria-describedby="sizing-addon1">
+            <input required ng-model="estampaNueva.price" type="text" class="form-control" placeholder="Precio" aria-describedby="sizing-addon1">
           </div>
           <br>
           <div class="input-group">
-            <textarea ng-model="estampaNueva.descripcion" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
+            <textarea ng-model="estampaNueva.description" required name="name" placeholder="descripcion" class="form-control" cols="50"></textarea>
           </div>
           <br>
           <div class="input-group">
             <input multiple onchange="angular.element(this).scope().photoChanged(this.files)" type="file" name="file" uploader-model="file" />
           </div>
           <br>
-            <select class="form-control" ng-model="estampaNueva.temaId">
+            <select class="form-control" ng-model="estampaNueva.themeId">
               <option value="" selected>Tema</option>
-              <option ng-repeat="tema in temas" value="{{tema.temaId}}">{{tema.nombre}}</option>
+              <option ng-repeat="tema in temas" value="{{tema.themeId}}">{{tema.name}}</option>
             </select>
             <br>
             <div class="input-group">
@@ -65,13 +65,13 @@
      				<tbody>
                <tr ng-repeat="estampa in estampasArtista">
                  <td>
-                   <img src="{{estampa.urlImagen}}" class="img-responsive">
+                   <img src="{{estampa.path}}" class="img-responsive">
                  </td>
-                 <td>{{estampa.nombre}}</td>
-                 <td>{{estampa.valor}}</td>
-                 <td>{{estampa.descripcion}}</td>
-                 <td>{{estampa.temaNombre}}</td>
-                 <td>{{estampa.rating}}</td>
+                 <td>{{estampa.name}}</td>
+                 <td>{{estampa.price}}</td>
+                 <td>{{estampa.description}}</td>
+                 <td>{{estampa.themeName}}</td>
+                 <td>{{estampa.totalRating}}</td>
                  <td>
                    <button type="button" class="btn btn-info zoom" ng-click="editarEstampa(estampa.indice);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
      						 </td>

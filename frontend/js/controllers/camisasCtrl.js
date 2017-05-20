@@ -1,12 +1,12 @@
-app.controller("camisasCtrl",["$scope","servicioHome","servicioCookies","$location",function($scope,servicioHome,servicioCookies,$location){
+app.controller("camisasCtrl",["$scope","servicioCamiseta","servicioCookies","$location",function($scope,servicioCamiseta,servicioCookies,$location){
   init();
 
 $scope.verDetalleCamiseta = function (camisa_id){
   let camisetaSeleccionada = $scope.listaCamisas.filter(function(element){
-      return element.camisetaId ===camisa_id;
+      return element.tshirtId ===camisa_id;
   });
   servicioCookies.crearCookieCamisetaSeleccionada(camisetaSeleccionada[0]);
-  $location.path("ver-camisa/"+camisetaSeleccionada[0].camisetaId);
+  $location.path("ver-camisa/"+camisetaSeleccionada[0].tshirtId);
 }
 
 //Elimina la cookie donde se almacena la camiseta seleccionada
@@ -19,6 +19,6 @@ $scope.verDetalleCamiseta = function (camisa_id){
   function init(){
     $scope.estampaSeleccionada = [];
       $scope.estampaSeleccionada = servicioCookies.traerEstampaSeleccionada();
-      $scope.listaCamisas = servicioHome.traerCamisas().query();
+      $scope.listaCamisas = servicioCamiseta.traerCamisas().query();
   }
 }]);

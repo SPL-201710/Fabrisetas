@@ -9,7 +9,7 @@
      $scope.temaNuevoCargado = false;
      $scope.temaActualizado = false;
 
-     if(servicioCookies.validarSiEstaAutenticado()){
+     //if(servicioCookies.validarSiEstaAutenticado()){
        $scope.artista = servicioCookies.traerUsuarioAutenticado();
        console.log($scope.artista);
        recargarTemas();
@@ -17,7 +17,7 @@
         {
             $scope.autor = servicioCookies.traerUsuarioAutenticado();
         }
-     }
+     //}
    }
    function recargarTemas(){
      servicioCategoria.traerCategorias().query().$promise.then((datos) => {
@@ -31,7 +31,7 @@
      $scope.accionRealizar = "Actualizar tema";
      $scope.botonCancelar = true;
      $scope.temaNuevo = $scope.temas[indice];
-     $scope.thumbnail.dataUrl = $scope.temas[indice].urlTema;
+     $scope.thumbnail.dataUrl = $scope.temas[indice].path;
      $scope.temaNuevoCargado = false;
      $scope.temaActualizado = false;
    }
@@ -68,7 +68,7 @@
    $scope.cargarImagen = function (){
      if ($scope.accionRealizar == "Actualizar tema")
      {
-        $scope.temaNuevo.urlTema = $scope.thumbnail.dataUrl;
+        $scope.temaNuevo.path = $scope.thumbnail.dataUrl;
         console.log($scope.temaNuevo);
         servicioCategoria.actualizarCategoria($scope.temaNuevo.temaId).update($scope.temaNuevo).$promise.then(function(){
           $scope.temaActualizado = true;
@@ -79,7 +79,7 @@
      {
        var name = $scope.name;
        var file = $scope.file;
-       $scope.temaNuevo.urlTema = $scope.thumbnail.dataUrl;
+       $scope.temaNuevo.path = $scope.thumbnail.dataUrl;
        //$scope.temaNuevo.temaId = 0;
        console.log($scope.temaNuevo);
        servicioCategoria.crearCategoria().save($scope.temaNuevo).$promise.then(function(datos){

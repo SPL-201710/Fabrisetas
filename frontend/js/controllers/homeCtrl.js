@@ -2,8 +2,11 @@ app.controller("homeCtrl",["$scope","servicioHome", "servicioCategoria","servici
 	init();
 
 	function init(){
+		console.log("Entro");
 		$scope.populares= servicioHome.traerEstampas().query();
 		$scope.temas= servicioCategoria.traerCategorias().query();
+		console.log("Salio");
+		console.log($scope.temas);
 		/*
 		ejemplo de put
 		var data = {

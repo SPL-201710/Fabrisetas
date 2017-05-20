@@ -8,11 +8,11 @@
     <div class="banner-bottom-grids animated bounceInLeft">
 
       <div class="col-md-4 bottom-grid" ng-repeat="i in [0, 1, 2]">
-        <img src="{{temas[i].urlTema}}" alt="" width="280" height="190" />
+        <img src="{{temas[i].path}}" alt="" width="280" height="190" />
 
         <div class="bottom-grid-info">
-          <a href="#!/categoria-estampas/{{temas[i].temaId}}">{{temas[i].nombre}}</a>
-          <p>{{temas[i].descripcion}}
+          <a href="#!/categoria-estampas/{{temas[i].themeId}}">{{temas[i].name}}</a>
+          <p>{{temas[i].description}}
           </p>
         </div>
       </div>
@@ -80,14 +80,14 @@
       <div class="col-md-3 product-left-grid" ng-repeat="popular in populares">
         <div class="product-grid">
           <div class="product-grid-text">
-            <a href="#!/ver-estampa/{{popular.estampaId}}"><img src="{{popular.urlImagen}}" alt="" width="300" height="350"/></a>
+            <a href="#!/ver-estampa/{{popular.stampId}}"><img src="{{popular.path}}" alt="" width="300" height="350"/></a>
             <div class="products-grid-info">
-              <h3>{{popular.nombre}}</h3>
-              <h4>Rating: {{popular.rating}}</h4>
-              <p>{{popular.descripcion}}</p>
-              <p> <strong> <a href="#!/navegar-autor/{{popular.autor}}">Autor: {{popular.autor}} </a></strong> </p>
+              <h3>{{popular.name}}</h3>
+              <h4>Rating: {{popular.totalRating}}</h4>
+              <p>{{popular.description}}</p>
+              <p> <strong> <a href="#!/navegar-autor/{{popular.artistId}}">Autor: {{popular.artistName}} </a></strong> </p>
               <div class="price">
-                <p>{{popular.valor | currency}}</p>
+                <p>{{popular.price | currency}}</p>
               </div>
               <div class="like">
                 <a href="#"><img src="images/like.png" alt="" /></a>
@@ -95,7 +95,7 @@
               <div class="clearfix"> </div>
             </div>
             <div class="plus">
-              <a href="#!/ver-estampa/{{popular.estampaId}}"><img src="images/plus.png" alt="" /></a>
+              <a href="#!/ver-estampa/{{popular.stampId}}"><img src="images/plus.png" alt="" /></a>
             </div>
           </div>
         </div>

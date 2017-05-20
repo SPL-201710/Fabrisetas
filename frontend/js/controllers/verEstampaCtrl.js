@@ -4,7 +4,6 @@ app.controller("verEstampaCtrl",["$scope","servicioHome","$routeParams","servici
     let id = $routeParams.id;
     servicioHome.traerEstampasPorId(id).get().$promise.then((datos)=>{
         $scope.estampa = datos;
-        document.getElementById("botonSeleccionarCamiseta").focus();
     });
     $scope.temas = servicioCategoria.traerCategorias().query();
   }

@@ -80,6 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/controllers/adminTemasCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/adminCamisetasCtrl.js" charset="utf-8"></script>
 		<script src="js/controllers/adminUsuariosCtrl.js" charset="utf-8"></script>
+		<script src="js/controllers/resumenCompraCtrl.js" charset="utf-8"></script>
 
 		<script type="text/javascript" src="js/services/servicioHome.js"></script>
 		<script type="text/javascript" src="js/services/servicioAutores.js"></script>
@@ -88,10 +89,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script src="js/services/servicioLogin.js" charset="utf-8"></script>
 		<script src="js/services/servicioReportes.js" charset="utf-8"></script>
 		<script src="js/services/servicioCamiseta.js" charset="utf-8"></script>
-<script src="js/services/servicioAdminUsuarios.js" charset="utf-8"></script>
+		<script src="js/services/servicioAdminUsuarios.js" charset="utf-8"></script>
+		<script src="js/services/servicioFactura.js" charset="utf-8"></script>
 
 		<script src="js/directives/cargarImagenes.js" charset="utf-8"></script>
 
+		<!-- módulo de generarCamisa camisaAleatoria -->
+		<script src="js/camisaAleatoria/camisaAleatoriaCtrl.js" charset="utf-8"></script>
+		<link rel="stylesheet" href="js/camisaAleatoria/estilosComponente.css">
+
+		<!-- scripts de inicio de sesión con redes sociales -->
+		<script src="js/services/servicioFacebook.js" charset="utf-8"></script>
 
 </head>
 <body ng-controller="appCtrl">
@@ -143,27 +151,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="single.html">behance</a></li>
 						</ul> -->
 					</li>
-					<li class="dropdown1"><a href="#!/navegar"><i class="fa fa-bookmark" aria-hidden="true"></i> Estampas</a>
+					<li ng-if="(tipoUsuario!='1' && tipoUsuario!='3')" class="dropdown1"><a href="#!/navegar-autor"><i class="fa fa-bookmark" aria-hidden="true"></i> Estampas</a>
 						<ul class="dropdown2">
-							<li><a href="#!/navegar/rating">Rating</a></li>
 							<li><a href="#!/categoria-estampas">Temas</a></li>
-							<li><a href="#!/navegar/popularidad">Las mas populares</a></li>
 							<li><a href="#!/navegar-autor">Autores</a></li>
 						</ul>
 					</li>
-					<li class="dropdown1"><a href="women.html"  style="color:green;"><i class="fa fa-star" aria-hidden="true"></i> Genera tu Camiseta</a>
+					<li ng-if="(tipoUsuario!='1' && tipoUsuario!='3' && configFab.SC_RamdonTShirt)" class="dropdown1"><a href="#!/generar-camisa"><i class="fa fa-star" aria-hidden="true"></i> Genera tu Camiseta</a>
 						<ul class="dropdown2">
-							<li><a href="women.html">Ethnic Wear</a></li>
+							<!--<li><a href="women.html">Ethnic Wear</a></li>
 							<li><a href="women.html">Western Wear</a></li>
 							<li><a href="women.html">All Jewellery</a></li>
-							<li><a href="women.html">Beauty & Wellness</a></li>
+							<li><a href="women.html">Beauty & Wellness</a></li>-->
 						</ul>
 					</li>
-					<li ng-if="tipoUsuario=='Administrador'"><i class="fa fa-bookmark" aria-hidden="true"></i> Administrar
+					<li ng-if="tipoUsuario=='1'"><i class="fa fa-bookmark" aria-hidden="true"></i> Administrar
 						<ul class="dropdown2">
 							<li><a href="#!/adminTemas">Temas</a></li>
-							<li><a href="women.html">Recategorizar Estampa</a></li>
-							li><a href="#!/adminUsuarios">Usuarios</a></li>
+							<!--<li><a href="women.html">Recategorizar Estampa</a></li>-->
+							<li><a href="#!/adminUsuarios">Usuarios</a></li>
 							<li><a href="#!/adminCamisetas">Camisetas</a></li>
 						</ul>
 					</li>
@@ -171,8 +177,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--<li><a href="about.html"><i class="fa fa-users" aria-hidden="true"></i> Nosotros</a></li>
 					<li><a href="404.html"><i class="fa fa-commenting-o" aria-hidden="true"></i> Contactenos</a></li> -->
 					<li><a href="#!/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a></li>
-					<li ng-if="tipoUsuario=='Artista'"><a href="#!/artista"  style="color:blue;"><i class="fa fa-bookmark" aria-hidden="true"></i> Mis estampas</a></li>
-					<li ng-if="tipoUsuario=='Artista' || tipoUsuario=='Administrador' "><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
+					<li ng-if="tipoUsuario=='3'"><a href="#!/artista"  style="color:blue;"><i class="fa fa-bookmark" aria-hidden="true"></i> Mis estampas</a></li>
+					<li ng-if="(tipoUsuario=='3' || tipoUsuario=='1') && configFab.reports "><a href="#!/reportes"  style="color:blue;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes</a></li>
 				</ul>
 			</div>
 

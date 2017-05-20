@@ -1,9 +1,10 @@
-app.service("servicioReportes",["$http","$q","$resource",function($http,$q,$resource){
+app.service("servicioReportes",["fabConstans","$http","$q","$resource",function(fabConstans,$http,$q,$resource){
 	var vm= this;
-	//var dirServ = "http://localhost:8080/fabricetas/";
-	var dirServ = "http://52.88.20.109:8080/fabricetas/";
-	http://52.88.20.109:8080/fabricetas/reporte_artista_fecha/{artistaId}_{fechaInicial}_{fechaFinal}
-  vm.reportePorFechas = function (artistaId,fechaInicial,fechaFinal){
+	var dirServ = fabConstans.URL_BASE_SERVICIOS;
+
+	//http://52.88.20.109:8080/fabricetas/reporte_artista_fecha/{artistaId}_{fechaInicial}_{fechaFinal}
+
+	vm.reportePorFechas = function (artistaId,fechaInicial,fechaFinal){
 		var url = artistaId+"_"+fechaInicial+"_"+fechaFinal;
     return $resource(dirServ+"reporte_artista_fecha/"+url);
   }
