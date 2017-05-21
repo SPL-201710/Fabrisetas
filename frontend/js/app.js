@@ -18,8 +18,8 @@ app.value('fabConstans', {
     ,authFacebook:false
     ,authTwitter:false
     ,BD:true
-    ,list:false
-    ,gallery:true
+    ,list:true
+    ,gallery:false
     ,rateProducts:true
     ,advanceShearch:true
 });
@@ -33,11 +33,8 @@ app.value('fabConstans', {
 */
 
 
-app.run(['$rootScope', '$window','servicioCookies',"$location",
-  function($rootScope, $window,servicioCookies,$location) {
-
-
-
+app.run(['$rootScope', '$window','servicioCookies',"$location","fabConstans",
+  function($rootScope, $window,servicioCookies,$location,fabConstans) {
      function watchLoginChange() {
 
        var _self = this;
@@ -60,6 +57,29 @@ app.run(['$rootScope', '$window','servicioCookies',"$location",
        });
 
      }
+
+     /*inicializar todas las variables en el root de angular para acceder desde todos los controaldores*/
+     $rootScope.rateProducts=fabConstans.twitter;
+     $rootScope.rateProducts=fabConstans.facebook;
+     $rootScope.rateProducts=fabConstans.socialNetwork;
+     $rootScope.rateProducts=fabConstans.byArtist;
+     $rootScope.rateProducts=fabConstans.desingsByArtists;
+     $rootScope.rateProducts=fabConstans.rating;
+     $rootScope.rateProducts=fabConstans.reports;
+     $rootScope.rateProducts=fabConstans.changeAdress;
+     $rootScope.rateProducts=fabConstans.changePassword;
+     $rootScope.rateProducts=fabConstans.shareOnSocialNetwork;
+     $rootScope.rateProducts=fabConstans.SC_RamdonTShirt;
+     $rootScope.rateProducts=fabConstans.color;
+     $rootScope.rateProducts=fabConstans.text;
+     $rootScope.rateProducts=fabConstans.authFacebook;
+     $rootScope.rateProducts=fabConstans.authTwitter;
+     $rootScope.rateProducts=fabConstans.BD;
+     $rootScope.rateProducts=fabConstans.list;
+     $rootScope.rateProducts=fabConstans.gallery;
+     $rootScope.rateProducts=fabConstans.rateProducts;
+     $rootScope.advanceShearch=fabConstans.advanceShearch;
+     console.log($rootScope.advanceShearch);
 
 }]);
 
