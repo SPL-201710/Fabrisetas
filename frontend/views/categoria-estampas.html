@@ -62,7 +62,18 @@
   <!-- galeria en modo de lista --><!-- galeria en modo de lista --><!-- galeria en modo de lista -->
   <div class="row" id="MostrarEnGaleria" ng-show="list && lista">
     <div class="col-md-12">
-      <div class="table-responsive">
+      <div class="col-md-3">
+        <div class="col-md-12" id="otrosTemas">
+          <h2>Nuestros temas</h2>
+          <img src="images/tienda_temas.png" alt="" class="img-responsive" style="margin-top:2%;">
+          <ul>
+            <li ng-repeat="tema in temas">
+              <a href="#!/categoria-estampas/{{tema.themeId}}">{{tema.name}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="table-responsive col-md-9">
         <table class="table table-hover table-bordered" >
           <thead>
             <th>Estampa</th>
@@ -75,7 +86,7 @@
           <tbody>
              <tr ng-repeat="popular in estampasTema | filter:filtrar" >
                <td>
-                 <a href="#!/ver-estampa/{{popular.stampId}}"><img src="{{popular.path}}" class="img-responsive" width="350" height="350"></a>
+                 <a href="#!/ver-estampa/{{popular.stampId}}"><img src="{{popular.path}}" class="img-responsive" width="200" height="200"></a>
                </td>
                <td>{{popular.name}}</td>
                <td>{{popular.price | currency}}</td>

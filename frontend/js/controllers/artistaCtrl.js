@@ -21,8 +21,8 @@
   }
 
    function recargarEstampas(){
-     //servicioAutores.traerEstampasAutor($scope.artista.userId).query().$promise.then((datos)=>{
-     servicioAutores.traerEstampasAutor(1).query().$promise.then((datos)=>{
+     servicioAutores.traerEstampasAutor($scope.artista.userId).query().$promise.then((datos)=>{
+     //servicioAutores.traerEstampasAutor(1).query().$promise.then((datos)=>{
        console.log(datos);
        $scope.estampasArtista = datos;
        angular.forEach($scope.estampasArtista,function(valor,llave){

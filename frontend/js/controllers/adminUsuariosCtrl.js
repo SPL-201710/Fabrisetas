@@ -37,7 +37,7 @@ app.controller("adminUsuariosCtrl",["$scope","servicioHome", "servicioCategoria"
 	$scope.crearOActualizarUsuario = function (){
 		if ($scope.accion=='Actualizar')
 		{
-				$scope.usuarioSeleccionado.role[0]={}
+				$scope.usuarioSeleccionado.role[0]={};
 				$scope.usuarioSeleccionado.role[0].roleId = $scope.usuarioSeleccionado.tipo;
 				servicioAdminUsuarios.actualizarUsuario($scope.usuarioSeleccionado.userId).update($scope.usuarioSeleccionado).$promise.then((datos)=>{
 					$scope.nuevoOActualizar=false;

@@ -50,11 +50,12 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
     $cookies.carrito = new Array();
     $cookies.total = 0;
   }
-  vm.aregarAlCarrito = function (camiseta,estampa,total){
+  vm.aregarAlCarrito = function (camiseta,estampa,total, urlResultado){
     $cookies.total = $cookies.total+total;
     var configuracion = new Array();
     configuracion.push(camiseta);
     configuracion.push(estampa);
+    configuracion.push(urlResultado);
     $cookies.carrito.push(configuracion);
     console.log($cookies.carrito);
   }
