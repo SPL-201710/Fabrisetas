@@ -16,16 +16,6 @@
           <li><a href="#!/navegar-autor/Alfonso">Alfonso</a></li>
         </ul>
       </div>
-
-      <div class="col-md-12" id="otrosAutores">
-        <h2>Filtrar por</h2>
-          <div class="form-group">
-            <label class="col-md-12 control-label">Nombre</label>
-              <div class="col-md-12">
-                <input id="nombre" ng-model="nombre" type="text" placeholder="Nombre" class="form-control input-md">
-              </div>
-          </div>
-      </div>
     </div>
     <div class="col-md-9">
       <div class="col-md-3 product-left-grid" ng-repeat="popular in populares | filter:{$:nombre} | orderBy:filtrarPor()">

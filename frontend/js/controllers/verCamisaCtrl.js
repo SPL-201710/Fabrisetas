@@ -19,7 +19,10 @@ app.controller("verCamisaCtrl",["$scope","servicioCamiseta","$location","$routeP
 
   $scope.agregarCarrito = function (){
     if(servicioCookies.validarSiEstaAutenticado()){
-      servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total);      
+      var canvas = document.getElementById('canvas');
+      var urlResultado = canvas.toDataURL("image/png");
+      
+      servicioCookies.aregarAlCarrito($scope.camisetaSeleccionada,$scope.estampaSeleccionada,$scope.total, urlResultado);
       $location.path("/pagar");
     }
     else
@@ -40,6 +43,7 @@ app.controller("verCamisaCtrl",["$scope","servicioCamiseta","$location","$routeP
     canvas.height = 350;
     var img1 = new Image();
     var img2 = new Image();
+    var timestamp = new Date().getTime();
 
     img1.onload = function() {
       canvas.width = 300;

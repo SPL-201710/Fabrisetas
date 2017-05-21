@@ -1,12 +1,21 @@
-app.controller("homeCtrl",["$scope","servicioHome", "servicioCategoria","servicioCookies",function($scope, servicioHome, servicioCategoria,servicioCookies){
+app.controller("homeCtrl",["$scope","servicioHome", "servicioCategoria","servicioCookies","fabConstans","$rootScope",
+function($scope, servicioHome, servicioCategoria,servicioCookies,fabConstans,$rootScope){
 	init();
 
 	function init(){
-		console.log("Entro");
+		/* Variabilidad  */
+		$scope.list=fabConstans.list;
+		$scope.gallery = fabConstans.gallery;
+		$scope.advanceShearch = fabConstans.advanceShearch;
+
+		$scope.galeria = angular.copy($scope.gallery);
+		$scope.lista = angular.copy(!$scope.galeria);
+
+
+
 		$scope.populares= servicioHome.traerEstampas().query();
 		$scope.temas= servicioCategoria.traerCategorias().query();
-		console.log("Salio");
-		console.log($scope.temas);
+
 		/*
 		ejemplo de put
 		var data = {
