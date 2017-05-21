@@ -48,15 +48,23 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
   //carrito de compras!
   vm.inicializarCarrito = function (){
     $cookies.carrito = new Array();
+    $cookies.resumen = new Array();
     $cookies.total = 0;
   }
   vm.aregarAlCarrito = function (camiseta,estampa,total, urlResultado){
     $cookies.total = $cookies.total+total;
+    let resumen ={
+      "precio":total,
+      "resultado":urlResultado,
+      "camiseta":camiseta.path,
+      "estampa":estampa.path
+    }
+    $cookies.resumen.push(resumen);
     var configuracion = new Array();
     configuracion.push(camiseta);
     configuracion.push(estampa);
-    configuracion.push(urlResultado);
     $cookies.carrito.push(configuracion);
+
     console.log($cookies.carrito);
   }
   vm.valorCarrito = function (){
@@ -65,9 +73,13 @@ app.service('servicioCookies',["$http","$q","$resource",function($cookies){
   vm.retornarCarrito = function (){
     return $cookies.carrito;
   }
+  vm.retornarResumenCompra = function (){
+    return $cookies.resumen;
+  }
   vm.descartarCarrito = function (){
     delete $cookies["total"];
     delete $cookies["carrito"];
+    delete $cookies["resumen"];
   }
 
 

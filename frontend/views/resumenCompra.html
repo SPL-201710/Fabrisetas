@@ -1,27 +1,45 @@
 <div class="container">
+
+  <div class="row">
+    <div class="products-heading" style="margin-bottom:2%;">
+      <h3>Resumen de tu compra</h3>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-12">
+      <div class="col-md-3">
+        <button type="button" class="btn btn-sm btn-success" name="button" ng-click="limpiarCarrito();"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar a la tienda</button>
+      </div>
       <div class="table-responsive" style="margin-top:6%;">
         <table class="table table-hover table-bordered">
           <thead>
-            <th>Camiseta</th>
-            <th>Estampa</th>
-            <th>Resultado</th>
-            <th>Precio</th>
+            <th class="col-md-4">Camiseta</th>
+            <th class="col-md-4">Estampa</th>
+            <th class="col-md-4">Resultado</th>
+            <th class="col-md-4">Precio</th>
           </thead>
           <tbody>
             <tr ng-repeat="configuracion in resumenCompra">
-              <td ng-repeat="item in configuracion" style="text-align:center;">
-                <img src="{{item.path}}" alt="" class="img-responsive" width="250" height="250">
+              <td>
+                <img src="{{configuracion.camiseta}}" alt="" width="200" height="200">
               </td>
-              <td ng-repeat="imagen in imagenes">
-                <canvas id="canvas"></canvas>
+              <td>
+                <img src="{{configuracion.estampa}}" alt="" width="200" height="200">
               </td>
-              <span ng-repeat="item in configuracion">
-                <td>
-                  {{item.price}}
-                </td>
-              </span>
+              <td>
+                <img src="{{configuracion.resultado}}" alt="" width="200" height="200">
+                <br>
+                <a ng-show="facebook" class="btn btn-info  btn-block" socialshare socialshare-provider="facebook" socialshare-text="Camiseta personalizada" socialshare-hashtags="fabrisetas, diseñoPersonalizado" socialshare-media="http://52.88.20.109/fabrisetas/frontend/#!/">
+                  <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                  Compartir en facebook
+                </a>
+                <a ng-show="twitter" class="btn btn-info  btn-block" socialshare socialshare-provider="twitter" socialshare-text="Crea  tu camiseta personalizada con Fabrisetas" socialshare-hashtags="fabrisetas, diseñoPersonalizado" socialshare-url="http://52.88.20.109/fabrisetas/frontend/#!/">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                  Compartir en twitter
+                </a>
+              </td>
+              <td>{{configuracion.precio | currency}}</td>
             </tr>
           </tbody>
         </table>

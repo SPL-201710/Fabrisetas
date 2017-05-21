@@ -87,6 +87,8 @@
        })
        .catch(function(err){
           console.log(err);
+          $scope.compraRealizada = true;
+          $location.path("/resumenCompra");
        })
      }
    }

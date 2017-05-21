@@ -3,7 +3,7 @@ app.service("servicioFactura",["fabConstans","$http","$q","$resource",function(f
   var dirServ = fabConstans.URL_BASE_SERVICIOS;
 
   vm.guardarFactura = function (){
-		return $resource(dirServ + "/invoice");
+		return $resource(dirServ + "invoice");
 	}
 
 }]);

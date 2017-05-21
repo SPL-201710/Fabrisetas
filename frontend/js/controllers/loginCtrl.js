@@ -1,5 +1,5 @@
-app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location","servicioCookies","$routeParams","$window","servicioFacebook","servicioCookies",
-function($scope,servicioHome,servicioLogin,$location,servicioCookies,$routeParams,$window,servicioFacebook,servicioCookies){
+app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location","servicioCookies","$routeParams","$window","servicioFacebook","servicioCookies","servicioLogin",
+function($scope,servicioHome,servicioLogin,$location,servicioCookies,$routeParams,$window,servicioFacebook,servicioCookies,servicioLogin){
 
   init();
 /*
@@ -75,17 +75,68 @@ $window.fbAsyncInit = function() {
       });
     }
     $scope.iniciarConFb = function (){
+
+      // "{"name":"julian",
+      // "password":"julian",
+      // "identificationNumber":1015434798,
+      // "identificationType":"CC",
+      // "firstName":"julian",
+      // "lastName":"julian",
+      // "tipo":"Cliente",
+      // "direccion":[],
+      // "login":[],
+      // "userId":null,
+      // "ssoId":null}"
+
       FB.login(function(response) {
         servicioFacebook.logeado().then((datos)=>{
           if(typeof $routeParams.id=='undefined')
           {
-            servicioCookies.crearCookieUsuarioAutenticado(datos);
-            $location.path("/");
+            $scope.usuarioNuevo = {};
+            $scope.usuarioNuevo.direccion=[];
+            $scope.usuarioNuevo.login = [];
+            $scope.mensajeCreacion=false;
+            $scope.usuarioNuevo.ssoId=null;
+
+            $scope.usuarioNuevo.userId=datos.id;
+            $scope.usuarioNuevo.name=datos.name;
+            $scope.usuarioNuevo.password=datos.id;
+
+            servicioLogin.crearUsuario().save($scope.usuarioNuevo).$promise.then(function(datos){
+              console.log(datos);
+              $scope.usuarioNuevo={};
+              $scope.mensajeCreacion=true;
+              $scope.mostrarMensajeCreacion = "animated fadeIn";
+              servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+              $location.path("/");
+            }).catch(function(err){
+              console.log(err);
+              servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+                $location.path("/ver-camisa/"+$routeParams.id);
+            });
           }
           else
           {
-            servicioCookies.crearCookieUsuarioAutenticado(datos);
-            $location.path("/ver-camisa/"+$routeParams.id);
+            $scope.usuarioNuevo = {};
+            $scope.usuarioNuevo.direccion=[];
+            $scope.usuarioNuevo.login = [];
+            $scope.mensajeCreacion=false;
+            $scope.usuarioNuevo.ssoId=null;
+            $scope.usuarioNuevo.userId=datos.id;
+            $scope.usuarioNuevo.name=datos.name;
+            $scope.usuarioNuevo.password=datos.id;
+            servicioLogin.crearUsuario().save($scope.usuarioNuevo).$promise.then(function(datos){
+              console.log(datos);
+              $scope.usuarioNuevo={};
+              $scope.mensajeCreacion=true;
+              $scope.mostrarMensajeCreacion = "animated fadeIn";
+              servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+              $location.path("/ver-camisa/"+$routeParams.id);
+            }).catch(function(err){
+              console.log(err);
+              servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+              $location.path("/");
+            });
           }
         })
       }, {scope: 'email,user_likes'});
