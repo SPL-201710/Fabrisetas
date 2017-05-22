@@ -23,7 +23,7 @@
      console.log($scope.direccion);
    }
    $scope.descartarCarrito = function (){
-     servicioCookies.descartarCarrito();
+     servicioCookies.inicializarCarrito();
      $location.path("/");
    }
    $scope.registrarFactura = function (){

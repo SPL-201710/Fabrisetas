@@ -8,7 +8,7 @@ function($scope,$routeParams,servicioAutores,servicioHome,servicioCookies,fabCon
     $scope.resumenCompra = servicioCookies.retornarResumenCompra();
   }
   $scope.limpiarCarrito = function(){
-    servicioCookies.descartarCarrito();
+    servicioCookies.inicializarCarrito();
     $location.path("/");
   }
 }]);
