@@ -20,12 +20,12 @@
               <input type="submit" name="" value="Iniciar sesión" class="btn btn-primary btn-block">
               <a class="btn btn-success btn-block" href="#!/registro">Registrarse</a>
               <br><br>
-              <p>También puedes ingresar con tus redes sociales</p>
+              <p ng-show="authFacebook || authTwitter">También puedes ingresar con tus redes sociales</p>
             </div>
             <div class="form-group" style="text-align:center;">
               <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div> -->
-              <button ng-click="iniciarConFb();" type="button" name="button" class="btn btn-info  btn-block"><i class="fa fa-facebook-official" aria-hidden="true"></i></button>
-              <button type="button" name="button"  class="btn btn-info  btn-block" ><i class="fa fa-twitter" aria-hidden="true"></i></button>
+              <button ng-show="authFacebook" ng-click="iniciarConFb();" type="button" name="button" class="btn btn-info  btn-block"><i class="fa fa-facebook-official" aria-hidden="true"></i></button>
+              <button ng-show="authTwitter" ng-click="iniciarConTw();" type="button" name="button"  class="btn btn-info  btn-block" ><i class="fa fa-twitter" aria-hidden="true"></i></button>
             </div>
           </fieldset>
         </form>

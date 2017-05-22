@@ -1,5 +1,5 @@
-app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location","servicioCookies","$routeParams","$window","servicioFacebook","servicioCookies","servicioLogin",
-function($scope,servicioHome,servicioLogin,$location,servicioCookies,$routeParams,$window,servicioFacebook,servicioCookies,servicioLogin){
+app.controller("loginCtrl",["$scope","servicioHome","servicioLogin","$location","servicioCookies","$routeParams","$window","servicioFacebook","servicioCookies","servicioLogin","servicioTwitter","fabConstans",
+function($scope,servicioHome,servicioLogin,$location,servicioCookies,$routeParams,$window,servicioFacebook,servicioCookies,servicioLogin,servicioTwitter,fabConstans){
 
   init();
 /*
@@ -41,6 +41,8 @@ $window.fbAsyncInit = function() {
 
   function init (){
     $scope.noExiste=false;
+    $scope.authFacebook=fabConstans.authFacebook;
+    $scope.authTwitter=fabConstans.authTwitter;
 
   }
     $scope.iniciarSesion = function (){
@@ -74,6 +76,7 @@ $window.fbAsyncInit = function() {
           $scope.noExisteEnElSistema="animated wobble";
       });
     }
+
     $scope.iniciarConFb = function (){
 
       // "{"name":"julian",
@@ -112,7 +115,7 @@ $window.fbAsyncInit = function() {
             }).catch(function(err){
               console.log(err);
               servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
-                $location.path("/ver-camisa/"+$routeParams.id);
+                $location.path("/");
             });
           }
           else
@@ -135,12 +138,68 @@ $window.fbAsyncInit = function() {
             }).catch(function(err){
               console.log(err);
               servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
-              $location.path("/");
+              $location.path("/ver-camisa/"+$routeParams.id);
             });
           }
         })
       }, {scope: 'email,user_likes'});
 
 
+    }
+
+    $scope.iniciarConTw = function (){
+      servicioTwitter.iniciarSesionTwitter().then(function(usuario){
+        if(typeof $routeParams.id=='undefined')
+        {
+          $scope.usuarioNuevo = {};
+          $scope.usuarioNuevo.direccion=[];
+          $scope.usuarioNuevo.login = [];
+          $scope.mensajeCreacion=false;
+          $scope.usuarioNuevo.ssoId=null;
+
+          $scope.usuarioNuevo.userId=usuario.uid;
+          $scope.usuarioNuevo.name=usuario.displayName;
+          $scope.usuarioNuevo.password=usuario.uid;
+
+          servicioLogin.crearUsuario().save($scope.usuarioNuevo).$promise.then(function(datos){
+            console.log(datos);
+            $scope.usuarioNuevo={};
+            $scope.mensajeCreacion=true;
+            $scope.mostrarMensajeCreacion = "animated fadeIn";
+            servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+            $location.path("/");
+          }).catch(function(err){
+            console.log(err);
+            servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+              $location.path("/");
+          });
+        }
+        else
+        {
+          $scope.usuarioNuevo = {};
+          $scope.usuarioNuevo.direccion=[];
+          $scope.usuarioNuevo.login = [];
+          $scope.mensajeCreacion=false;
+          $scope.usuarioNuevo.ssoId=null;
+          $scope.usuarioNuevo.userId=usuario.uid;
+          $scope.usuarioNuevo.name=usuario.displayName;
+          $scope.usuarioNuevo.password=usuario.uid;
+          servicioLogin.crearUsuario().save($scope.usuarioNuevo).$promise.then(function(datos){
+            console.log(datos);
+            $scope.usuarioNuevo={};
+            $scope.mensajeCreacion=true;
+            $scope.mostrarMensajeCreacion = "animated fadeIn";
+            servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+            $location.path("/ver-camisa/"+$routeParams.id);
+          }).catch(function(err){
+            console.log(err);
+            servicioCookies.crearCookieUsuarioAutenticado($scope.usuarioNuevo);
+            $location.path("/ver-camisa/"+$routeParams.id);
+          });
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+      })
     }
 }]);

@@ -35,6 +35,17 @@ app.value('fabConstans', {
 
 app.run(['$rootScope', '$window','servicioCookies',"$location","fabConstans",
   function($rootScope, $window,servicioCookies,$location,fabConstans) {
+
+    var config = {
+      apiKey: "AIzaSyBZyQkoOWeXj9lwqFOTYpIKJcvetH4vUzw",
+      authDomain: "flickering-inferno-6478.firebaseapp.com",
+      databaseURL: "https://flickering-inferno-6478.firebaseio.com",
+      projectId: "flickering-inferno-6478",
+      storageBucket: "flickering-inferno-6478.appspot.com",
+      messagingSenderId: "125920075120"
+    };
+    firebase.initializeApp(config);
+
      function watchLoginChange() {
 
        var _self = this;
@@ -57,30 +68,6 @@ app.run(['$rootScope', '$window','servicioCookies',"$location","fabConstans",
        });
 
      }
-
-     /*inicializar todas las variables en el root de angular para acceder desde todos los controaldores*/
-     $rootScope.rateProducts=fabConstans.twitter;
-     $rootScope.rateProducts=fabConstans.facebook;
-     $rootScope.rateProducts=fabConstans.socialNetwork;
-     $rootScope.rateProducts=fabConstans.byArtist;
-     $rootScope.rateProducts=fabConstans.desingsByArtists;
-     $rootScope.rateProducts=fabConstans.rating;
-     $rootScope.rateProducts=fabConstans.reports;
-     $rootScope.rateProducts=fabConstans.changeAdress;
-     $rootScope.rateProducts=fabConstans.changePassword;
-     $rootScope.rateProducts=fabConstans.shareOnSocialNetwork;
-     $rootScope.rateProducts=fabConstans.SC_RamdonTShirt;
-     $rootScope.rateProducts=fabConstans.color;
-     $rootScope.rateProducts=fabConstans.text;
-     $rootScope.rateProducts=fabConstans.authFacebook;
-     $rootScope.rateProducts=fabConstans.authTwitter;
-     $rootScope.rateProducts=fabConstans.BD;
-     $rootScope.rateProducts=fabConstans.list;
-     $rootScope.rateProducts=fabConstans.gallery;
-     $rootScope.rateProducts=fabConstans.rateProducts;
-     $rootScope.advanceShearch=fabConstans.advanceShearch;
-     console.log($rootScope.advanceShearch);
-
 }]);
 
 app.config(function($routeProvider){
